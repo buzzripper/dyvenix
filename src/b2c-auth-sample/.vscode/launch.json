@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Chrome with SSL",
+      "type": "chrome",
+      "request": "launch",
+      "url": "https://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "Angular: ng serve with SSL",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${webRoot}/*",
+        "webpack:///*": "*",
+        "webpack:///src/*": "${webRoot}/*"
+      },
+      "userDataDir": "D:/OneDrive/Chrome Profiles/Dev"
+    }
+  ],
+  "compounds": []
+}

@@ -1,0 +1,19 @@
+{
+  "tenantName": "<your-tenant-name>",
+  "policies": {
+    "signUpSignInPolicy": "B2C_1_signupsignin",
+    "passwordResetPolicy": "B2C_1_passwordreset",
+    "profileEditingPolicy": "B2C_1_profileediting"
+  },
+  "client": {
+    "clientId": "<your-client-id>",
+    "clientSecret": "<your-client-secret>"
+  },
+  "redirectUri": "https://localhost:5001/auth-callback",
+  "authorityBase": "https://<your-tenant-name>.b2clogin.com/<your-tenant-name>.onmicrosoft.com",
+  "scopes": [
+    "openid",
+    "profile",
+    "offline_access"
+  ]
+}

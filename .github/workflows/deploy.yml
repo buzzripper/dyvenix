@@ -1,0 +1,52 @@
+name: Deploy
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: The version number of the artifact
+        required: true
+      target:
+        description: The target to deploy to
+        required: true
+        type: choice
+        options:
+          - Dev
+
+run-name: "Deploy (${{github.ref_name}}) ${{github.event.inputs.version}}"
+
+env:
+  APP_ENV: ${{ github.event.inputs.environment || 'Dev' }}
+  ARTIFACT_NAME: Dyvenix_AppServer_${{github.event.inputs.version}}
+  BUILD_WORKFLOW_NAME: build.yml
+  AZURE_WEBAPP_NAME: dyvenix-app1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'Dev' }}
+    steps:
+      - name: Download Artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v4
+        with:
+            github_token: ${{secrets.GITHUB_TOKEN}}
+            workflow: ${{env.BUILD_WORKFLOW_NAME}}
+            name: ${{env.ARTIFACT_NAME}}
+            search_artifacts: true
+            skip_unpack: false
+
+      - name: Update JSON Values with Secrets
+        run: |
+          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
+          cat appsettings.json
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.dyvenix_app1_SPN }}
+
+      - name: Deploy to Azure WebApp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: ./

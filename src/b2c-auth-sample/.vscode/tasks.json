@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Angular: ng serve with SSL",
+        "type": "shell",
+        "command": "ng",
+        "args": [
+          "serve",
+          "--ssl",
+          "true",
+          "--ssl-cert",
+          "C:/ProgramData/certs/localhost.crt",
+          "--ssl-key",
+          "C:/ProgramData/certs/localhost.key"
+        ],
+        "problemMatcher": [
+          "$tsc"
+        ],
+        "isBackground": true,
+        "options": {
+          "cwd": "${workspaceFolder}"
+        }
+      }
+    ]
+  }

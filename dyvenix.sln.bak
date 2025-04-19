@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app1.server", "src\app1.server\app1.server.csproj", "{822FE7CC-EE1A-4D57-B237-E2577E940946}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "app1.client", "src\app1.client\app1.client.esproj", "{8038CD7E-89FA-4F43-9704-ED7EAD042C77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069FCB1A-8D69-4C1F-A8ED-27F9C8BD5392}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\RunNodeSvr.bat = scripts\RunNodeSvr.bat
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyvenix.logging", "src\dyvenix.logging\dyvenix.logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{BB28E274-5BC9-4265-B8F0-886091D00A08}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "b2c-auth-sample", "src\b2c-auth-sample\b2c-auth-sample.esproj", "{3B42448E-5FE8-41CE-8F63-0B954CE871F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "auth.core", "src\auth.server\auth.core.csproj", "{F2FCADA5-A069-493F-991B-5CBB6A58DB04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyvenix.core", "src\dyvenix.core\dyvenix.core.csproj", "{531C104A-5592-43BB-9054-286E4A7C28BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{822FE7CC-EE1A-4D57-B237-E2577E940946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822FE7CC-EE1A-4D57-B237-E2577E940946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822FE7CC-EE1A-4D57-B237-E2577E940946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{822FE7CC-EE1A-4D57-B237-E2577E940946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8038CD7E-89FA-4F43-9704-ED7EAD042C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8038CD7E-89FA-4F43-9704-ED7EAD042C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F2FCADA5-A069-493F-991B-5CBB6A58DB04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FCADA5-A069-493F-991B-5CBB6A58DB04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2FCADA5-A069-493F-991B-5CBB6A58DB04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2FCADA5-A069-493F-991B-5CBB6A58DB04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{531C104A-5592-43BB-9054-286E4A7C28BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{531C104A-5592-43BB-9054-286E4A7C28BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{531C104A-5592-43BB-9054-286E4A7C28BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{531C104A-5592-43BB-9054-286E4A7C28BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6} = {BB28E274-5BC9-4265-B8F0-886091D00A08}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {82B4D68F-4052-475A-B3AA-D6AECD147F3F}
+	EndGlobalSection
+EndGlobal

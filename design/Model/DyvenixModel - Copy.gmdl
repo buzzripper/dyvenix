@@ -1,0 +1,516 @@
+{
+	"Name": "MyDoc",
+	"Description": "My Description",
+	"Version": "1.0.0",
+	"ModelFilepath": "D:\\Code\\buzzripper\\dyvenix\\design\\Model\\DyvenixModel.gmdl",
+	"DbContexts": [
+		{
+			"Id": "f485c6ef-a256-43b8-81ae-9284e262e485",
+			"Name": "Db",
+			"Enabled": true,
+			"ContextNamespace": "Dyvenix.App1.Data",
+			"EntitiesNamespace": "Dyvenix.App1.Data.Entities",
+			"EnumsNamespace": "Dyvenix.App1.Data.Entities",
+			"ServicesNamespace": "Dyvenix.App1.Server.Services",
+			"QueriesNamespace": "Dyvenix.App1.Server.Services.Queries",
+			"ControllersNamespace": "Dyvenix.App1.Server.Controllers",
+			"AddlUsings": [],
+			"Entities": [
+				{
+					"Id": "baa14f28-b49b-48de-b615-d590a716ad0a",
+					"Name": "AccessClaim",
+					"Schema": "",
+					"TableName": "",
+					"Enabled": true,
+					"Namespace": "",
+					"Properties": [
+						{
+							"Id": "07650633-92b0-466c-88fc-3d5bb534ae48",
+							"Name": "Id",
+							"PrimitiveTypeId": 4,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": true,
+							"IsIdentity": false,
+							"Nullable": false,
+							"MaxLength": 0,
+							"IsIndexed": true,
+							"IsIndexUnique": true,
+							"IsIndexClustered": false,
+							"DisplayOrder": 0,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "ee1180e3-9fc4-4997-90e0-2576a04a8f35",
+							"Name": "ClaimName",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": false,
+							"MaxLength": 50,
+							"IsIndexed": false,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 1,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "063a217e-b22d-476d-92d2-06ef6a892114",
+							"Name": "ClaimValue",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": true,
+							"MaxLength": 50,
+							"IsIndexed": false,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 2,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "4cb99705-e157-43b3-828b-8430c8e81157",
+							"Name": "AppUserId",
+							"PrimitiveTypeId": 4,
+							"EnumTypeId": null,
+							"AssocId": "c42e97ca-0674-40ce-a5a0-dbfd1b1fe13c",
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": false,
+							"MaxLength": 0,
+							"IsIndexed": true,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 3,
+							"Attributes": [],
+							"AddlUsings": []
+						}
+					],
+					"NavProperties": [],
+					"Attributes": [],
+					"AddlUsings": [
+						"System.Data",
+						"System.Text"
+					]
+				},
+				{
+					"Id": "fef93c39-8118-4929-a516-fbb014e24365",
+					"Name": "AppUser",
+					"Schema": "",
+					"TableName": "",
+					"Enabled": true,
+					"Namespace": "",
+					"Properties": [
+						{
+							"Id": "47618992-44bb-44ca-b414-27692e4a9768",
+							"Name": "Id",
+							"PrimitiveTypeId": 4,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": true,
+							"IsIdentity": false,
+							"Nullable": false,
+							"MaxLength": 0,
+							"IsIndexed": true,
+							"IsIndexUnique": true,
+							"IsIndexClustered": false,
+							"DisplayOrder": 0,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "33e94fb6-db88-4837-a604-d5e08e844461",
+							"Name": "ExtId",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": false,
+							"MaxLength": 100,
+							"IsIndexed": true,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 1,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "4f76b75c-ad78-4557-95c4-aeb82534dc68",
+							"Name": "FirstName",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": false,
+							"MaxLength": 100,
+							"IsIndexed": false,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 2,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
+							"Name": "LastName",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": false,
+							"MaxLength": 100,
+							"IsIndexed": true,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 3,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "78f99456-bcd9-4fdf-934c-64a61dfc121b",
+							"Name": "Email",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": false,
+							"MaxLength": 200,
+							"IsIndexed": true,
+							"IsIndexUnique": true,
+							"IsIndexClustered": false,
+							"DisplayOrder": 4,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "630ca00a-2ff3-4648-a638-d39e76227238",
+							"Name": "IsEnabled",
+							"PrimitiveTypeId": 3,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": false,
+							"MaxLength": 0,
+							"IsIndexed": false,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 7,
+							"Attributes": [],
+							"AddlUsings": []
+						}
+					],
+					"NavProperties": [
+						{
+							"Id": "84a3373f-6e7e-4879-9dec-4ed3523db354",
+							"Name": "Claims",
+							"AssocId": "c42e97ca-0674-40ce-a5a0-dbfd1b1fe13c",
+							"DisplayOrder": 0,
+							"Attributes": []
+						}
+					],
+					"Attributes": [],
+					"AddlUsings": [],
+					"Service": {
+						"Id": "58fb1efe-1025-409c-935d-a19a0f9a22d4",
+						"EntityId": "fef93c39-8118-4929-a516-fbb014e24365",
+						"Enabled": true,
+						"InclController": false,
+						"AddlUsings": [],
+						"GetMethods": [
+							{
+								"PropertyId": "47618992-44bb-44ca-b414-27692e4a9768",
+								"Id": "6824320f-053c-423c-8061-6cffbb6e9aae",
+								"Name": "GetById",
+								"IsList": false,
+								"Attributes": [],
+								"DisplayOrder": 0
+							},
+							{
+								"PropertyId": "78f99456-bcd9-4fdf-934c-64a61dfc121b",
+								"Id": "01624eee-5d58-44b5-b19e-092c62adff97",
+								"Name": "GetByEmail",
+								"IsList": false,
+								"Attributes": [],
+								"DisplayOrder": 1
+							},
+							{
+								"PropertyId": "00000000-0000-0000-0000-000000000000",
+								"Id": "3d47f857-e693-4ef8-ae9e-732778e16117",
+								"Name": "GetAll",
+								"IsList": true,
+								"Attributes": [],
+								"DisplayOrder": 0
+							},
+							{
+								"PropertyId": "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
+								"Id": "6824320f-053c-423c-8061-6cffbb6e9aae",
+								"Name": "GetWithLastName",
+								"IsList": true,
+								"Attributes": [],
+								"DisplayOrder": 0
+							},
+							{
+								"PropertyId": "630ca00a-2ff3-4648-a638-d39e76227238",
+								"Id": "211f0109-3c49-4939-bf1a-75049be2f566",
+								"Name": "GetWithIsEnabled",
+								"IsList": true,
+								"Attributes": [],
+								"DisplayOrder": 0
+							}
+						],
+						"QueryMethods": [
+							{
+								"FilterPropertyIds": [
+									"33e94fb6-db88-4837-a604-d5e08e844461",
+									"4f76b75c-ad78-4557-95c4-aeb82534dc68",
+									"96b41827-70c2-41e1-b7a4-d85e6c6c8925",
+									"78f99456-bcd9-4fdf-934c-64a61dfc121b",
+									"630ca00a-2ff3-4648-a638-d39e76227238"
+								],
+								"Id": "26788289-da20-4762-b031-0941486a4f2c",
+								"Name": "FindCompanyUsers",
+								"Attributes": [],
+								"DisplayOrder": 2
+							}
+						]
+					}
+				},
+				{
+					"Id": "7a69f8a2-87ca-45ae-8933-9413dd3ec23f",
+					"Name": "LogEvent",
+					"Schema": "Logs",
+					"TableName": "LogEvents",
+					"Enabled": true,
+					"Namespace": "",
+					"Properties": [
+						{
+							"Id": "a8219cc0-2d08-407a-9c9e-bc78b77832c2",
+							"Name": "Id",
+							"PrimitiveTypeId": 2,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": true,
+							"IsIdentity": true,
+							"Nullable": false,
+							"MaxLength": 0,
+							"IsIndexed": true,
+							"IsIndexUnique": true,
+							"IsIndexClustered": false,
+							"DisplayOrder": 0,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "7a3ac3fe-4159-4a43-a5bc-a2d61d185d30",
+							"Name": "Message",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": true,
+							"MaxLength": 0,
+							"IsIndexed": false,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 1,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "926212cf-f14e-4028-a3ce-3925e19aac42",
+							"Name": "Timestamp",
+							"PrimitiveTypeId": 5,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": true,
+							"MaxLength": 0,
+							"IsIndexed": true,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 2,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "8ffd18bd-a44f-4511-b05f-187946cf62d7",
+							"Name": "Exception",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": true,
+							"MaxLength": 0,
+							"IsIndexed": false,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 3,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "1d5a4bc5-b500-4a1f-8332-140b61fb2d36",
+							"Name": "LogLevel",
+							"PrimitiveTypeId": 0,
+							"EnumTypeId": "39eed3c0-76a4-4124-b63c-52e6a8589bee",
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": true,
+							"MaxLength": 0,
+							"IsIndexed": false,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 4,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "8219359c-579e-490f-85ae-3e08fbf1e634",
+							"Name": "Application",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": true,
+							"MaxLength": 200,
+							"IsIndexed": true,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 5,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "92ab9ace-ddaf-47e9-a535-e3454d5ac26d",
+							"Name": "Source",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": true,
+							"MaxLength": 200,
+							"IsIndexed": false,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 6,
+							"Attributes": [],
+							"AddlUsings": []
+						},
+						{
+							"Id": "8a140071-682a-4d19-888a-98e12699a38a",
+							"Name": "CorrelationId",
+							"PrimitiveTypeId": 1,
+							"EnumTypeId": null,
+							"AssocId": null,
+							"IsPrimaryKey": false,
+							"IsIdentity": false,
+							"Nullable": true,
+							"MaxLength": 50,
+							"IsIndexed": false,
+							"IsIndexUnique": false,
+							"IsIndexClustered": false,
+							"DisplayOrder": 7,
+							"Attributes": [],
+							"AddlUsings": []
+						}
+					],
+					"NavProperties": [],
+					"Attributes": [],
+					"AddlUsings": [
+						"System.Linq",
+						"System.Text"
+					]
+				}
+			],
+			"Enums": [
+				{
+					"Id": "39eed3c0-76a4-4124-b63c-52e6a8589bee",
+					"Name": "LogLevel",
+					"IsExternal": false,
+					"IsFlags": false,
+					"Enabled": true,
+					"Namespace": "",
+					"Members": [
+						"Verbose",
+						"Debug",
+						"Info",
+						"Error",
+						"Fatal"
+					]
+				}
+			],
+			"Assocs": [
+				{
+					"Id": "039c5a3b-66c7-4934-a04e-ba4b392e5696",
+					"PrimaryEntityId": "fef93c39-8118-4929-a516-fbb014e24365",
+					"NavPropertyId": "00000000-0000-0000-0000-000000000000",
+					"FKEntityId": "baa14f28-b49b-48de-b615-d590a716ad0a",
+					"FKPropertyId": "00000000-0000-0000-0000-000000000000",
+					"Cardinality": 0
+				},
+				{
+					"Id": "c42e97ca-0674-40ce-a5a0-dbfd1b1fe13c",
+					"PrimaryEntityId": "fef93c39-8118-4929-a516-fbb014e24365",
+					"NavPropertyId": "84a3373f-6e7e-4879-9dec-4ed3523db354",
+					"FKEntityId": "baa14f28-b49b-48de-b615-d590a716ad0a",
+					"FKPropertyId": "4cb99705-e157-43b3-828b-8430c8e81157",
+					"Cardinality": 1
+				}
+			],
+			"DbContextGen": {
+				"OutputFolder": "..\\..\\src\\app1.data\\Contexts",
+				"Id": "eb8fddeb-773f-4471-8d15-befd762e670d",
+				"GeneratorType": 0,
+				"TemplateFilepath": "Templates\\DbContext.tmpl",
+				"Enabled": true,
+				"InclHeader": true
+			},
+			"EntityGen": {
+				"OutputFolder": "..\\..\\src\\app1.data\\Entities",
+				"Id": "171722e6-9d5e-45c8-bacc-3a14e9e98fbc",
+				"GeneratorType": 1,
+				"TemplateFilepath": "Templates\\Entities.tmpl",
+				"Enabled": true,
+				"InclHeader": true
+			},
+			"EnumGen": {
+				"OutputFolder": "..\\..\\src\\app1.data\\Entities",
+				"Id": "22a7658a-8284-4b07-aa71-e915918620ff",
+				"GeneratorType": 1,
+				"TemplateFilepath": "Templates\\Enums.tmpl",
+				"Enabled": true,
+				"InclHeader": true
+			},
+			"ServiceGen": {
+				"OutputFolder": "..\\..\\src\\app1.server\\Services",
+				"QueryTemplateFilepath": "Templates\\Query.tmpl",
+				"QueryOutputFolder": "..\\..\\src\\app1.server\\Services\\Queries",
+				"ControllerTemplateFilepath": "Templates\\\\Controllers.tmpl",
+				"ControllerOutputFolder": "..\\..\\src\\app1.server\\Controllers",
+				"Id": "35a7a4ff-6462-4399-90d3-4e6936df20b9",
+				"GeneratorType": 4,
+				"TemplateFilepath": "Templates\\Services.tmpl",
+				"Enabled": true,
+				"InclHeader": true
+			}
+		}
+	]
+}

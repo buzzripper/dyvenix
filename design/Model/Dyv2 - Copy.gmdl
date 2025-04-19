@@ -1,0 +1,768 @@
+{
+  "Name": null,
+  "Description": null,
+  "Version": "1.0.0",
+  "ModelFilepath": "D:\\Code\\buzzripper\\dyvenix\\design\\Model\\Dyv2.gmdl",
+  "DbContexts": [
+    {
+      "Id": "00000000-0000-0000-0000-000000000000",
+      "Name": "Db",
+      "Enabled": true,
+      "ContextNamespace": "Dyvenix.App1.Data",
+      "EntitiesNamespace": "Dyvenix.App1.Common.Entities",
+      "EnumsNamespace": "Dyvenix.App1.Common.Entities",
+      "ServicesNamespace": "Dyvenix.App1.Server.Services",
+      "QueriesNamespace": "Dyvenix.App1.Server.Services.Queries",
+      "ControllersNamespace": "Dyvenix.App1.Server.Controllers",
+      "ApiClientsNamespace": "Dyvenix.App1.Common.ApiClients",
+      "AddlUsings": [],
+      "Entities": [
+        {
+          "Id": "2eb8e877-3cb2-4576-b97e-a1f47d93448b",
+          "Name": "AccessClaim",
+          "Schema": null,
+          "TableName": null,
+          "Enabled": true,
+          "Namespace": "",
+          "Properties": [
+            {
+              "Id": "0d6bc36d-db40-4b0e-afa6-d8637f725d27",
+              "Name": "Id",
+              "IsPrimaryKey": true,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 0,
+              "IsIndexed": true,
+              "IsIndexUnique": true,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 4,
+                "Name": "Guid",
+                "CSType": "Guid",
+                "SqlType": "uniqueidentifier"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "1a358be2-26ba-4b2d-9bc2-945dcf8fb7b2",
+              "Name": "ClaimName",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 100,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 1,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "7cac7155-d8eb-4663-bbed-c14bae5759b2",
+              "Name": "ClaimValue",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": true,
+              "MaxLength": 200,
+              "IsIndexed": false,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 1,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "48e1541b-142b-4ed5-b944-2aac0dbb25b4",
+              "Name": "AppUserId",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 0,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 4,
+                "Name": "Guid",
+                "CSType": "Guid",
+                "SqlType": "uniqueidentifier"
+              },
+              "EnumType": null,
+              "Assoc": {
+                "Id": "e6bebf16-6c1e-413b-a410-34a13c06eebd",
+                "PrimaryEntityId": "80456b81-d876-49b6-837f-4146c9aa24aa",
+                "NavPropertyId": "be9494a3-57ae-49c4-af21-1db4441f205d",
+                "FKEntityId": "2eb8e877-3cb2-4576-b97e-a1f47d93448b",
+                "FKPropertyId": "48e1541b-142b-4ed5-b944-2aac0dbb25b4",
+                "Cardinality": 1
+              }
+            }
+          ],
+          "NavProperties": [],
+          "Attributes": [],
+          "AddlUsings": [],
+          "Service": {
+            "Id": "00000000-0000-0000-0000-000000000000",
+            "Enabled": false,
+            "InclCreate": false,
+            "InclUpdate": false,
+            "InclDelete": false,
+            "InclController": false,
+            "ControllerVersion": null,
+            "AddlServiceUsings": [],
+            "ServiceClassAttributes": [],
+            "AddlControllerUsings": [],
+            "ControllerClassAttributes": [],
+            "Methods": []
+          }
+        },
+        {
+          "Id": "80456b81-d876-49b6-837f-4146c9aa24aa",
+          "Name": "AppUser",
+          "Schema": null,
+          "TableName": null,
+          "Enabled": true,
+          "Namespace": null,
+          "Properties": [
+            {
+              "Id": "3807a238-7880-4cfc-b732-dd546c5e4aa7",
+              "Name": "Id",
+              "IsPrimaryKey": true,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 0,
+              "IsIndexed": true,
+              "IsIndexUnique": true,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 4,
+                "Name": "Guid",
+                "CSType": "Guid",
+                "SqlType": "uniqueidentifier"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "932b4f6c-c897-45cc-b510-47b487a72369",
+              "Name": "ExtId",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 100,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "17e51ca9-26e1-443e-b436-6bc29301fb37",
+              "Name": "FirstName",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 100,
+              "IsIndexed": false,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 7,
+                "Name": "Short",
+                "CSType": "short",
+                "SqlType": "smallint"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "d6518cec-4bd3-4bb0-9fa6-a3aed0d23b70",
+              "Name": "LastName",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 100,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "3b86db06-8a96-4c03-82e8-463272a9711e",
+              "Name": "Email",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 200,
+              "IsIndexed": true,
+              "IsIndexUnique": true,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "3896427b-7dc6-4b15-a0e9-e3e9af6db070",
+              "Name": "IsEnabled",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 0,
+              "IsIndexed": false,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 3,
+                "Name": "Bool",
+                "CSType": "bool",
+                "SqlType": "bit"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "c07368dc-ba94-4c92-9f5d-0326cfd52af6",
+              "Name": "CompanyId",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 10,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            }
+          ],
+          "NavProperties": [
+            {
+              "Id": "be9494a3-57ae-49c4-af21-1db4441f205d",
+              "Name": "Claims",
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "Assoc": {
+                "Id": "e6bebf16-6c1e-413b-a410-34a13c06eebd",
+                "PrimaryEntityId": "80456b81-d876-49b6-837f-4146c9aa24aa",
+                "NavPropertyId": "be9494a3-57ae-49c4-af21-1db4441f205d",
+                "FKEntityId": "2eb8e877-3cb2-4576-b97e-a1f47d93448b",
+                "FKPropertyId": "48e1541b-142b-4ed5-b944-2aac0dbb25b4",
+                "Cardinality": 1
+              },
+              "FKEntity": {
+                "Id": "2eb8e877-3cb2-4576-b97e-a1f47d93448b",
+                "Name": "AccessClaim",
+                "Schema": null,
+                "TableName": null,
+                "Enabled": true,
+                "Namespace": "",
+                "Properties": [
+                  {
+                    "Id": "0d6bc36d-db40-4b0e-afa6-d8637f725d27",
+                    "Name": "Id",
+                    "IsPrimaryKey": true,
+                    "IsIdentity": false,
+                    "Nullable": false,
+                    "MaxLength": 0,
+                    "IsIndexed": true,
+                    "IsIndexUnique": true,
+                    "IsIndexClustered": false,
+                    "DisplayOrder": 0,
+                    "Attributes": [],
+                    "AddlUsings": [],
+                    "PrimitiveType": {
+                      "Id": 4,
+                      "Name": "Guid",
+                      "CSType": "Guid",
+                      "SqlType": "uniqueidentifier"
+                    },
+                    "EnumType": null,
+                    "Assoc": null
+                  },
+                  {
+                    "Id": "1a358be2-26ba-4b2d-9bc2-945dcf8fb7b2",
+                    "Name": "ClaimName",
+                    "IsPrimaryKey": false,
+                    "IsIdentity": false,
+                    "Nullable": false,
+                    "MaxLength": 100,
+                    "IsIndexed": true,
+                    "IsIndexUnique": false,
+                    "IsIndexClustered": false,
+                    "DisplayOrder": 0,
+                    "Attributes": [],
+                    "AddlUsings": [],
+                    "PrimitiveType": {
+                      "Id": 1,
+                      "Name": "String",
+                      "CSType": "string",
+                      "SqlType": "nvarchar"
+                    },
+                    "EnumType": null,
+                    "Assoc": null
+                  },
+                  {
+                    "Id": "7cac7155-d8eb-4663-bbed-c14bae5759b2",
+                    "Name": "ClaimValue",
+                    "IsPrimaryKey": false,
+                    "IsIdentity": false,
+                    "Nullable": true,
+                    "MaxLength": 200,
+                    "IsIndexed": false,
+                    "IsIndexUnique": false,
+                    "IsIndexClustered": false,
+                    "DisplayOrder": 0,
+                    "Attributes": [],
+                    "AddlUsings": [],
+                    "PrimitiveType": {
+                      "Id": 1,
+                      "Name": "String",
+                      "CSType": "string",
+                      "SqlType": "nvarchar"
+                    },
+                    "EnumType": null,
+                    "Assoc": null
+                  },
+                  {
+                    "Id": "48e1541b-142b-4ed5-b944-2aac0dbb25b4",
+                    "Name": "NewEntityId",
+                    "IsPrimaryKey": false,
+                    "IsIdentity": false,
+                    "Nullable": false,
+                    "MaxLength": 0,
+                    "IsIndexed": true,
+                    "IsIndexUnique": false,
+                    "IsIndexClustered": false,
+                    "DisplayOrder": 3,
+                    "Attributes": [],
+                    "AddlUsings": [],
+                    "PrimitiveType": {
+                      "Id": 4,
+                      "Name": "Guid",
+                      "CSType": "Guid",
+                      "SqlType": "uniqueidentifier"
+                    },
+                    "EnumType": null,
+                    "Assoc": {
+                      "Id": "e6bebf16-6c1e-413b-a410-34a13c06eebd",
+                      "PrimaryEntityId": "80456b81-d876-49b6-837f-4146c9aa24aa",
+                      "NavPropertyId": "be9494a3-57ae-49c4-af21-1db4441f205d",
+                      "FKEntityId": "2eb8e877-3cb2-4576-b97e-a1f47d93448b",
+                      "FKPropertyId": "48e1541b-142b-4ed5-b944-2aac0dbb25b4",
+                      "Cardinality": 1
+                    }
+                  }
+                ],
+                "NavProperties": [],
+                "Attributes": [],
+                "AddlUsings": [],
+                "Service": {
+                  "Id": "00000000-0000-0000-0000-000000000000",
+                  "Enabled": false,
+                  "InclCreate": false,
+                  "InclUpdate": false,
+                  "InclDelete": false,
+                  "InclController": false,
+                  "ControllerVersion": null,
+                  "AddlServiceUsings": [],
+                  "ServiceClassAttributes": [],
+                  "AddlControllerUsings": [],
+                  "ControllerClassAttributes": [],
+                  "Methods": []
+                }
+              }
+            }
+          ],
+          "Attributes": [],
+          "AddlUsings": [],
+          "Service": {
+            "Id": "00000000-0000-0000-0000-000000000000",
+            "Enabled": true,
+            "InclCreate": true,
+            "InclUpdate": true,
+            "InclDelete": true,
+            "InclController": true,
+            "ControllerVersion": "1.0",
+            "AddlServiceUsings": [],
+            "ServiceClassAttributes": [],
+            "AddlControllerUsings": [],
+            "ControllerClassAttributes": [],
+            "Methods": [
+              {
+                "Id": "71decaa5-01f0-4e38-86a2-9904acaf7965",
+                "Name": "GetAll",
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false,
+                "FilterProperties": [],
+                "InclNavProperties": []
+              },
+              {
+                "Id": "698e1c53-df29-4de8-8b74-b88c753dd7af",
+                "Name": "GetAllWithPaging",
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": true,
+                "UseQuery": false,
+                "FilterProperties": [],
+                "InclNavProperties": []
+              },
+              {
+                "Id": "ac6a3502-e799-4791-9e8d-8f3f7511cb7f",
+                "Name": "GetById",
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false,
+                "FilterProperties": [
+                  {
+                    "Id": "3807a238-7880-4cfc-b732-dd546c5e4aa7",
+                    "Name": "Id",
+                    "IsPrimaryKey": true,
+                    "IsIdentity": false,
+                    "Nullable": false,
+                    "MaxLength": 0,
+                    "IsIndexed": true,
+                    "IsIndexUnique": true,
+                    "IsIndexClustered": false,
+                    "DisplayOrder": 0,
+                    "Attributes": [],
+                    "AddlUsings": [],
+                    "PrimitiveType": {
+                      "Id": 4,
+                      "Name": "Guid",
+                      "CSType": "Guid",
+                      "SqlType": "uniqueidentifier"
+                    },
+                    "EnumType": null,
+                    "Assoc": null
+                  }
+                ],
+                "InclNavProperties": []
+              }
+            ]
+          }
+        },
+        {
+          "Id": "afac4481-39f1-42e7-9f00-50d99abc244f",
+          "Name": "LogEvent",
+          "Schema": "Logs",
+          "TableName": "LogEvents",
+          "Enabled": true,
+          "Namespace": null,
+          "Properties": [
+            {
+              "Id": "5e88eb0b-2383-4381-a529-4d2afb9443c4",
+              "Name": "Id",
+              "IsPrimaryKey": true,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 0,
+              "IsIndexed": true,
+              "IsIndexUnique": true,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 4,
+                "Name": "Guid",
+                "CSType": "Guid",
+                "SqlType": "uniqueidentifier"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "04bfb4a2-6aee-45c1-b94c-68304c13133f",
+              "Name": "Message",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 0,
+              "IsIndexed": false,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "55d27ee1-c76e-4d58-818b-45472b6496a4",
+              "Name": "Timestamp",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 0,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 5,
+                "Name": "DateTime",
+                "CSType": "DateTime",
+                "SqlType": "datetime"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "78f70a5e-bf3c-4817-8062-cc4393a50f39",
+              "Name": "Exception",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 0,
+              "IsIndexed": false,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "1cad6c19-6dc2-4dd2-923f-71de2eb699b0",
+              "Name": "Application",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 200,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "9a0bd641-dcd1-4b6f-ae42-3cb05fc21a9e",
+              "Name": "Source",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 200,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "d913193a-a021-4cd0-80cd-a0cc674f64ca",
+              "Name": "CorrelationId",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 50,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            }
+          ],
+          "NavProperties": [],
+          "Attributes": [],
+          "AddlUsings": [],
+          "Service": {
+            "Id": "00000000-0000-0000-0000-000000000000",
+            "Enabled": false,
+            "InclCreate": false,
+            "InclUpdate": false,
+            "InclDelete": false,
+            "InclController": false,
+            "ControllerVersion": null,
+            "AddlServiceUsings": [],
+            "ServiceClassAttributes": [],
+            "AddlControllerUsings": [],
+            "ControllerClassAttributes": [],
+            "Methods": []
+          }
+        }
+      ],
+      "Enums": [
+        {
+          "Id": "005e7b0d-e8df-4600-aea9-853deeb10a08",
+          "Name": "LogLevel",
+          "IsExternal": false,
+          "IsFlags": false,
+          "Enabled": true,
+          "Namespace": "",
+          "Members": [
+            "Verbose",
+            "Debug",
+            "Info",
+            "Error",
+            "Fatal"
+          ]
+        }
+      ],
+      "Assocs": [
+        {
+          "Id": "e6bebf16-6c1e-413b-a410-34a13c06eebd",
+          "PrimaryEntityId": "80456b81-d876-49b6-837f-4146c9aa24aa",
+          "NavPropertyId": "be9494a3-57ae-49c4-af21-1db4441f205d",
+          "FKEntityId": "2eb8e877-3cb2-4576-b97e-a1f47d93448b",
+          "FKPropertyId": "48e1541b-142b-4ed5-b944-2aac0dbb25b4",
+          "Cardinality": 1
+        }
+      ],
+      "DbContextGen": {
+        "OutputFolder": "..\\\\..\\\\src\\\\app1.data\\\\Contexts",
+        "Id": "f1b57ab3-e7f6-4eb8-b001-317fadcd86ef",
+        "GeneratorType": 0,
+        "TemplateFilepath": "Templates\\\\DbContext.tmpl",
+        "Enabled": true,
+        "InclHeader": true
+      },
+      "EntityGen": {
+        "OutputFolder": "..\\\\..\\\\src\\\\app1.common\\\\Entities",
+        "Id": "d120ed28-3c83-45f4-baa8-36ad6b51b595",
+        "GeneratorType": 1,
+        "TemplateFilepath": "Templates\\\\Entities.tmpl",
+        "Enabled": true,
+        "InclHeader": true
+      },
+      "EnumGen": {
+        "OutputFolder": "..\\\\..\\\\src\\\\app1.common\\\\Entities",
+        "Id": "49e5f602-983f-448a-9433-2e28bdc67b59",
+        "GeneratorType": 1,
+        "TemplateFilepath": "Templates\\\\Enums.tmpl",
+        "Enabled": true,
+        "InclHeader": true
+      },
+      "ServiceGen": {
+        "OutputFolder": "..\\\\..\\\\src\\\\app1.server\\\\Services",
+        "QueryTemplateFilepath": "Templates\\\\Query.tmpl",
+        "QueryOutputFolder": "..\\\\..\\\\src\\\\app1.common\\\\Queries",
+        "ControllerTemplateFilepath": "Templates\\\\Controllers.tmpl",
+        "ControllerOutputFolder": "..\\\\..\\\\src\\\\app1.server\\\\Controllers",
+        "ApiClientTemplateFilepath": "Templates\\\\ApiClients.tmpl",
+        "ApiClientOutputFolder": "..\\\\..\\\\src\\\\app1.common\\\\ApiClients",
+        "ApiClientServicesExtTemplateFilepath": "Templates\\\\ApiClientCollExt.tmpl",
+        "ApiClientServicesExtOutputFilepath": "..\\\\..\\\\src\\\\App1.Common\\\\Config\\\\ApiClientCollExt.part.cs",
+        "Id": "86d2b909-f9b4-4924-b9d6-823488c5f5d5",
+        "GeneratorType": 4,
+        "TemplateFilepath": "Templates\\\\Services.tmpl",
+        "Enabled": true,
+        "InclHeader": true
+      }
+    }
+  ]
+}
