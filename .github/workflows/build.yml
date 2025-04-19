@@ -72,12 +72,12 @@ jobs:
       # - name: Publish
       #   run: dotnet publish "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
 
-      - name: Generate .env file
-        run: |
-          echo "APP_ENV=${{ inputs.environment }}" > .env
-          echo "EV_AUTHCONFIG_DISABLED=${{ vars.EV_AUTHCONFIG_DISABLED }}" >> .env
-          echo "EV_AUTHCONFIG_ALLOWEDORIGINS=${{ vars.EV_AUTHCONFIG_ALLOWEDORIGINS }}" >> .env
-          cp .env ./${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/
+      # - name: Generate .env file
+      #   run: |
+      #     echo "APP_ENV=${{ inputs.environment }}" > .env
+      #     echo "EV_AUTHCONFIG_DISABLED=${{ vars.EV_AUTHCONFIG_DISABLED }}" >> .env
+      #     echo "EV_AUTHCONFIG_ALLOWEDORIGINS=${{ vars.EV_AUTHCONFIG_ALLOWEDORIGINS }}" >> .env
+      #     cp .env ./${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/
 
       ### Build Angular
 
