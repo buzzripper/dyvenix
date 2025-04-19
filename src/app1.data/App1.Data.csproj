@@ -24,14 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\App1.Common\App1.Common.csproj" />
-    <ProjectReference Include="..\dyvenix.core\Dyvenix.Core.csproj" />
-    <ProjectReference Include="..\dyvenix.logging\Dyvenix.Logging.csproj" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\app1.common\App1.Common.csproj" />
+    <ProjectReference Include="..\dyvenix.core\Dyvenix.Core.csproj" />
+    <ProjectReference Include="..\dyvenix.logging\Dyvenix.Logging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

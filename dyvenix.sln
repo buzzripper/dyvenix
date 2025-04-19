@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Auth.Core", "src\dy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Common", "src\app1.common\App1.Common.csproj", "{9361DE68-C06C-8A44-0E8E-EDBE457D452A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Data", "src\app1.data\App1.Data.csproj", "{E00C5788-C767-B2E4-F7AB-F08CD63E4EA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{9361DE68-C06C-8A44-0E8E-EDBE457D452A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9361DE68-C06C-8A44-0E8E-EDBE457D452A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9361DE68-C06C-8A44-0E8E-EDBE457D452A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E00C5788-C767-B2E4-F7AB-F08CD63E4EA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E00C5788-C767-B2E4-F7AB-F08CD63E4EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E00C5788-C767-B2E4-F7AB-F08CD63E4EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E00C5788-C767-B2E4-F7AB-F08CD63E4EA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
