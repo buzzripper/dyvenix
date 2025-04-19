@@ -24,8 +24,8 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: src/app1.server/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 9.0.x
-  API_ROOT_DIR: src/App1.Server
-  ANG_ROOT_DIR: src/App1.Client
+  API_ROOT_DIR: src/app1.server
+  ANG_ROOT_DIR: src/app1.client
   ANG_OUTPUT_PATH: dist
   VER_MAJOR: "1" 
   VER_MINOR: "0" 
@@ -69,7 +69,7 @@ jobs:
       #   run: dotnet test "${{ env.API_ROOT_DIR }}" --no-build
 
       - name: Publish
-        run: dotnet publish "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+        run: dotnet publish "${{ env.API_ROOT_DIR }}/App1.Server.csproj" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
 
       - name: Generate .env file
         run: |
