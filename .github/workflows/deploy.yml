@@ -29,7 +29,7 @@ jobs:
         id: download-artifact
         uses: dawidd6/action-download-artifact@v4
         with:
-            github_token: ${{secrets.GITHUB_TOKEN}}
+            github_token: ${{secrets.GH_PAT}}
             workflow: ${{env.BUILD_WORKFLOW_NAME}}
             name: ${{env.ARTIFACT_NAME}}
             search_artifacts: true
