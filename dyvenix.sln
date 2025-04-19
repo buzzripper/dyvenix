@@ -23,6 +23,44 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server.UnitTests", "te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Common.IntTests", "tests\App1.Common.IntTests\App1.Common.IntTests.csproj", "{3700A3C1-6AAF-A4AA-A3BD-3000DB827566}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "App1.Client", "src\app1.client\App1.Client.esproj", "{7D326C1E-ADE2-79E8-0CC4-254913D9EC60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{4E7A46ED-B33D-46EB-956E-BB5B492D2098}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\Create_LogEvents_Table.sql = scripts\Create_LogEvents_Table.sql
+		scripts\EF Commands.txt = scripts\EF Commands.txt
+		scripts\RunNodeSvr.bat = scripts\RunNodeSvr.bat
+		scripts\Working.sql = scripts\Working.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "design", "design", "{80F1F17B-3C0E-468D-9AE0-B1DE1F746AD3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "model", "model", "{0C93E3C3-A84E-45B0-8C96-C8210726F561}"
+	ProjectSection(SolutionItems) = preProject
+		design\model\Dyv4.gmdl = design\model\Dyv4.gmdl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{698900D1-134B-48AF-9ACA-0BB617BC692D}"
+	ProjectSection(SolutionItems) = preProject
+		design\model\template\ApiClientCollExt.tmpl = design\model\template\ApiClientCollExt.tmpl
+		design\model\template\ApiClients.tmpl = design\model\template\ApiClients.tmpl
+		design\model\template\Controllers.tmpl = design\model\template\Controllers.tmpl
+		design\model\template\DbContext.tmpl = design\model\template\DbContext.tmpl
+		design\model\template\DTO.tmpl = design\model\template\DTO.tmpl
+		design\model\template\Entities.tmpl = design\model\template\Entities.tmpl
+		design\model\template\Enums.tmpl = design\model\template\Enums.tmpl
+		design\model\template\IntTests_ApiClients_Read.tmpl = design\model\template\IntTests_ApiClients_Read.tmpl
+		design\model\template\IntTests_ApiClients_Update.tmpl = design\model\template\IntTests_ApiClients_Update.tmpl
+		design\model\template\Query.tmpl = design\model\template\Query.tmpl
+		design\model\template\ServiceCollExt.tmpl = design\model\template\ServiceCollExt.tmpl
+		design\model\template\Services.tmpl = design\model\template\Services.tmpl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3E4FD07C-D0CC-4230-B44E-1A702EC74514}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Dyvenix Architecture.vsdx = docs\Dyvenix Architecture.vsdx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +103,10 @@ Global
 		{3700A3C1-6AAF-A4AA-A3BD-3000DB827566}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3700A3C1-6AAF-A4AA-A3BD-3000DB827566}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3700A3C1-6AAF-A4AA-A3BD-3000DB827566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D326C1E-ADE2-79E8-0CC4-254913D9EC60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D326C1E-ADE2-79E8-0CC4-254913D9EC60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D326C1E-ADE2-79E8-0CC4-254913D9EC60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D326C1E-ADE2-79E8-0CC4-254913D9EC60}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +115,8 @@ Global
 		{6AFF1FFE-C482-F852-CE54-78B0F0F7ED27} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{8B177353-D4ED-6B09-2A5F-2394209487D9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{3700A3C1-6AAF-A4AA-A3BD-3000DB827566} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{0C93E3C3-A84E-45B0-8C96-C8210726F561} = {80F1F17B-3C0E-468D-9AE0-B1DE1F746AD3}
+		{698900D1-134B-48AF-9ACA-0BB617BC692D} = {0C93E3C3-A84E-45B0-8C96-C8210726F561}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {969DA4CE-DF2C-44BA-8518-E7E87DBE6ED7}
