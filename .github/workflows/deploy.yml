@@ -40,7 +40,7 @@ on:
       APP_DB_CONN_STR:
         required: true
 
-run-name: Deploy (${{ github.ref_name }}) ${{ inputs.version || github.event.inputs.version || "[dev]"}}
+run-name: Deploy (${{ github.ref_name }}) ${{ inputs.version || github.event.inputs.version }}
 
 env:
   VERSION: ${{ inputs.version || github.event.inputs.version }}
