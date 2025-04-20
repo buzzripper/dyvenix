@@ -49,9 +49,9 @@ public static partial class ServiceCollExt
 		// Register Swagger
 		services.AddEndpointsApiExplorer();
 
-		services.AddSwaggerGen(options => {
-			var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+		var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 
+		services.AddSwaggerGen(options => {
 			foreach (var description in provider.ApiVersionDescriptions) {
 				options.SwaggerDoc(description.GroupName, new OpenApiInfo {
 					Title = $"{ConfigConst.AppDisplayName} {description.ApiVersion}",
@@ -66,18 +66,13 @@ public static partial class ServiceCollExt
 
 	public static void UseSwaggerServices(this WebApplication app, IServiceCollection services)
 	{
+		var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
 		app.UseSwagger();
 		app.UseSwaggerUI(options => {
-
-			var logger = app.Services.GetRequiredService<IDyvenixLogger<Program>>();
-			
-			var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 			foreach (var description in provider.ApiVersionDescriptions) {
 				options.RoutePrefix = "swagger";
-
-				logger.Info($"Swagger: description.GroupName = {description.GroupName}, description.ApiVersion = {description.ApiVersion}");
-
-				options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"My API {description.ApiVersion}");
+				options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"Dyvenix {description.ApiVersion}");
 			}
 		});
 	}
