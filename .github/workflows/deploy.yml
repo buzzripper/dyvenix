@@ -20,6 +20,11 @@ on:
       target:
         required: true
         type: string
+    secrets:
+      input_gh_pat:
+        required: true
+      input_spn:
+        required: true
    
 run-name: "Deploy (${{github.ref_name}}) ${{github.event.inputs.version}}"
 
@@ -34,11 +39,25 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'Dev' }}
     steps:
+      - name: Set SECRET_VALUE from workflow_call or workflow_dispatch
+        run: |
+            if [ -n "${{ secrets.GH_PAT }}" ]; then
+                echo "GH_PAT_VALUE=${{ secrets.GH_PAT }}" >> $GITHUB_ENV
+            else
+                echo "GH_PAT_VALUE=${{ secrets.input_gh_pat }}" >> $GITHUB_ENV
+            fi
+            if [ -n "${{ secrets.dyvenix_app1_SPN }}" ]; then
+                echo "SPN_VALUE=${{ secrets.dyvenix_app1_SPN }}" >> $GITHUB_ENV
+            else
+                echo "SPN_VALUE=${{ secrets.input_spn }}" >> $GITHUB_ENV
+            fi
+
+
       - name: Download Artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v4
         with:
-            github_token: ${{secrets.GH_PAT}}
+            github_token: ${{secrets.GH_PAT_VALUE}}
             workflow: ${{env.BUILD_WORKFLOW_NAME}}
             name: ${{env.ARTIFACT_NAME}}
             search_artifacts: true
@@ -53,7 +72,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.dyvenix_app1_SPN }}
+          creds: ${{ secrets.SPN_VALUE }}
 
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2

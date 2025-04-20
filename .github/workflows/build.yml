@@ -112,3 +112,6 @@ jobs:
     with:
       version: ${{ needs.build.outputs.version }}
       target: ${{ needs.build.outputs.app_env }}
+    secrets:
+      input_gh_pat: ${{ secrets.GH_PAT }}
+      input_spn: ${{ secrets.dyvenix_app1_SPN }}
