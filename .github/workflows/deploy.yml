@@ -38,44 +38,54 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'Dev' }}
+
     steps:
-      - name: Set SECRET_VALUE from workflow_call or workflow_dispatch
+
+      - name: Debug
         run: |
-            if [ -n "${{ secrets.GH_PAT }}" ]; then
-                echo "GH_PAT_VALUE=${{ secrets.GH_PAT }}" >> $GITHUB_ENV
-            else
-                echo "GH_PAT_VALUE=${{ secrets.input_gh_pat }}" >> $GITHUB_ENV
-            fi
-            if [ -n "${{ secrets.dyvenix_app1_SPN }}" ]; then
-                echo "SPN_VALUE=${{ secrets.dyvenix_app1_SPN }}" >> $GITHUB_ENV
-            else
-                echo "SPN_VALUE=${{ secrets.input_spn }}" >> $GITHUB_ENV
-            fi
+          echo "version=${{ github.event.inputs.version }}"
+          echo "target=${{ github.event.inputs.target }}"
+          echo "input_gh_pat=${{ secrets.input_gh_pat }}"
+          echo "input_spn=${{ secrets.input_spn }}"
 
-      - name: Download Artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v4
-        with:
-            github_token: ${{secrets.GH_PAT_VALUE}}
-            workflow: ${{env.BUILD_WORKFLOW_NAME}}
-            name: ${{env.ARTIFACT_NAME}}
-            search_artifacts: true
-            skip_unpack: false
 
-      - name: Update JSON Values with Secrets
-        run: |
-          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
-          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
-          cat appsettings.json
+      # - name: Set SECRET_VALUE from workflow_call or workflow_dispatch
+      #   run: |
+      #       if [ -n "${{ secrets.GH_PAT }}" ]; then
+      #           echo "GH_PAT_VALUE=${{ secrets.GH_PAT }}" >> $GITHUB_ENV
+      #       else
+      #           echo "GH_PAT_VALUE=${{ secrets.input_gh_pat }}" >> $GITHUB_ENV
+      #       fi
+      #       if [ -n "${{ secrets.dyvenix_app1_SPN }}" ]; then
+      #           echo "SPN_VALUE=${{ secrets.dyvenix_app1_SPN }}" >> $GITHUB_ENV
+      #       else
+      #           echo "SPN_VALUE=${{ secrets.input_spn }}" >> $GITHUB_ENV
+      #       fi
 
-      - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.SPN_VALUE }}
+      # - name: Download Artifact
+      #   id: download-artifact
+      #   uses: dawidd6/action-download-artifact@v4
+      #   with:
+      #       github_token: ${{secrets.GH_PAT_VALUE}}
+      #       workflow: ${{env.BUILD_WORKFLOW_NAME}}
+      #       name: ${{env.ARTIFACT_NAME}}
+      #       search_artifacts: true
+      #       skip_unpack: false
 
-      - name: Deploy to Azure WebApp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ./
+      # - name: Update JSON Values with Secrets
+      #   run: |
+      #     jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
+      #     jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
+      #     cat appsettings.json
+
+      # - name: Azure Login
+      #   uses: azure/login@v2
+      #   with:
+      #     creds: ${{ secrets.SPN_VALUE }}
+
+      # - name: Deploy to Azure WebApp
+      #   uses: azure/webapps-deploy@v2
+      #   with:
+      #     app-name: ${{ env.AZURE_WEBAPP_NAME }}
+      #     package: ./
 
