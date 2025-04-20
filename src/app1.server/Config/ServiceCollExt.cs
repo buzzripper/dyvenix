@@ -34,7 +34,6 @@ public static partial class ServiceCollExt
 
 	public static IServiceCollection AddSwaggerServices(this IServiceCollection services, bool includeAuth)
 	{
-
 		services.AddApiVersioning(options => {
 			options.ReportApiVersions = true;
 			options.AssumeDefaultVersionWhenUnspecified = true;
@@ -50,18 +49,18 @@ public static partial class ServiceCollExt
 
 		var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 
-		//var assyVersion = Assembly.GetExecutingAssembly().GetName().Version;
-		//services.AddSwaggerGen(options => {
-		//	foreach (var description in provider.ApiVersionDescriptions) {
-		//		options.SwaggerDoc(description.GroupName, new OpenApiInfo {
-		//			Title = $"{ConfigConst.AppDisplayName} {description.ApiVersion}",
-		//			Version = description.ApiVersion.ToString(),
-		//			Description = $"Application server for App1 ({assyVersion})"
-		//		});
-		//	}
-		//});
+		var assyVersion = Assembly.GetExecutingAssembly().GetName().Version;
+		services.AddSwaggerGen(options => {
+			foreach (var description in provider.ApiVersionDescriptions) {
+				options.SwaggerDoc(description.GroupName, new OpenApiInfo {
+					Title = $"{ConfigConst.AppDisplayName} {description.ApiVersion}",
+					Version = description.ApiVersion.ToString(),
+					Description = $"Application server for App1 ({assyVersion})"
+				});
+			}
+		});
 
-		services.AddSwaggerGen();
+		//services.AddSwaggerGen();
 
 		return services;
 	}
