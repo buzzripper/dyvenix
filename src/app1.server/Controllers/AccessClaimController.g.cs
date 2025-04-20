@@ -18,7 +18,7 @@ using Dyvenix.App1.Server.DTOs;
 namespace Dyvenix.App1.Server.Controllers;
 
 [ApiController]
-[ApiVersion(1.0)]
+[ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class AccessClaimController : ApiControllerBase<AccessClaimController>
 {
