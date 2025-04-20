@@ -111,10 +111,9 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
-      - name: Call Deploy Workflow
-        if: contains(github.event.head_commit.message, '[deploy]')
-        uses: ./.github/workflows/deploy.yml
-        with:
-          varsion: ${{ env.VERSION }}
-          path: ${{ env.APP_ENV }}
-
+  deploy:
+    if: contains(github.event.head_commit.message, '[deploy]')
+    uses: ./.github/workflows/deploy.yml
+    with:
+      version: ${{ env.VERSION }}
+      path: ${{ env.APP_ENV }}
