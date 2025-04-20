@@ -116,4 +116,4 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       version: ${{ env.VERSION }}
-      path: ${{ env.APP_ENV }}
+      target: ${{ env.APP_ENV }}
