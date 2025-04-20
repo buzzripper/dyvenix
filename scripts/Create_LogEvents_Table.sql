@@ -1,4 +1,55 @@
-/****** Object:  Table [Logs].[LogEvents]    Script Date: 3/3/2025 9:33:19 PM ******/
+-- Create the logins
+USE master;
+GO
+IF NOT EXISTS (SELECT * FROM sys.sql_logins WHERE name = N'dyvenix_admin')
+BEGIN
+    CREATE LOGIN dyvenix_admin WITH PASSWORD = 'dyv_pwd1';
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.sql_logins WHERE name = N'dyvenix_app')
+BEGIN
+    CREATE LOGIN dyvenix_app WITH PASSWORD = 'dyv_pwd1';
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.sql_logins WHERE name = N'dyvenix_logger')
+BEGIN
+    CREATE LOGIN dyvenix_logger WITH PASSWORD = 'dyv_pwd1';
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.sql_logins WHERE name = N'dyvenix_logviewer')
+BEGIN
+    ALTER LOGIN dyvenix_logviewer WITH PASSWORD = 'dyv_pwd1';
+END
+GO
+
+-----------------------------------------------------------------------------------
+
+USE dyvenix;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'dyvenix_admin')
+BEGIN
+    CREATE USER dyvenix_admin FOR LOGIN dyvenix_admin WITH DEFAULT_SCHEMA=dbo
+	ALTER ROLE db_owner ADD MEMBER dyvenix_admin;
+END
+
+IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'dyvenix_app')
+BEGIN
+    CREATE USER dyvenix_app FOR LOGIN dyvenix_app WITH DEFAULT_SCHEMA=dbo
+	ALTER ROLE db_datareader ADD MEMBER dyvenix_app;
+	ALTER ROLE db_datawriter ADD MEMBER dyvenix_app;
+END
+
+IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'dyvenix_logger')
+BEGIN
+    CREATE USER dyvenix_logger FOR LOGIN dyvenix_logger WITH DEFAULT_SCHEMA=dbo
+	ALTER ROLE db_datareader ADD MEMBER dyvenix_logger;
+	ALTER ROLE db_datawriter ADD MEMBER dyvenix_logger;
+END
+
+
+-----------------------------------------------------------------------------------
+
 SET ANSI_NULLS ON
 GO
 
@@ -33,24 +84,3 @@ BEGIN
 	) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-
-IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'dyvenix_admin')
-BEGIN
-    CREATE USER [dyvenix_admin] FOR LOGIN [dyvenix_admin] WITH DEFAULT_SCHEMA=[dbo]
-	ALTER ROLE db_owner ADD MEMBER [dyvenix_admin];
-END
-
-IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'dyvenix_app')
-BEGIN
-    CREATE USER [dyvenix_app] FOR LOGIN [dyvenix_app] WITH DEFAULT_SCHEMA=[dbo]
-	ALTER ROLE db_datareader ADD MEMBER [dyvenix_app];
-	ALTER ROLE db_datawriter ADD MEMBER [dyvenix_app];
-END
-
-IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'SerilogUser')
-BEGIN
-    CREATE USER [SerilogUser] FOR LOGIN [SerilogUser] WITH DEFAULT_SCHEMA=[dbo]
-	ALTER ROLE db_datareader ADD MEMBER [SerilogUser];
-	ALTER ROLE db_datawriter ADD MEMBER [SerilogUser];
-END
-
