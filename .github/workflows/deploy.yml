@@ -24,21 +24,22 @@ on:
         required: true
         type: string
     secrets:
-      input_gh_pat:
+      GH_PAT:
         required: true
-      input_spn:
+      dyvenix_app1_SPN:
         required: true
       LOG_DB_CONN_STR:
         required: true
       APP_DB_CONN_STR:
         required: true
 
-run-name: "Deploy (${{ github.ref_name }}) ${{ inputs.version || github.event.inputs.version }}"
+run-name: >
+  Deploy (${{ github.ref_name }}) 
+  ${{ inputs.version || github.event.inputs.version }}
 
 env:
   VERSION: ${{ inputs.version || github.event.inputs.version }}
   TARGET: ${{ inputs.target || github.event.inputs.target }}
-  APP_ENV: ${{ inputs.target || github.event.inputs.target }}
   ARTIFACT_NAME: Dyvenix_AppServer_${{ inputs.version || github.event.inputs.version }}
   BUILD_WORKFLOW_NAME: build.yml
   AZURE_WEBAPP_NAME: dyvenix-app1
@@ -46,22 +47,21 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ env.APP_ENV }}
+    environment: ${{ env.TARGET }}
 
     steps:
       - name: Debug Inputs and Secrets
         run: |
           echo "VERSION: $VERSION"
           echo "TARGET: $TARGET"
-          echo "APP_ENV: $APP_ENV"
           echo "ARTIFACT_NAME: $ARTIFACT_NAME"
-          echo "GH_PAT provided: ${{ secrets.input_gh_pat != '' }}"
-          echo "SPN provided: ${{ secrets.input_spn != '' }}"
+          echo "GH_PAT present: ${{ secrets.GH_PAT != '' }}"
+          echo "SPN present: ${{ secrets.dyvenix_app1_SPN != '' }}"
 
       - name: Download Artifact
         uses: dawidd6/action-download-artifact@v4
         with:
-          github_token: ${{ secrets.input_gh_pat }}
+          github_token: ${{ secrets.GH_PAT }}
           workflow: ${{ env.BUILD_WORKFLOW_NAME }}
           name: ${{ env.ARTIFACT_NAME }}
           search_artifacts: true
@@ -76,7 +76,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.input_spn }}
+          creds: ${{ secrets.dyvenix_app1_SPN }}
 
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2

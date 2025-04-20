@@ -124,8 +124,10 @@ jobs:
       version: "Foo" #${{ needs.build.outputs.version }}
       target: "Bar" #${{ needs.build.outputs.app_env }}
     secrets:
-      input_gh_pat: ${{ secrets.GH_PAT }}
-      input_spn: ${{ secrets.dyvenix_app1_SPN }}
+      GH_PAT: ${{ secrets.GH_PAT }}
+      dyvenix_app1_SPN: ${{ secrets.dyvenix_app1_SPN }}
+      LOG_DB_CONN_STR: ${{ secrets.LOG_DB_CONN_STR }}
+      APP_DB_CONN_STR: ${{ secrets.APP_DB_CONN_STR }}
 
   # call_deploy:
   #   runs-on: ubuntu-latest
