@@ -48,8 +48,7 @@ public static partial class ServiceCollExt
 		services.AddEndpointsApiExplorer();
 
 		services.AddSwaggerGen(options => {
-			var provider = services.BuildServiceProvider()
-							 .GetRequiredService<IApiVersionDescriptionProvider>();
+			var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 
 			foreach (var description in provider.ApiVersionDescriptions) {
 				options.SwaggerDoc(description.GroupName, new OpenApiInfo {
@@ -69,6 +68,7 @@ public static partial class ServiceCollExt
 		app.UseSwaggerUI(options => {
 			var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 			foreach (var description in provider.ApiVersionDescriptions) {
+				options.RoutePrefix = "swagger";
 				options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"My API {description.ApiVersion}");
 			}
 		});
