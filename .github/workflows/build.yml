@@ -116,8 +116,8 @@ jobs:
     needs: build
     uses: ./.github/workflows/deploy.yml
     with:
-      version: ${{ needs.build.outputs.version }}
-      target: ${{ needs.build.outputs.app_env }}
+      version: "Foo" #${{ needs.build.outputs.version }}
+      target: "Bar" #${{ needs.build.outputs.app_env }}
     secrets:
       input_gh_pat: ${{ secrets.GH_PAT }}
       input_spn: ${{ secrets.dyvenix_app1_SPN }}
