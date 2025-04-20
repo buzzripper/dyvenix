@@ -34,7 +34,6 @@ public static partial class ServiceCollExt
 
 	public static IServiceCollection AddSwaggerServices(this IServiceCollection services, bool includeAuth)
 	{
-		var assyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
 		services.AddApiVersioning(options => {
 			options.ReportApiVersions = true;
@@ -51,15 +50,18 @@ public static partial class ServiceCollExt
 
 		var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 
-		services.AddSwaggerGen(options => {
-			foreach (var description in provider.ApiVersionDescriptions) {
-				options.SwaggerDoc(description.GroupName, new OpenApiInfo {
-					Title = $"{ConfigConst.AppDisplayName} {description.ApiVersion}",
-					Version = description.ApiVersion.ToString(),
-					Description = $"Application server for App1 ({assyVersion})"
-				});
-			}
-		});
+		//var assyVersion = Assembly.GetExecutingAssembly().GetName().Version;
+		//services.AddSwaggerGen(options => {
+		//	foreach (var description in provider.ApiVersionDescriptions) {
+		//		options.SwaggerDoc(description.GroupName, new OpenApiInfo {
+		//			Title = $"{ConfigConst.AppDisplayName} {description.ApiVersion}",
+		//			Version = description.ApiVersion.ToString(),
+		//			Description = $"Application server for App1 ({assyVersion})"
+		//		});
+		//	}
+		//});
+
+		services.AddSwaggerGen();
 
 		return services;
 	}
@@ -71,7 +73,7 @@ public static partial class ServiceCollExt
 		app.UseSwagger();
 		app.UseSwaggerUI(options => {
 			foreach (var description in provider.ApiVersionDescriptions) {
-				options.RoutePrefix = "swagger";
+				//options.RoutePrefix = "swagger";
 				options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"Dyvenix {description.ApiVersion}");
 			}
 		});
