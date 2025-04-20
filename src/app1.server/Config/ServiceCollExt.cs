@@ -10,6 +10,8 @@ using System.Reflection;
 using Microsoft.OpenApi.Any;
 using System;
 using Dyvenix.Logging.Correlation;
+using Dyvenix.App1.Server.Controllers;
+using Dyvenix.Logging;
 
 namespace Dyvenix.App1.Server.Config;
 
@@ -66,9 +68,17 @@ public static partial class ServiceCollExt
 	{
 		app.UseSwagger();
 		app.UseSwaggerUI(options => {
+
+			var logger = app.Services.GetRequiredService<IDyvenixLogger<Program>>();
+			
 			var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
+
 			foreach (var description in provider.ApiVersionDescriptions) {
 				options.RoutePrefix = "swagger";
+
+				logger.Info($"Swagger: description.GroupName = {description.GroupName}, description.ApiVersion = {description.ApiVersion}");
+
 				options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"My API {description.ApiVersion}");
 			}
 		});
