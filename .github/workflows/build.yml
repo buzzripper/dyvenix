@@ -49,11 +49,15 @@ jobs:
           VERSION="${{ env.VER_MAJOR }}.${{ env.VER_MINOR }}.${{ env.VER_PATCH }}.${{ github.run_number }}"
           SHORT_VERSION="${{ env.VER_MAJOR }}.${{ env.VER_MINOR }}.${{ env.VER_PATCH }}"
           ARTIFACT_NAME="Dyvenix_AppServer_${VERSION}"
+          APP_ENV="${{ github.event.inputs.environment }}"
+          if [ -z "$APP_ENV" ]; then
+            APP_ENV="Dev"
+          fi
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "SHORT_VERSION=${SHORT_VERSION}" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          echo "app_env=${{ github.event.inputs.environment || 'Dev' }}" >> $GITHUB_OUTPUT
+          echo "app_env=$APP_ENV" >> $GITHUB_OUTPUT
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
