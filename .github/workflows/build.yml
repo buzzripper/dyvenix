@@ -116,16 +116,16 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
-  call_deploy:
-    if: contains(github.event.head_commit.message, '[deploy]')
-    needs: build
-    uses: ./.github/workflows/deploy.yml
-    with:
-      version: ${{ needs.build.outputs.version }}
-      target: ${{ needs.build.outputs.app_env }}
-    secrets:
-      GH_PAT: ${{ secrets.GH_PAT }}
-      dyvenix_app1_SPN: ${{ secrets.dyvenix_app1_SPN }}
-      LOG_DB_CONN_STR: ${{ secrets.LOG_DB_CONN_STR }}
-      APP_DB_CONN_STR: ${{ secrets.APP_DB_CONN_STR }}
+  # call_deploy:
+  #   if: contains(github.event.head_commit.message, '[deploy]')
+  #   needs: build
+  #   uses: ./.github/workflows/deploy.yml
+  #   with:
+  #     version: ${{ needs.build.outputs.version }}
+  #     target: ${{ needs.build.outputs.app_env }}
+  #   secrets:
+  #     GH_PAT: ${{ secrets.GH_PAT }}
+  #     dyvenix_app1_SPN: ${{ secrets.dyvenix_app1_SPN }}
+  #     LOG_DB_CONN_STR: ${{ secrets.LOG_DB_CONN_STR }}
+  #     APP_DB_CONN_STR: ${{ secrets.APP_DB_CONN_STR }}
 

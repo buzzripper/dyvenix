@@ -15,6 +15,13 @@ on:
           - QA
           - Prod
 
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
+    branches:
+      - main
+
   workflow_call:
     inputs:
       version:
@@ -46,6 +53,7 @@ env:
 
 jobs:
   deploy:
+    if: contains(github.event.workflow_run.head_commit.message, '[deploy]')
     runs-on: ubuntu-latest
     environment: ${{ inputs.target || github.event.inputs.target }}
 
