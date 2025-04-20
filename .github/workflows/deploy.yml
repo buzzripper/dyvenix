@@ -47,7 +47,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ env.TARGET }}
+    environment: ${{ inputs.target || github.event.inputs.target }}
 
     steps:
       - name: Debug Inputs and Secrets
