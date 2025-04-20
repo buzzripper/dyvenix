@@ -34,9 +34,11 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     outputs:
       version: ${{ steps.set-version.outputs.version }}
       app_env: ${{ steps.set-version.outputs.app_env }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -105,13 +107,23 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
-  deploy:
-    if: contains(github.event.head_commit.message, '[deploy]')
+  # call_deploy:
+  #   if: contains(github.event.head_commit.message, '[deploy]')
+  #   needs: build
+    # uses: ./.github/workflows/deploy.yml
+    # with:
+    #   version: ${{ needs.build.outputs.version }}
+    #   target: ${{ needs.build.outputs.app_env }}
+    # secrets:
+    #   input_gh_pat: ${{ secrets.GH_PAT }}
+    #   input_spn: ${{ secrets.dyvenix_app1_SPN }}
+
+  call_deploy:
+    runs-on: ubuntu-latest
     needs: build
-    uses: ./.github/workflows/deploy.yml
-    with:
-      version: ${{ needs.build.outputs.version }}
-      target: ${{ needs.build.outputs.app_env }}
-    secrets:
-      input_gh_pat: ${{ secrets.GH_PAT }}
-      input_spn: ${{ secrets.dyvenix_app1_SPN }}
+    steps:
+      - name: Debug
+        run: |
+          echo "version=${{ needs.build.outputs.version }}"
+          echo "target=${{ needs.build.outputs.app_env }}"
+

@@ -52,7 +52,6 @@ jobs:
                 echo "SPN_VALUE=${{ secrets.input_spn }}" >> $GITHUB_ENV
             fi
 
-
       - name: Download Artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v4
