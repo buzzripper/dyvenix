@@ -59,6 +59,11 @@ jobs:
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "app_env=$APP_ENV" >> $GITHUB_OUTPUT
 
+      - name: Show step outputs
+        run: |
+          echo "Version: ${{ steps.set-version.outputs.version }}"
+          echo "App Env: ${{ steps.set-version.outputs.app_env }}"
+
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
