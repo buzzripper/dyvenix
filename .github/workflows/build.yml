@@ -74,15 +74,15 @@ jobs:
           pwd
           ls -al ./src
 
-      # - name: Publish
-      #   run: dotnet publish "${{ env.API_ROOT_DIR }}/App1.Server.csproj" --configuration ${{ env.CONFIGURATION }} --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -p:Version=${{ env.VERSION }}
+      - name: Publish
+        run: dotnet publish "${{ env.API_ROOT_DIR }}/App1.Server.csproj" --configuration ${{ env.CONFIGURATION }} --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -p:Version=${{ env.VERSION }}
 
-      # - name: Generate .env file
-      #   run: |
-      #     echo "APP_ENV=${{ github.event.inputs.environment || 'Dev' }}" > .env
-      #     echo "EV_AUTHCONFIG_DISABLED=${{ vars.EV_AUTHCONFIG_DISABLED }}" >> .env
-      #     echo "EV_AUTHCONFIG_ALLOWEDORIGINS=${{ vars.EV_AUTHCONFIG_ALLOWEDORIGINS }}" >> .env
-      #     cp .env ./${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/
+      - name: Generate .env file
+        run: |
+          echo "APP_ENV=${{ github.event.inputs.environment || 'Dev' }}" > .env
+          echo "EV_AUTHCONFIG_DISABLED=${{ vars.EV_AUTHCONFIG_DISABLED }}" >> .env
+          echo "EV_AUTHCONFIG_ALLOWEDORIGINS=${{ vars.EV_AUTHCONFIG_ALLOWEDORIGINS }}" >> .env
+          cp .env ./${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/
 
  ## Build Angular
 
@@ -128,15 +128,3 @@ jobs:
       dyvenix_app1_SPN: ${{ secrets.dyvenix_app1_SPN }}
       LOG_DB_CONN_STR: ${{ secrets.LOG_DB_CONN_STR }}
       APP_DB_CONN_STR: ${{ secrets.APP_DB_CONN_STR }}
-
-  # call_deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Debug
-  #       run: |
-  #         echo "version=${{ needs.build.outputs.version }}"
-  #         echo "target=${{ needs.build.outputs.app_env }}"
-  #         echo "input_gh_pat=${{ secrets.GH_PAT }}"
-  #         echo "input_spn=${{ secrets.dyvenix_app1_SPN }}"
-
