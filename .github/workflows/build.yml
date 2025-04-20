@@ -128,3 +128,4 @@ jobs:
       dyvenix_app1_SPN: ${{ secrets.dyvenix_app1_SPN }}
       LOG_DB_CONN_STR: ${{ secrets.LOG_DB_CONN_STR }}
       APP_DB_CONN_STR: ${{ secrets.APP_DB_CONN_STR }}
+
