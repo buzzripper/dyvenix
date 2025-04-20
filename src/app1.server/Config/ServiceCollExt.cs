@@ -73,7 +73,7 @@ public static partial class ServiceCollExt
 			
 			var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 			foreach (var description in provider.ApiVersionDescriptions) {
-				options.RoutePrefix = "";
+				options.RoutePrefix = "swagger";
 
 				logger.Info($"Swagger: description.GroupName = {description.GroupName}, description.ApiVersion = {description.ApiVersion}");
 
