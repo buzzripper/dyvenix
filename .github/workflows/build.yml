@@ -65,8 +65,8 @@ jobs:
           pwd
           ls -al ./src
 
-      - name: Publish
-        run: dotnet publish "${{ env.API_ROOT_DIR }}/App1.Server.csproj" --configuration ${{ env.CONFIGURATION }} --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -p:Version=${{ env.VERSION }}
+      # - name: Publish
+      #   run: dotnet publish "${{ env.API_ROOT_DIR }}/App1.Server.csproj" --configuration ${{ env.CONFIGURATION }} --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -p:Version=${{ env.VERSION }}
 
       - name: Generate .env file
         run: |
@@ -126,4 +126,6 @@ jobs:
         run: |
           echo "version=${{ needs.build.outputs.version }}"
           echo "target=${{ needs.build.outputs.app_env }}"
+          echo "input_gh_pat=${{ secrets.GH_PAT }}"
+          echo "target=${{ secrets.dyvenix_app1_SPN }}"
 
