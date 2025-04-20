@@ -15,11 +15,9 @@ on:
   workflow_call:
     inputs:
       version:
-        description: The version number of the artifact
         required: true
         type: string
       target:
-        description: The target env to deploy to
         required: true
         type: string
    
