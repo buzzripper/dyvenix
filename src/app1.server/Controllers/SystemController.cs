@@ -9,7 +9,7 @@ namespace Dyvenix.App1.Server.Controllers;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]
-[ApiVersion(1.0)]
+[ApiVersion("1.0")]
 public class SystemController : ApiControllerBase<SystemController>
 {
 	private readonly AppConfig _appConfig;

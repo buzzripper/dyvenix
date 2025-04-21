@@ -6,7 +6,11 @@ Scaffold-DbContext "Password=?#cbz84A#znn5gL3pap;User ID=dyvenix_admin;Initial C
 
 Add-Migration -Name Initial -Project app1.data
 
+// Local db
 Update-Database -Project app1.data -Connection "Password=?#cbz84A#znn5gL3pap;User ID=dyvenix_admin;Initial Catalog=dyvenix;Data Source=localhost;Encrypt=False;"
 
+// Local test db
 Update-Database -Project app1.data -Connection "Password=?#cbz84A#znn5gL3pap;User ID=dyvenix_admin;Initial Catalog=dyvenix_test;Data Source=localhost;Encrypt=False;"
 
+// Azure db
+Update-Database -Project app1.data -Connection "Password=dyv_pwd1;User ID=dyvenix_admin;Initial Catalog=dyvenix;Data Source=dyvenix.database.windows.net;Encrypt=False;"
