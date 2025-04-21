@@ -47,7 +47,7 @@ public static partial class ServiceCollExt
 		// Register Swagger
 		services.AddEndpointsApiExplorer();
 
-		var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+		//var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 
 		//var assyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 		//services.AddSwaggerGen(options => {
