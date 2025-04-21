@@ -58,19 +58,19 @@ app.UseRouting();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
 
-bool isAzure = Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID") != null;
-if (isAzure) {
-	Log.Logger.Debug($"Checking/running database migration(s)...");
-	try {
-		using (var scope = app.Services.CreateScope()) {
-			var db = scope.ServiceProvider.GetRequiredService<DbContextFactory>().CreateDbContext();
-			db.Database.Migrate();
-		}
-	} catch (Exception ex) {
-		Log.Logger.Error(ex, $"Error running database migration(s): {ex.Message}");
-		throw;
-	}
-}
+//bool isAzure = Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID") != null;
+//if (isAzure) {
+//	Log.Logger.Debug($"Checking/running database migration(s)...");
+//	try {
+//		using (var scope = app.Services.CreateScope()) {
+//			var db = scope.ServiceProvider.GetRequiredService<DbContextFactory>().CreateDbContext();
+//			db.Database.Migrate();
+//		}
+//	} catch (Exception ex) {
+//		Log.Logger.Error(ex, $"Error running database migration(s): {ex.Message}");
+//		throw;
+//	}
+//}
 
 Log.Logger.Debug("Starting application");
 app.Run();
