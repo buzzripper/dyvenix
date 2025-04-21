@@ -1,10 +1,12 @@
 using Asp.Versioning.ApiExplorer;
 using Dyvenix.App1.Data.Config;
+using Dyvenix.App1.Data.Contexts;
 using Dyvenix.App1.Server.Config;
 using Dyvenix.Auth.Core.Config;
 using Dyvenix.Logging.Config;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -56,7 +58,19 @@ app.UseRouting();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
 
-Log.Logger.Debug($"Application URLs: {Environment.GetEnvironmentVariable("ASPNETCORE_URLS")}");
+bool isAzure = Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID") != null;
+if (isAzure) {
+	Log.Logger.Debug($"Checking/running database migration(s)...");
+	try {
+		using (var scope = app.Services.CreateScope()) {
+			var db = scope.ServiceProvider.GetRequiredService<DbContextFactory>().CreateDbContext();
+			db.Database.Migrate();
+		}
+	} catch (Exception ex) {
+		Log.Logger.Error(ex, $"Error running database migration(s): {ex.Message}");
+		throw;
+	}
+}
 
 Log.Logger.Debug("Starting application");
 app.Run();
