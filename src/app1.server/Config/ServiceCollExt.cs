@@ -73,7 +73,8 @@ public static partial class ServiceCollExt
 		app.UseSwaggerUI(options => {
 			foreach (var description in provider.ApiVersionDescriptions) {
 				//options.RoutePrefix = "swagger";
-				options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"Dyvenix {description.ApiVersion}");
+				//options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"Dyvenix {description.ApiVersion}");
+				options.SwaggerEndpoint($"/swagger/v1/swagger.json", $"Dyvenix {description.ApiVersion}");
 			}
 		});
 	}
