@@ -119,8 +119,8 @@ jobs:
       - name: Update JSON Values with Secrets
         if: contains(github.event.head_commit.message, '[deploy]')
         run: |
-          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
-          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
+          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' ${{ env.API_ROOT_DIR }}/appsettings.json > tmp.json && mv tmp.json ${{ env.API_ROOT_DIR }}/appsettings.json
+          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' ${{ env.API_ROOT_DIR }}/appsettings.json > tmp.json && mv tmp.json ${{ env.API_ROOT_DIR }}/appsettings.json
 
       - name: Azure Login
         if: contains(github.event.head_commit.message, '[deploy]')
@@ -133,4 +133,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ./
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
