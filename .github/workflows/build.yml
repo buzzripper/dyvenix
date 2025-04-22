@@ -138,6 +138,7 @@ jobs:
       #     package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
   deploy:
+    needs: build
     if: contains(github.event.head_commit.message, '[deploy]')
     runs-on: ubuntu-latest
     steps:
