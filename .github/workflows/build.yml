@@ -155,7 +155,10 @@ jobs:
 
       - name: DEBUG - List root directory files
         working-directory: ./${{ env.ARTIFACT_NAME }}
-        run: ls -al
+        run: |
+          echo "ARTIFACT_NAME=${{ env.ARTIFACT_NAME }}"
+          echo "Current Directory: $(pwd)"
+          ls -al
 
       - name: Update appsettings.json Values with Secrets
         working-directory: ./${{ env.ARTIFACT_NAME }}
