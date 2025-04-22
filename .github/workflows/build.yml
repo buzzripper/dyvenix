@@ -154,8 +154,9 @@ jobs:
 
       - name: Update appsettings.json Values with Secrets
         run: |
-          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
-          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
+          FILE_PATH="${{ secrets.ARTIFACT_NAME }}/appsettings.json"
+          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' ${{ FILE_PATH }} > tmp.json && mv tmp.json ${{ FILE_PATH }}
+          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' ${{ FILE_PATH }} > tmp.json && mv tmp.json ${{ FILE_PATH }}
 
       - name: Azure Login
         uses: azure/login@v2
@@ -167,3 +168,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: ./
+
