@@ -61,6 +61,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{
 		design\model\templates\Services.tmpl = design\model\templates\Services.tmpl
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{84517534-58AF-487A-B006-D4CCE326DA51}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "b2c-auth-sample", "ref\b2c-auth-sample\b2c-auth-sample.esproj", "{BBD8B557-6C17-92BB-A8C2-4FB0CD52B811}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +111,12 @@ Global
 		{7D326C1E-ADE2-79E8-0CC4-254913D9EC60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D326C1E-ADE2-79E8-0CC4-254913D9EC60}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7D326C1E-ADE2-79E8-0CC4-254913D9EC60}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BBD8B557-6C17-92BB-A8C2-4FB0CD52B811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBD8B557-6C17-92BB-A8C2-4FB0CD52B811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBD8B557-6C17-92BB-A8C2-4FB0CD52B811}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BBD8B557-6C17-92BB-A8C2-4FB0CD52B811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBD8B557-6C17-92BB-A8C2-4FB0CD52B811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBD8B557-6C17-92BB-A8C2-4FB0CD52B811}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +127,7 @@ Global
 		{3700A3C1-6AAF-A4AA-A3BD-3000DB827566} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{0C93E3C3-A84E-45B0-8C96-C8210726F561} = {80F1F17B-3C0E-468D-9AE0-B1DE1F746AD3}
 		{30699543-75C1-4BCA-A57F-EAF22BB61713} = {0C93E3C3-A84E-45B0-8C96-C8210726F561}
+		{BBD8B557-6C17-92BB-A8C2-4FB0CD52B811} = {84517534-58AF-487A-B006-D4CCE326DA51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {969DA4CE-DF2C-44BA-8518-E7E87DBE6ED7}
