@@ -116,22 +116,53 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
-      - name: Update JSON Values with Secrets
-        if: contains(github.event.head_commit.message, '[deploy]')
+
+
+      # - name: Update JSON Values with Secrets
+      #   if: contains(github.event.head_commit.message, '[deploy]')
+      #   run: |
+      #     jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' ${{ env.API_ROOT_DIR }}/appsettings.json > tmp.json && mv tmp.json ${{ env.API_ROOT_DIR }}/appsettings.json
+      #     jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' ${{ env.API_ROOT_DIR }}/appsettings.json > tmp.json && mv tmp.json ${{ env.API_ROOT_DIR }}/appsettings.json
+
+      # - name: Azure Login
+      #   if: contains(github.event.head_commit.message, '[deploy]')
+      #   uses: azure/login@v2
+      #   with:
+      #     creds: ${{ secrets.dyvenix_app1_SPN }}
+
+      # - name: Deploy to Azure WebApp
+      #   if: contains(github.event.head_commit.message, '[deploy]')
+      #   uses: azure/webapps-deploy@v2
+      #   with:
+      #     app-name: ${{ env.AZURE_WEBAPP_NAME }}
+      #     package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+  deploy:
+    if: contains(github.event.head_commit.message, '[deploy]')
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ./
+
+      - name: DEBUG - List root directory files
+        run: ls -al
+
+      - name: Update appsettings.json Values with Secrets
         run: |
-          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' ${{ env.API_ROOT_DIR }}/appsettings.json > tmp.json && mv tmp.json ${{ env.API_ROOT_DIR }}/appsettings.json
-          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' ${{ env.API_ROOT_DIR }}/appsettings.json > tmp.json && mv tmp.json ${{ env.API_ROOT_DIR }}/appsettings.json
+          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
+          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
 
       - name: Azure Login
-        if: contains(github.event.head_commit.message, '[deploy]')
         uses: azure/login@v2
         with:
           creds: ${{ secrets.dyvenix_app1_SPN }}
 
       - name: Deploy to Azure WebApp
-        if: contains(github.event.head_commit.message, '[deploy]')
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-
+          package: ./
