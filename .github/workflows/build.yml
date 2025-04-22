@@ -36,8 +36,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      version: ${{ steps.set-version.outputs.version }}
-      app_env: ${{ steps.set-version.outputs.app_env }}
+      artifact_name: ${{ steps.set-version.outputs.artifact_name }}
 
     steps:
       - name: Checkout
