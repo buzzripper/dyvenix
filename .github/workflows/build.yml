@@ -150,12 +150,14 @@ jobs:
           path: ./
 
       - name: DEBUG - List root directory files
-        run: ls -al
+        run: ls -al ./${{ secrets.ARTIFACT_NAME }}
 
       - name: Update appsettings.json Values with Secrets
         run: |
-          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' ${{ secrets.ARTIFACT_NAME }}/appsettings.json > tmp.json && mv tmp.json ${{ secrets.ARTIFACT_NAME }}/appsettings.json
-          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' ${{ secrets.ARTIFACT_NAME }}/appsettings.json > tmp.json && mv tmp.json ${{ secrets.ARTIFACT_NAME }}/appsettings.json
+          working-directory: ./${{ secrets.ARTIFACT_NAME }}
+          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
+          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
+          rm tmp.json
 
       - name: Azure Login
         uses: azure/login@v2
