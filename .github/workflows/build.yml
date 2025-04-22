@@ -150,11 +150,12 @@ jobs:
           path: ./
 
       - name: DEBUG - List root directory files
-        run: ls -al ./${{ secrets.ARTIFACT_NAME }}
+        working-directory: ./${{ secrets.ARTIFACT_NAME }}
+        run: ls -al
 
       - name: Update appsettings.json Values with Secrets
+        working-directory: ./${{ secrets.ARTIFACT_NAME }}
         run: |
-          working-directory: ./${{ secrets.ARTIFACT_NAME }}
           jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
           jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
           rm tmp.json
