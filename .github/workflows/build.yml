@@ -145,8 +145,9 @@ jobs:
       - name: Set Vars
         id: set-vars
         run: |
-          echo "ARTIFACT_NAME=${{ needs.build.outputs.artifact_name }}" >> $GITHUB_ENV
-          echo '${{ needs.build.outputs.artifact_name }}'
+          echo "ARTIFACT_NAME = ${{ needs.build.outputs.artifact_name }}" >> $GITHUB_ENV
+          echo 'ARTIFACT_NAME = ${{ needs.build.outputs.artifact_name }}'
+          echo "Env = ${{ inputs.environment }}"
 
       - name: Download artifact
         uses: actions/download-artifact@v4
