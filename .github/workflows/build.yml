@@ -137,12 +137,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}
-          path: ./
+          path: .
+          merge-multiple: true
 
       - name: DEBUG - List root directory files
         run: |
           echo "Current Directory: $(pwd)"
-          ls -al
+          ls -al ./${{ env.ARTIFACT_NAME }}
 
       - name: Update appsettings.json Values with Secrets
         run: |
