@@ -22,23 +22,23 @@ on:
   #   branches:
   #     - main
 
-  workflow_call:
-    inputs:
-      version:
-        required: true
-        type: string
-      target:
-        required: true
-        type: string
-    secrets:
-      GH_PAT:
-        required: true
-      dyvenix_app1_SPN:
-        required: true
-      LOG_DB_CONN_STR:
-        required: true
-      APP_DB_CONN_STR:
-        required: true
+  # workflow_call:
+  #   inputs:
+  #     version:
+  #       required: true
+  #       type: string
+  #     target:
+  #       required: true
+  #       type: string
+  #   secrets:
+  #     GH_PAT:
+  #       required: true
+  #     dyvenix_app1_SPN:
+  #       required: true
+  #     LOG_DB_CONN_STR:
+  #       required: true
+  #     APP_DB_CONN_STR:
+  #       required: true
 
 run-name: Deploy (${{ github.ref_name }}) ${{ inputs.version || github.event.inputs.version || '[dev]' }}
 
