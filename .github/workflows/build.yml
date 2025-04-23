@@ -69,6 +69,7 @@ jobs:
       - name: Show contents of repository root
         run: |
           pwd
+
           ls -al ./src
 
       - name: Publish
@@ -143,7 +144,7 @@ jobs:
       - name: Set Vars
         id: set-vars
         run: |
-          echo "ARTIFACT_NAME=${{ needs.build.outputs.artifact_name }}" >> $env:GITHUB_ENV
+          echo "ARTIFACT_NAME=${{ needs.build.outputs.artifact_name }}" >> GITHUB_ENV
           echo '${{ needs.build.outputs.artifact_name }}'
 
       - name: Download artifact
