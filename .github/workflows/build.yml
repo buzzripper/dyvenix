@@ -30,6 +30,7 @@ env:
   VER_MAJOR: "1"
   VER_MINOR: "0"
   VER_PATCH: "0"
+  APP_ENV: ${{ github.event.inputs.environment != '' && github.event.inputs.environment || 'Dev' }}
 
 jobs:
 
@@ -49,11 +50,11 @@ jobs:
           VERSION="${{ env.VER_MAJOR }}.${{ env.VER_MINOR }}.${{ env.VER_PATCH }}.${{ github.run_number }}"
           SHORT_VERSION="${{ env.VER_MAJOR }}.${{ env.VER_MINOR }}.${{ env.VER_PATCH }}"
           ARTIFACT_NAME="Dyvenix_AppServer_${VERSION}"
-          APP_ENV="${{ github.event.inputs.environment }}"
-          if [ -z "$APP_ENV" ]; then
-            APP_ENV="Dev"
-          fi
-          echo "APP_ENV=${APP_ENV}" >> $GITHUB_ENV
+          # APP_ENV="${{ github.event.inputs.environment }}"
+          # if [ -z "$APP_ENV" ]; then
+          #   APP_ENV="Dev"
+          # fi
+          # echo "APP_ENV=${APP_ENV}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "SHORT_VERSION=${SHORT_VERSION}" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
@@ -141,7 +142,7 @@ jobs:
   deploy:
     needs: build
     if: contains(github.event.head_commit.message, '[deploy]')
-    environment: ${{ github.event.inputs.environment || 'Dev' }}
+    environment: ${{ env.APP_ENV }}
     runs-on: ubuntu-latest
     steps:
 
@@ -149,8 +150,7 @@ jobs:
         id: set-vars
         run: |
           echo "ARTIFACT_NAME = ${{ needs.build.outputs.artifact_name }}" >> $GITHUB_ENV
-          echo 'ARTIFACT_NAME = ${{ needs.build.outputs.artifact_name }}'
-          echo "Env = ${{ inputs.environment }}"
+          echo 'APP_ENV = ${{ env.APP_ENV }}'
 
       # - name: Download artifact
       #   uses: actions/download-artifact@v4
