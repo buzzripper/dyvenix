@@ -160,8 +160,10 @@ jobs:
 
       - name: Update appsettings.json Values with Secrets
         run: |
+          echo "DBCONNSTR=${{ secrets.LOG_DB_CONN_STR }}"
           jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
           jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
+          cat appsettings.json
 
       - name: Azure Login
         uses: azure/login@v2
