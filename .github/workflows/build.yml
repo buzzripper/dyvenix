@@ -144,18 +144,10 @@ jobs:
           echo "Current Directory: $(pwd)"
           ls -al
 
-      - name: Move artifact contents into root
-        run: mv ${{ env.ARTIFACT_NAME }}/* ./ && rmdir ${{ env.ARTIFACT_NAME }}
-
-      - name: DEBUG - List root directory files
-        run: |
-          echo "Current Directory: $(pwd)"
-          ls -al
-
       - name: Update appsettings.json Values with Secrets
         run: |
-          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
-          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' appsettings.json > tmp.json && mv tmp.json appsettings.json
+          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' ${{ env.ARTIFACT_NAME }}\appsettings.json > tmp.json && mv tmp.json ${{ env.ARTIFACT_NAME }}\appsettings.json
+          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' ${{ env.ARTIFACT_NAME }}\appsettings.json > tmp.json && mv tmp.json ${{ env.ARTIFACT_NAME }}\appsettings.json
           cat appsettings.json
 
       - name: Azure Login
@@ -167,5 +159,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ./
+          package: ./${{ env.ARTIFACT_NAME }}
 
