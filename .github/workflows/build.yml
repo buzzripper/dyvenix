@@ -154,7 +154,7 @@ jobs:
           path: ./
 
       - name: DEBUG - List root directory files
-        working-directory: ./${{ env.ARTIFACT_NAME }}
+        #working-directory: ./${{ env.ARTIFACT_NAME }}
         run: |
           echo "ARTIFACT_NAME=${{ env.ARTIFACT_NAME }}"
           echo "Current Directory: $(pwd)"
