@@ -142,7 +142,7 @@ jobs:
   deploy:
     needs: build
     if: contains(github.event.head_commit.message, '[deploy]')
-    environment: ${{ env.APP_ENV }}
+    environment: ${{ github.event.inputs.environment != '' && github.event.inputs.environment || 'Dev' }}
     runs-on: ubuntu-latest
     steps:
 
@@ -150,7 +150,8 @@ jobs:
         id: set-vars
         run: |
           echo "ARTIFACT_NAME = ${{ needs.build.outputs.artifact_name }}" >> $GITHUB_ENV
-          echo 'APP_ENV = ${{ env.APP_ENV }}'
+          echo "secrets.APP_DB_CONN_STR = ${{ secrets.APP_DB_CONN_STR }}"
+          # echo 'APP_ENV = ${{ env.APP_ENV }}'
 
       # - name: Download artifact
       #   uses: actions/download-artifact@v4
