@@ -49,10 +49,11 @@ jobs:
           VERSION="${{ env.VER_MAJOR }}.${{ env.VER_MINOR }}.${{ env.VER_PATCH }}.${{ github.run_number }}"
           SHORT_VERSION="${{ env.VER_MAJOR }}.${{ env.VER_MINOR }}.${{ env.VER_PATCH }}"
           ARTIFACT_NAME="Dyvenix_AppServer_${VERSION}"
-          APP_ENV="${{ github.event.inputs.environment || 'Dev' }} "
+          APP_ENV="${{ github.event.inputs.environment }} "
           if [ -z "$APP_ENV" ]; then
             APP_ENV="Dev"
           fi
+          echo "APP_ENV=${APP_ENV}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "SHORT_VERSION=${SHORT_VERSION}" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
@@ -61,6 +62,7 @@ jobs:
       - name: DEBUG - show vars
         run: |
           echo "APP_ENV = ${{ env.APP_ENV }}"
+          echo "github.event.inputs.environment = ${{ github.event.inputs.environment }}"
           echo "steps.set-version.outputs.artifact_name = ${{ steps.set-version.outputs.artifact_name }}"
 
       # - name: Setup .NET SDK
