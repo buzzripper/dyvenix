@@ -28,11 +28,4 @@ public class AuthController : Controller
             OpenIdConnectDefaults.AuthenticationScheme,
             CookieAuthenticationDefaults.AuthenticationScheme);
     }
-
-    [HttpGet("ping")]
-    public IActionResult Ping()
-    {
-        Console.WriteLine("PING HIT");
-        return Ok("pong");
-    }
 }
