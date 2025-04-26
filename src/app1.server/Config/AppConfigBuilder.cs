@@ -1,5 +1,4 @@
-﻿using Dyvenix.Core.Models;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System;
 
 namespace Dyvenix.App1.Server.Config;
@@ -10,13 +9,9 @@ public static class AppConfigBuilder
 
 	public static AppConfig Build(IConfiguration configuration)
 	{
-		var appConfig = configuration.GetSection(DyvenixConst.RootConfigSectionName).Get<AppConfig>();
+		var appConfig = configuration.GetSection(cConfigSectionName).Get<AppConfig>();
 		if (appConfig == null)
 			throw new ApplicationException($"Unable to retrieve {cConfigSectionName} section from appsettings.json file.");
-
-		// Replace config values with env variables if running on a server
-		//if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(DyvenixConst.EV_ENVNAME)))
-		//	appConfig.ProcessEnvironmentVars();
 
 		return appConfig;
 	}

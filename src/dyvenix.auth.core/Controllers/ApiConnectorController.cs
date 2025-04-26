@@ -4,6 +4,7 @@ using Dyvenix.Auth.Core.Models;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using System;
 using System.IO;
 using System.Text.Json;
@@ -17,6 +18,7 @@ namespace Dyvenix.Auth.Core.Controllers;
 public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 {
 	private readonly AuthConfig _authConfig;
+
 	public ApiConnectorController(IDyvenixLogger<ApiConnectorController> logger, AuthConfig authConfig) : base(logger)
 	{
 		_authConfig = authConfig;

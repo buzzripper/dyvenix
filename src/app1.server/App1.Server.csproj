@@ -6,6 +6,7 @@
 		<ImplicitUsings>disable</ImplicitUsings>
 		<RootNamespace>Dyvenix.App1.Server</RootNamespace>
 		<AssemblyName>Dyvenix.App1.Server</AssemblyName>
+		<UserSecretsId>f842c70e-8d7b-4d7f-967f-1e456cc18f4f</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>

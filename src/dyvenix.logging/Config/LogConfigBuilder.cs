@@ -14,9 +14,14 @@ namespace Dyvenix.Logging.Config
 	public class LogConfigBuilder
 	{
 		private const string cOutputTemplate = "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff}][{LogLevel}] {Message:lj}[{Source}]{NewLine}{Exception}";
+		private const string	 cConfigSectionName = "LogConfig";
 
-		public LoggerConfiguration Build(LogConfig logConfig)
+		public LoggerConfiguration Build(IConfiguration configuration)
 		{
+			var logConfig = configuration.GetSection(cConfigSectionName).Get<LogConfig>();
+			if (logConfig == null)
+				throw new ApplicationException($"Unable to retrieve {cConfigSectionName} section from appsettings.json file.");
+
 			// Replace config values with env variables if running on a server
 			//logConfig.ProcessEnvironmentVars();
 
@@ -73,7 +78,7 @@ namespace Dyvenix.Logging.Config
 
 				} catch (Exception ex) {
 					Debug.Print($"{ex.GetType().Name} attempting to create self log file: {ex.Message}");
-				}				
+				}
 			}
 
 			return loggerConfiguration;

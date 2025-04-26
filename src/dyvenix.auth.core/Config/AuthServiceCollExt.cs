@@ -1,37 +1,28 @@
-﻿using Dyvenix.Auth.Core.Services;
-using Dyvenix.Auth.Core.SvcClients;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
-using System;
-using System.Threading.Tasks;
+using Serilog;
+using Dyvenix.Auth.Core.Services;
 
 namespace Dyvenix.Auth.Core.Config;
 
 public static class AuthServiceCollExt
 {
-	public static void AddDyvenixAuthServices(this IServiceCollection services, WebApplicationBuilder builder, AuthConfig authConfig)
+	public static void AddDyvenixAuthServices(this IServiceCollection services, WebApplicationBuilder builder, string uiRootUrl, ILogger logger)
 	{
+		var authConfig = AuthConfigBuilder.Build(builder.Configuration);
+
 		// BFF
 
 		services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-			.AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("ApplicationConfig:AuthConfig:AzureAdB2C"))
+			.AddMicrosoftIdentityWebApp(builder.Configuration.GetSection($"AuthConfig:AzureAdB2C"))
 			.EnableTokenAcquisitionToCallDownstreamApi()
 			.AddInMemoryTokenCaches();
-
-		//builder.Services.AddAuthorization(options => {
-		//	options.FallbackPolicy = options.DefaultPolicy;
-		//});
-
-		//builder.Services.AddAuthorization(options => {
-		//	options.FallbackPolicy = new AuthorizationPolicyBuilder()
-		//		.RequireAuthenticatedUser()
-		//		.Build();
-		//});
 
 		builder.Services.AddAuthorization();
 
@@ -45,19 +36,19 @@ public static class AuthServiceCollExt
 			OpenIdConnectDefaults.AuthenticationScheme,
 			options => {
 				options.Events.OnRemoteFailure = context => {
-					Console.WriteLine($"OIDC ERROR: {context.Failure}");
-
-					context.Response.Redirect("/pages/error/500");
+					logger.Error($"OIDC error: {context.Failure}");
+					context.Response.Redirect($"{uiRootUrl}/pages/error/500");
 					context.HandleResponse(); // Prevent the default redirect
 					return Task.CompletedTask;
 				};
+
 				options.Events.OnAuthenticationFailed = context => {
-					Console.WriteLine($"AUTH ERROR: {context.Exception.Message}");
+					logger.Error($"AUTH ERROR: {context.Exception.Message}");
 					return Task.CompletedTask;
 				};
 
 				options.Events.OnTokenValidated = context => {
-					Console.WriteLine("Token validated for: " + context.Principal.Identity.Name);
+					logger.Error("Token validated for: " + context.Principal.Identity.Name);
 					return Task.CompletedTask;
 				};
 			}
@@ -66,11 +57,8 @@ public static class AuthServiceCollExt
 		// Registrations 
 
 		services.AddSingleton(authConfig);
-		//services.AddSingleton(authConfig.B2CConfig);
 		services.AddDistributedMemoryCache();
 		services.AddScoped<IAuthSessionService, AuthSessionService>();
-		//services.AddScoped<IB2CSvcClient, B2CSvcClient>();
-		//services.AddScoped<IAuthorizationService, AuthorizationService>();
 	}
 
 	public static IApplicationBuilder UseDyvenixAuth(this IApplicationBuilder app, AuthConfig authConfig)

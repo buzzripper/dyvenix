@@ -8,10 +8,4 @@ public class AuthConfig
 	public bool Enabled { get; set; }
 	public string AllowedOrigins { get; set; }
 	public B2CConfig AzureAdB2C { get; set; }
-
-	//public void ProcessEnvironmentVars()
-	//{
-	//	Enabled = ConfigUtils.Replace(cEV_Enabled, Enabled);
-	//	AllowedOrigins = ConfigUtils.Replace(cEV_AllowedOrigins, AllowedOrigins);
-	//}
 }

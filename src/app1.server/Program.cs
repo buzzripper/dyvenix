@@ -1,23 +1,13 @@
-using Asp.Versioning.ApiExplorer;
 using Dyvenix.App1.Data.Config;
-using Dyvenix.App1.Data.Contexts;
 using Dyvenix.App1.Server.Config;
 using Dyvenix.Auth.Core.Config;
 using Dyvenix.Logging.Config;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using System;
 using System.Text.Json.Serialization;
-
-//const string cRootConfigSectionName = "ApplicationConfig";
-
-// Load environment variables from .env file and get the current app environment
-//Env.Load();
-//var appEnv = GetAppEnv();
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration
@@ -25,13 +15,15 @@ builder.Configuration
 //.AddJsonFile($"appsettings.{appEnv}.json", optional: true);
 
 var appConfig = AppConfigBuilder.Build(builder.Configuration);
+var authConfig = AuthConfigBuilder.Build(builder.Configuration);
+var dataConfig = DataConfigBuilder.Build(builder.Configuration);
 
-Log.Logger = new LogConfigBuilder().Build(appConfig.LogConfig).CreateLogger();
+Log.Logger = new LogConfigBuilder().Build(builder.Configuration).CreateLogger();
 builder.Services.AddDyvenixLoggingServices(builder.Configuration);
 
 builder.Services.AddAppServices(appConfig);
-builder.Services.AddDyvenixAuthServices(builder, appConfig.AuthConfig);
-builder.Services.AddDyvenixDataServices(appConfig.DataConfig);
+builder.Services.AddDyvenixAuthServices(builder, appConfig.UIRootUrl, Log.Logger);
+builder.Services.AddDyvenixDataServices(dataConfig);
 
 builder.Services.AddControllers()
 	.AddJsonOptions(options => {
@@ -39,7 +31,7 @@ builder.Services.AddControllers()
 	});
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerServices(appConfig.AuthConfig.Enabled);
+builder.Services.AddSwaggerServices(authConfig.Enabled);
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
@@ -75,7 +67,6 @@ app.UseMiddleware<CorrelationIdMiddleware>();
 Log.Logger.Debug("Starting application");
 app.Run();
 Log.Logger.Debug("Application stopped.");
-
 
 // This is needed by integration tests using WebApplicationFactory
 public partial class Program { }
