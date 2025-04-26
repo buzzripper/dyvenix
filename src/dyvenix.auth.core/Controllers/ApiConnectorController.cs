@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using System;
 using System.IO;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -44,6 +45,13 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 				_logger.Warn("Input data (RequestConnector) is empty.");
 				return BadRequest(new AddClaimsResponse("ShowBlockPage", "There was a problem with your request."));
 			}
+
+			var sb = new StringBuilder();
+			sb.AppendLine($"requestConnector.DisplayName = {requestConnector.DisplayName}");
+			sb.AppendLine($"requestConnector.GivenName = {requestConnector.GivenName}");
+			sb.AppendLine($"requestConnector.Surname = {requestConnector.Surname}");
+			sb.AppendLine($"requestConnector.Email = {requestConnector.Email}");
+			_logger.Info(sb.ToString());
 
 			string clientId = _authConfig.AzureAdB2C.ClientId;
 			if (!clientId.Equals(requestConnector.ClientId)) {
