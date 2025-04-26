@@ -70,8 +70,7 @@
                                     "maximumError": "90kb"
                                 }
                             ],
-                            "outputHashing": "all",
-                            "outputPath": "dist"
+                            "outputHashing": "all"
                         },
                         "development": {
                             "optimization": false,
