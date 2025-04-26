@@ -20,13 +20,13 @@ public class AuthSessionController : ApiControllerBase<ApiConnectorController>
 		_authSessionService = authSessionService;
 	}
 
-	[HttpPost, Route("[action]")]
-	public async Task<ActionResult<ControllerResponseBase<StartSessionResponse>>> StartSession([FromBody] StartSessionRequest startSessionRequest)
-	{
-		_logger.Info("Starting StartSession()...");
+	//[HttpPost, Route("[action]")]
+	//public async Task<ActionResult<ControllerResponseBase<StartSessionResponse>>> StartSession([FromBody] StartSessionRequest startSessionRequest)
+	//{
+	//	_logger.Info("Starting StartSession()...");
 
-		var response = await _authSessionService.StartSession(startSessionRequest.AuthCode, startSessionRequest.CodeVerifier);
+	//	var response = await _authSessionService.StartSession(startSessionRequest.AuthCode, startSessionRequest.CodeVerifier);
 
-		return Ok(response);
-	}
+	//	return Ok(response);
+	//}
 }

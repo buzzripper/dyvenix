@@ -20,7 +20,7 @@
                         "outputPath": "dist/fuse",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
-                        "polyfills": ["zone.js"],
+                        "polyfills": [ "zone.js" ],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "allowedCommonJsDependencies": [
@@ -42,7 +42,7 @@
                             }
                         ],
                         "stylePreprocessorOptions": {
-                            "includePaths": ["src/@fuse/styles"]
+                            "includePaths": [ "src/@fuse/styles" ]
                         },
                         "styles": [
                             "src/styles/splash-screen.css",
@@ -71,7 +71,7 @@
                                 }
                             ],
                             "outputHashing": "all",
-							"outputPath": "dist",
+                            "outputPath": "dist"
                         },
                         "development": {
                             "optimization": false,
@@ -79,7 +79,7 @@
                             "sourceMap": true
                         }
                     },
-                    "defaultConfiguration": "production"
+                    "defaultConfiguration": "development"
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
@@ -91,7 +91,10 @@
                             "buildTarget": "fuse:build:development"
                         }
                     },
-                    "defaultConfiguration": "development"
+                    "defaultConfiguration": "development",
+                    "options": {
+                        "proxyConfig": "proxy.conf.json"
+                    }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n"

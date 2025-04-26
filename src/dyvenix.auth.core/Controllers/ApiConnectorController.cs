@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using Dyvenix.Auth.Core.Config;
 using Dyvenix.Auth.Core.Models;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Http;
@@ -15,8 +16,10 @@ namespace Dyvenix.Auth.Core.Controllers;
 [Route("api/v{version:apiVersion}/auth/[controller]")]
 public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 {
-	public ApiConnectorController(IDyvenixLogger<ApiConnectorController> logger) : base(logger)
+	private readonly AuthConfig _authConfig;
+	public ApiConnectorController(IDyvenixLogger<ApiConnectorController> logger, AuthConfig authConfig) : base(logger)
 	{
+		_authConfig = authConfig;
 	}
 
 	[HttpPost, Route("[action]")]
@@ -40,7 +43,7 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 				return BadRequest(new AddClaimsResponse("ShowBlockPage", "There was a problem with your request."));
 			}
 
-			string clientId = "f23aee71-9ccb-49ef-9d7d-f3c4f12c7177";
+			string clientId = _authConfig.AzureAdB2C.ClientId;
 			if (!clientId.Equals(requestConnector.ClientId)) {
 				_logger.Warn($"HTTP clientId is not authorized. Received: {requestConnector.ClientId}  Expected:{clientId}");
 				return Unauthorized();

@@ -30,7 +30,7 @@ Log.Logger = new LogConfigBuilder().Build(appConfig.LogConfig).CreateLogger();
 builder.Services.AddDyvenixLoggingServices(builder.Configuration);
 
 builder.Services.AddAppServices(appConfig);
-builder.Services.AddDyvenixAuthServices(appConfig.AuthConfig);
+builder.Services.AddDyvenixAuthServices(builder, appConfig.AuthConfig);
 builder.Services.AddDyvenixDataServices(appConfig.DataConfig);
 
 builder.Services.AddControllers()

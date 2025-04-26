@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dyvenix.Auth.Core.Config
 {
@@ -6,16 +8,22 @@ namespace Dyvenix.Auth.Core.Config
 	{
 		public string Instance { get; set; }
 		public string ClientId { get; set; }
-		public string TenantName { get; set; }
 		public string Domain { get; set; }
+		public string SignedOutCallbackPath { get; set; }
 		public string SignUpSignInPolicyId { get; set; }
-		public string RedirectUri { get; set; }
-		public List<string> Scopes { get; set; }
+		public string ResetPasswordPolicyId { get; set; }
+		public string EditProfilePolicyId { get; set; }
+		public string CallbackPath { get; set; }
+		public string Scopes { get; set; }
 
-		public string ScopesString
+		private List<string> _scopesList;
+		public List<string> ScopesList
 		{
 			get {
-				return string.Join(" ", Scopes);
+				if (_scopesList == null) {
+					_scopesList = Scopes?.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList();
+				}
+				return _scopesList;
 			}
 		}
 	}
