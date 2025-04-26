@@ -145,11 +145,11 @@ jobs:
           echo "Current Directory: $(pwd)"
           ls -al ./${{ env.ARTIFACT_NAME }}
 
-      - name: Update appsettings.json Values with Secrets
+      - name: Update JSON Values with Secrets
         run: |
-          jq '.ApplicationConfig.LogConfig.DbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' ${{ env.ARTIFACT_NAME }}\appsettings.json > tmp.json && mv tmp.json ${{ env.ARTIFACT_NAME }}\appsettings.json
-          jq '.ApplicationConfig.DataConfig.ConnectionString = "${{ secrets.APP_DB_CONN_STR }}"' ${{ env.ARTIFACT_NAME }}\appsettings.json > tmp.json && mv tmp.json ${{ env.ARTIFACT_NAME }}\appsettings.json
-          cat appsettings.json
+          jq ".AuthConfig.AzureAdB2C.ClientSecret = \"${{ secrets.APP1_CLIENT_ID }}\" |
+              .LogConfig.DbConnectionString = \"${{ secrets.LOG_DB_CONN_STR }}\" |
+              .DataConfig.ConnectionString = \"${{ secrets.APP_DB_CONN_STR }}\"" appsettings.json > tmp.json && mv tmp.json appsettings.json
 
       - name: Azure Login
         uses: azure/login@v2
