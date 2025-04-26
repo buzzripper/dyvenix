@@ -47,11 +47,11 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 			}
 
 			var sb = new StringBuilder();
-			sb.AppendLine($"requestConnector.DisplayName = {requestConnector.DisplayName}");
-			sb.AppendLine($"requestConnector.GivenName = {requestConnector.GivenName}");
-			sb.AppendLine($"requestConnector.Surname = {requestConnector.Surname}");
-			sb.AppendLine($"requestConnector.Email = {requestConnector.Email}");
-			_logger.Info(sb.ToString());
+			sb.Append($"requestConnector.DisplayName={requestConnector.DisplayName}, ");
+			sb.Append($"requestConnector.GivenName={requestConnector.GivenName}, ");
+			sb.Append($"requestConnector.Surname={requestConnector.Surname}, ");
+			sb.Append($"requestConnector.Email={requestConnector.Email}");
+			_logger.Debug(sb.ToString());
 
 			string clientId = _authConfig.AzureAdB2C.ClientId;
 			if (!clientId.Equals(requestConnector.ClientId)) {
@@ -59,11 +59,11 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 				return Unauthorized();
 			}
 
-			// If email claim not found, show block page. Email is required and sent by default.
-			if (string.IsNullOrWhiteSpace(requestConnector.Email) || requestConnector.Email.Contains("@") == false) {
-				_logger.Warn($"No email claim found ({requestConnector?.Email})");
-				return BadRequest(new AddClaimsResponse("ShowBlockPage", "Email name is mandatory."));
-			}
+			//// If email claim not found, show block page. Email is required and sent by default.
+			//if (string.IsNullOrWhiteSpace(requestConnector.Email) || requestConnector.Email.Contains("@") == false) {
+			//	_logger.Warn($"No email claim found ({requestConnector?.Email})");
+			//	return BadRequest(new AddClaimsResponse("ShowBlockPage", "Email name is mandatory."));
+			//}
 
 			var result = new AddClaimsResponse {
 				// use the objectId of the email to get the user specfic claims
