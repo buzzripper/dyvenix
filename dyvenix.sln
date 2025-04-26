@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{4E7A
 	ProjectSection(SolutionItems) = preProject
 		scripts\Create_LogEvents_Table.sql = scripts\Create_LogEvents_Table.sql
 		scripts\EF Commands.txt = scripts\EF Commands.txt
-		scripts\RunNodeSvr.bat = scripts\RunNodeSvr.bat
+		scripts\RunNode.bat = scripts\RunNode.bat
 		scripts\Working.sql = scripts\Working.sql
 	EndProjectSection
 EndProject

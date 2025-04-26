@@ -6,6 +6,7 @@ using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json.Serialization;
 
@@ -13,6 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration
 	.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 //.AddJsonFile($"appsettings.{appEnv}.json", optional: true);
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
 
 var appConfig = AppConfigBuilder.Build(builder.Configuration);
 var authConfig = AuthConfigBuilder.Build(builder.Configuration);
