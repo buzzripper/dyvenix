@@ -2,7 +2,7 @@
 using Asp.Versioning;
 using Dyvenix.App1.Server.Auth;
 using Dyvenix.App1.Server.Services;
-using Dyvenix.Auth.Core.Services;
+using Dyvenix.Auth.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;

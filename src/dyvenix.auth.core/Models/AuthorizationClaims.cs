@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dyvenix.Auth.Core.Models
+namespace Dyvenix.Auth.Models
 {
 	public class AuthorizationClaims : Dictionary<string, string>
 	{
@@ -9,8 +9,8 @@ namespace Dyvenix.Auth.Core.Models
 
 		public AuthorizationClaims(string appId, string identityId) : base()
 		{
-			this.AppId = appId;
-			this.IdentityId = identityId;
+			AppId = appId;
+			IdentityId = identityId;
 		}
 
 		public string AppId { get; set; }

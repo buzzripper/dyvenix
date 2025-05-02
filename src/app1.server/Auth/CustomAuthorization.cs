@@ -1,4 +1,4 @@
-﻿using Dyvenix.Auth.Core.Config;
+﻿using Dyvenix.Auth.Config;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 

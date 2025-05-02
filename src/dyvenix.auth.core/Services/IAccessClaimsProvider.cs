@@ -1,7 +1,7 @@
-﻿using Dyvenix.Auth.Core.Models;
+﻿using Dyvenix.Auth.Models;
 using System.Threading.Tasks;
 
-namespace Dyvenix.Auth.Core.Services;
+namespace Dyvenix.Auth.Services;
 
 public interface IAccessClaimsProvider
 {

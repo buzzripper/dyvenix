@@ -1,6 +1,6 @@
 ﻿using Dyvenix.App1.Server.Models;
-using Dyvenix.Auth.Core.Models;
-using Dyvenix.Auth.Core.Services;
+using Dyvenix.Auth.Models;
+using Dyvenix.Auth.Services;
 using System.Threading.Tasks;
 
 namespace Dyvenix.App1.Server.Auth;

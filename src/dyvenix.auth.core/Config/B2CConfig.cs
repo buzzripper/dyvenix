@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dyvenix.Auth.Core.Config
+namespace Dyvenix.Auth.Config
 {
 	public class B2CConfig
 	{

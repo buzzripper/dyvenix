@@ -1,12 +1,9 @@
 using Asp.Versioning;
-using Dyvenix.Auth.Core.Models;
-using Dyvenix.Auth.Core.Services;
-using Dyvenix.Core.Models;
+using Dyvenix.Auth.Services;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
-namespace Dyvenix.Auth.Core.Controllers;
+namespace Dyvenix.Auth.Controllers;
 
 [ApiController]
 [ApiVersion(1.0)]

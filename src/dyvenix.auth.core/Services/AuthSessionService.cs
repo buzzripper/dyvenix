@@ -1,12 +1,6 @@
-﻿using Dyvenix.Auth.Core.Models;
-using Dyvenix.Auth.Core.SvcClients;
-using Microsoft.Extensions.Caching.Distributed;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Caching.Distributed;
 
-namespace Dyvenix.Auth.Core.Services;
+namespace Dyvenix.Auth.Services;
 
 public interface IAuthSessionService
 {
@@ -33,7 +27,7 @@ public class AuthSessionService : IAuthSessionService
 	//	//var idToken = JsonSerializer.Deserialize<IdToken>(tokenFromAuthCodeResponse.IdToken);
 
 	//	var handler = new JwtSecurityTokenHandler();
- //       var jwtDecoded = handler.ReadToken(tokenFromAuthCodeResponse.IdToken) as JwtSecurityToken;
+	//       var jwtDecoded = handler.ReadToken(tokenFromAuthCodeResponse.IdToken) as JwtSecurityToken;
 
 	//	var identityId = jwtDecoded.Subject;
 

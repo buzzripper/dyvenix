@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 
-namespace Dyvenix.Auth.Core.Config;
+namespace Dyvenix.Auth.Config;
 
 public static class AuthConfigBuilder
 {

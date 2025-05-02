@@ -1,4 +1,4 @@
-﻿namespace Dyvenix.Auth.Core.Models;
+﻿namespace Dyvenix.Auth.Models;
 
 public class StartSessionRequest
 {

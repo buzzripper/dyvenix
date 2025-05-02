@@ -1,20 +1,18 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Dyvenix.Auth.Claims;
+using Dyvenix.Auth.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 using Serilog;
-using Dyvenix.Auth.Core.Services;
-using System.Linq;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
-using Microsoft.Extensions.Configuration;
-using Dyvenix.Auth.Core.Claims;
-using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Threading.Tasks;
 
-namespace Dyvenix.Auth.Core.Config;
+namespace Dyvenix.Auth.Config;
 
 public static class AuthServiceCollExt
 {

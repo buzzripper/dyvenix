@@ -1,6 +1,6 @@
 using Dyvenix.App1.Data.Config;
 using Dyvenix.App1.Server.Config;
-using Dyvenix.Auth.Core.Config;
+using Dyvenix.Auth.Config;
 using Dyvenix.Logging.Config;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;

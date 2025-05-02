@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Dyvenix.Auth.Core.SvcClients;
+namespace Dyvenix.Auth.SvcClients;
 
 public class TokenFromAuthCodeResponse
 {

@@ -4,7 +4,7 @@ using Dyvenix.Logging;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace Dyvenix.Auth.Core.Controllers;
+namespace Dyvenix.Auth.Controllers;
 
 public class ApiControllerBase<T> : ControllerBase where T : ApiControllerBase<T>
 {

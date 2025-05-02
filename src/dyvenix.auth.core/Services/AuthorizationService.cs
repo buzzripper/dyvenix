@@ -1,4 +1,4 @@
-﻿namespace Dyvenix.Auth.Core.Services;
+﻿namespace Dyvenix.Auth.Services;
 
 public interface IAuthorizationService
 {

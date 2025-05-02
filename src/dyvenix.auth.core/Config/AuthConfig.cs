@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dyvenix.Auth.Core.Config;
+namespace Dyvenix.Auth.Config;
 
 public class AuthConfig
 {

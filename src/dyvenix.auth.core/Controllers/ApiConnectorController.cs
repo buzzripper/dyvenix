@@ -1,17 +1,16 @@
 using Asp.Versioning;
-using Dyvenix.Auth.Core.Config;
-using Dyvenix.Auth.Core.Models;
+using Dyvenix.Auth.Config;
+using Dyvenix.Auth.Models;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 using System;
 using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Dyvenix.Auth.Core.Controllers;
+namespace Dyvenix.Auth.Controllers;
 
 [ApiController]
 [ApiVersion(1.0)]
@@ -76,7 +75,7 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 			return Ok(result);
 
 		} catch (Exception ex) {
-			return base.LogErrorAndReturnErrorResponse(ex);
+			return LogErrorAndReturnErrorResponse(ex);
 		}
 	}
 
@@ -101,7 +100,7 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 		}
 
 		// Get the the HTTP basic authorization credentials
-		var cred = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(auth.Substring(6))).Split(':');
+		var cred = Encoding.UTF8.GetString(Convert.FromBase64String(auth.Substring(6))).Split(':');
 
 		// Evaluate the credentials and return the result
 		return cred[0] == username && cred[1] == password;

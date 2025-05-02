@@ -1,14 +1,11 @@
 using Asp.Versioning;
 using Dyvenix.App1.Server.Config;
 using Dyvenix.App1.Server.Services;
-using Dyvenix.Auth.Core.Claims;
-using Dyvenix.Auth.Core.Config;
-using Dyvenix.Auth.Core.Controllers;
+using Dyvenix.Auth.Claims;
+using Dyvenix.Auth.Config;
 using Dyvenix.Logging;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.TokenCacheProviders;
