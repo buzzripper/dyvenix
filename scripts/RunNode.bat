@@ -14,7 +14,7 @@ echo -------  %arg%  ------------
 
 :: Determine the directory
 if /i "%arg%"=="dyv" (
-    cd /d "%~dp0..\src\app1.client"
+    cd /d "%~dp0..\src\app1\app1.ui"
     set port=4200
 
 ) else if /i "%arg%"=="starter" (

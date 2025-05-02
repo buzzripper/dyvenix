@@ -43,7 +43,7 @@ on:
 run-name: Deploy (${{ github.ref_name }}) ${{ inputs.version || github.event.inputs.version || '[dev]' }}
 
 env:
-  ARTIFACT_NAME: Dyvenix_AppServer_${{ inputs.version || github.event.inputs.version }}
+  ARTIFACT_NAME: Dyvenix_Portal_${{ inputs.version || github.event.inputs.version }}
   BUILD_WORKFLOW_NAME: build.yml
   AZURE_WEBAPP_NAME: dyvenix-app1
 
