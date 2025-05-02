@@ -14,8 +14,4 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\dyvenix.logging\Dyvenix.Logging.csproj" />
-  </ItemGroup>
-
 </Project>

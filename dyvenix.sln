@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Logging", "src\dyve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Core", "src\dyvenix.core\Dyvenix.Core.csproj", "{C2874A49-C5DD-2744-A4D1-42B6E9961506}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Auth.Core", "src\dyvenix.auth.core\Dyvenix.Auth.Core.csproj", "{877F2E07-F98E-F602-0B6F-2677DDA0919F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Auth", "src\dyvenix.auth.core\Dyvenix.Auth.csproj", "{877F2E07-F98E-F602-0B6F-2677DDA0919F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Common", "src\app1.common\App1.Common.csproj", "{9361DE68-C06C-8A44-0E8E-EDBE457D452A}"
 EndProject

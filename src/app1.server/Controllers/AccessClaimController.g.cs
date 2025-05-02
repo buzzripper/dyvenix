@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
-using Dyvenix.Core.Controllers;
 using Dyvenix.Core.DTOs;
 using Dyvenix.Core.Entities;
 using Dyvenix.Logging;

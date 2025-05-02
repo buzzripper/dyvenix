@@ -87,23 +87,3 @@ public class ApiResponse<T>
 
 	#endregion
 }
-
-
-//public class ApiResponse<T> : ApiResponse
-//{
-//	public ApiResponse() { }
-
-//	public ApiResponse(string message) : base(message) { }
-
-//	public ApiResponse(int statusCode, string message) : base(statusCode, message) { }
-
-//	public ApiResponse(string message, string correlationId) : base(message, correlationId) { }
-
-//	public ApiResponse(int statusCode, string message, string correlationId) : base(statusCode, message, correlationId) { }
-
-//	#region Properties
-
-//	public T Data { get; set; }
-
-//	#endregion
-//}
