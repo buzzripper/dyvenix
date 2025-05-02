@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Common", "src\app1\app
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Data", "src\app1\app1.data\App1.Data.csproj", "{E00C5788-C767-B2E4-F7AB-F08CD63E4EA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Portal", "src\app1\app1.server\App1.Portal.csproj", "{0AA2782F-0643-05E3-3277-D7580E14C984}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Portal", "src\app1\app1.portal\App1.Portal.csproj", "{0AA2782F-0643-05E3-3277-D7580E14C984}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Tests.Common", "src\tests\App1.Tests.Common\App1.Tests.Common.csproj", "{6AFF1FFE-C482-F852-CE54-78B0F0F7ED27}"
 EndProject

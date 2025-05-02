@@ -9,8 +9,6 @@ using Dyvenix.App1.Common.Config;
 using Dyvenix.App1.Tests.Common.Data;
 using System.Text.Json.Serialization;
 using Dyvenix.App1.Data.Config;
-using Dyvenix.App1.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dyvenix.App1.Common.IntTests;
 
