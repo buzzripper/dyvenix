@@ -1,4 +1,6 @@
-﻿namespace Dyvenix.Auth.Core.Config;
+﻿using System.Collections.Generic;
+
+namespace Dyvenix.Auth.Core.Config;
 
 public class AuthConfig
 {
@@ -8,4 +10,6 @@ public class AuthConfig
 	public bool Enabled { get; set; }
 	public string AllowedOrigins { get; set; }
 	public B2CConfig AzureAdB2C { get; set; }
+	public List<string> OidcScopes { get; set; }
+	public List<string> ApiScopes { get; set; }
 }

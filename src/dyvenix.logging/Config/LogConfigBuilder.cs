@@ -34,6 +34,8 @@ namespace Dyvenix.Logging.Config
 			loggerConfiguration.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning);
 			loggerConfiguration.MinimumLevel.Override("Microsoft.AspNetCore", Serilog.Events.LogEventLevel.Error);
 
+			//loggerConfiguration.MinimumLevel.Override("Microsoft.Identity.Web", Serilog.Events.LogEventLevel.Debug);
+
 			if (logConfig.EnableConsoleLogging) {
 				loggerConfiguration.WriteTo.Console
 				(

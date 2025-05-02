@@ -28,7 +28,7 @@ Log.Logger = new LogConfigBuilder().Build(builder.Configuration).CreateLogger();
 builder.Services.AddDyvenixLoggingServices(builder.Configuration);
 
 builder.Services.AddAppServices(appConfig);
-builder.Services.AddDyvenixAuthServices(builder, appConfig.UIRootUrl, Log.Logger);
+builder.Services.AddDyvenixAuthServices(builder.Configuration, appConfig.UIRootUrl, Log.Logger);
 builder.Services.AddDyvenixDataServices(dataConfig);
 
 builder.Services.AddControllers()
@@ -55,6 +55,7 @@ app.UseStaticFiles(); // Enables serving files from wwwroot
 app.UseRouting();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseDyvenixAuth(authConfig);
 
 //bool isAzure = Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID") != null;
 //if (isAzure) {
