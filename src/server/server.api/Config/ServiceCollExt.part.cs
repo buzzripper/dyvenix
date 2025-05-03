@@ -1,10 +1,10 @@
 //------------------------------------------------------------------------------------------------------------
 // This file was auto-generated. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
-using Dyvenix.Portal.Services;
+using Dyvenix.Server.Api.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dyvenix.Portal.Config;
+namespace Dyvenix.Server.Api.Config;
 
 public static partial class ServiceCollExt
 {

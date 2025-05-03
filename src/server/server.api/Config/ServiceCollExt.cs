@@ -6,11 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
-namespace Dyvenix.Portal.Config;
+namespace Dyvenix.Server.Api.Config;
 
 public static partial class ServiceCollExt
 {
-	private const string cAppName = "Dyvenix Portal";
+	private const string cAppName = "Dyvenix Server";
 
 	public static IServiceCollection AddAppServices(this IServiceCollection services, AppConfig appConfig)
 	{
@@ -25,7 +25,7 @@ public static partial class ServiceCollExt
 	// Partial method
 	static partial void AddGeneratedServices(this IServiceCollection services);
 
-	public static IServiceCollection AddSwaggerServices(this IServiceCollection services, bool includeAuth)
+	public static IServiceCollection AddSwaggerServices(this IServiceCollection services)
 	{
 		services.AddApiVersioning(options => {
 			options.ReportApiVersions = true;

@@ -14,7 +14,7 @@ using Buzzripper.Core.Queries;
 using Buzzripper.Logging;
 using Dyvenix.Server.Common.Queries;
 
-namespace Dyvenix.Portal.Services;
+namespace Dyvenix.Server.Api.Services;
 
 public interface IAppUserService
 {

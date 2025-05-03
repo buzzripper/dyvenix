@@ -1,4 +1,4 @@
-name: PortalBuild
+name: ServerBuild
 
 on:
   workflow_dispatch:
@@ -16,17 +16,15 @@ on:
     branches:
       - main
 
-run-name: "Portal - Build (${{ github.ref_name }}) 1.0.0.${{ github.run_number }}"
+run-name: "Server - Build (${{ github.ref_name }}) 1.0.0.${{ github.run_number }}"
 
 env:
   SLN_FILENAME: dyvenix.sln
-  AZURE_WEBAPP_NAME: dyvenix-portal
-  AZURE_WEBAPP_PACKAGE_PATH: src/portal/portal/publish
+  AZURE_WEBAPP_NAME: dyvenix-server
+  AZURE_WEBAPP_PACKAGE_PATH: src/server/server.api/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 9.0.x
-  PORTAL_ROOT_DIR: src/portal/portal
-  ANG_ROOT_DIR: src/portal/portal.ui
-  ANG_OUTPUT_PATH: dist
+  PORTAL_ROOT_DIR: src/server/server.api
   VER_MAJOR: "1"
   VER_MINOR: "0"
   VER_PATCH: "0"
@@ -69,32 +67,6 @@ jobs:
       - name: Publish
         run: dotnet publish "${{ env.PORTAL_ROOT_DIR }}/Portal.csproj" --configuration ${{ env.CONFIGURATION }} --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -p:Version=${{ env.VERSION }}
 
- ## Build Angular
-
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 18
-
-      # - name: Install dependencies
-      #   working-directory: ${{ env.ANG_ROOT_DIR }}
-      #   run: npm ci
-
-      # - name: Build Angular app
-      #   working-directory: ${{ env.ANG_ROOT_DIR }}
-      #   run: |
-      #     npm version ${{ env.SHORT_VERSION }} --no-git-tag-version
-      #     npm run build -- --configuration=production --output-path=${{ env.ANG_OUTPUT_PATH }}
-
-      # - name: Move browser folder contents up
-      #   working-directory: ${{ env.ANG_ROOT_DIR }}
-      #   run: mv ${{ env.ANG_OUTPUT_PATH }}/browser/* ${{ env.ANG_OUTPUT_PATH }}/
-
-      # - name: Move angular output to wwwroot
-      #   run: | 
-      #     mkdir ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
-      #     mv ${{ env.ANG_ROOT_DIR }}/${{ env.ANG_OUTPUT_PATH }}/* ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
-
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -121,11 +93,6 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}
           path: .
           merge-multiple: true
-
-      - name: DEBUG - List root directory files
-        run: |
-          echo "Current Directory: $(pwd)"
-          ls -al ./${{ env.ARTIFACT_NAME }}
 
       - name: Update JSON Values with Secrets
         run: |

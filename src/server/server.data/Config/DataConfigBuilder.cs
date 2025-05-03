@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Dyvenix.Server.Portal.Config;
+namespace Dyvenix.Server.Data.Config;
 
 public static class DataConfigBuilder
 {

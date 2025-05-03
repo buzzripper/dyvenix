@@ -1,4 +1,4 @@
-name: PortalDeploy
+name: ServerDeploy
 
 on:
   workflow_dispatch:
@@ -18,9 +18,9 @@ on:
 run-name: Deploy (${{ github.ref_name }}) ${{ inputs.version || github.event.inputs.version || '[dev]' }}
 
 env:
-  ARTIFACT_NAME: Dyvenix_Portal_${{ inputs.version || github.event.inputs.version }}
-  BUILD_WORKFLOW_NAME: portal-build.yml
-  AZURE_WEBAPP_NAME: dyvenix-app1
+  ARTIFACT_NAME: Dyvenix_Server_${{ inputs.version || github.event.inputs.version }}
+  BUILD_WORKFLOW_NAME: server-build.yml
+  AZURE_WEBAPP_NAME: dyvenix-server
 
 jobs:
   deploy:

@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buzzripper.Core", "src\buzz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal", "src\portal\portal\Portal.csproj", "{55F34654-179C-7445-574A-D0E1B25480E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Api", "src\server\server.api\Server.Api.csproj", "{6CEAEDBE-E7D4-4E5D-8489-E12151D9B9EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,10 @@ Global
 		{55F34654-179C-7445-574A-D0E1B25480E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55F34654-179C-7445-574A-D0E1B25480E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55F34654-179C-7445-574A-D0E1B25480E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CEAEDBE-E7D4-4E5D-8489-E12151D9B9EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CEAEDBE-E7D4-4E5D-8489-E12151D9B9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CEAEDBE-E7D4-4E5D-8489-E12151D9B9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CEAEDBE-E7D4-4E5D-8489-E12151D9B9EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +155,7 @@ Global
 		{7F110ABA-6C80-429D-9B4C-8FC2FFCF94F7} = {79567F9A-D03B-42DF-8BE3-2FB4A2403F2F}
 		{CC857308-8A4A-F26C-A8BE-7A9D46EA8754} = {D1CDB8E9-CE5A-4FB9-8E1F-0834B7A351BB}
 		{55F34654-179C-7445-574A-D0E1B25480E6} = {7F110ABA-6C80-429D-9B4C-8FC2FFCF94F7}
+		{6CEAEDBE-E7D4-4E5D-8489-E12151D9B9EF} = {C03454F0-28D5-4B20-B1DE-151C32D7AB5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {969DA4CE-DF2C-44BA-8518-E7E87DBE6ED7}

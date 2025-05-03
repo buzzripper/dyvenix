@@ -9,13 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 using Buzzripper.Core.DTOs;
 using Buzzripper.Core.Entities;
 using Buzzripper.Logging;
-using Dyvenix.Portal.Services;
 using Dyvenix.Server.Common.Queries;
 using Dyvenix.Server.Common.Entities;
-using Dyvenix.Portal.Controllers;
 using Dyvenix.Server.Common.DTOs;
+using Dyvenix.Server.Api.Services;
 
-namespace Dyvenix.Portal.Controllers;
+namespace Dyvenix.Server.Api.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]

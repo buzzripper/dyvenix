@@ -1,12 +1,12 @@
 {
     "/api": {
-        "target": "https://localhost:7112",
+        "target": "https://localhost:7000",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
     "/auth": {
-        "target": "https://localhost:7112",
+        "target": "https://localhost:7000",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"

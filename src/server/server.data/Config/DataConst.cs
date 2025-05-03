@@ -1,4 +1,5 @@
-﻿namespace Dyvenix.Server.Data.Config;
+﻿
+namespace Dyvenix.Server.Data.Config;
 
 public static class DataConst
 {

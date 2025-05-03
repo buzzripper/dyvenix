@@ -1,7 +1,7 @@
-using Dyvenix.Portal.Config;
-using Dyvenix.Auth.Config;
 using Buzzripper.Logging.Config;
 using Buzzripper.Logging.Correlation;
+using Dyvenix.Server.Api.Config;
+using Dyvenix.Server.Data.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,26 +9,26 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json.Serialization;
 
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration
 	.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-//.AddJsonFile($"appsettings.{appEnv}.json", optional: true);
 
 if (builder.Environment.IsDevelopment()) {
 	builder.Configuration.AddUserSecrets<Program>();
 }
 
 var appConfig = AppConfigBuilder.Build(builder.Configuration);
-var authConfig = AuthConfigBuilder.Build(builder.Configuration);
-//var dataConfig = DataConfigBuilder.Build(builder.Configuration);
+var dataConfig = DataConfigBuilder.Build(builder.Configuration);
 
 Log.Logger = new LogConfigBuilder().Build(builder.Configuration).CreateLogger();
+builder.Services.AddDyvenixLoggingServices(builder.Configuration);
 Log.Logger.Information($"---------------------------------------");
 Log.Logger.Information(appConfig.AppName);
 Log.Logger.Information($"---------------------------------------");
 
 builder.Services.AddAppServices(appConfig);
-builder.Services.AddDyvenixAuthServices(builder.Configuration, appConfig.UIRootUrl, Log.Logger);
+builder.Services.AddDyvenixDataServices(dataConfig);
 
 builder.Services.AddControllers()
 	.AddJsonOptions(options => {
@@ -36,7 +36,7 @@ builder.Services.AddControllers()
 	});
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerServices(authConfig.Enabled);
+builder.Services.AddSwaggerServices();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
@@ -47,14 +47,10 @@ var app = builder.Build();
 
 app.UseSwaggerServices(builder.Services);
 app.UseHttpsRedirection();
-app.UseCors("CORSPolicy");
 app.MapControllers();
-app.UseDefaultFiles(); // Allows serving index.html as default
-app.UseStaticFiles(); // Enables serving files from wwwroot
 app.UseRouting();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
-app.UseDyvenixAuth(authConfig);
 
 Log.Logger.Debug("Starting application");
 app.Run();

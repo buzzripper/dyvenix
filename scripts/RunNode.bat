@@ -13,7 +13,7 @@ if "%arg%"=="" (
 echo -------  %arg%  ------------
 
 :: Determine the directory
-if /i "%arg%"=="dyv" (
+if /i "%arg%"=="portal" (
     cd /d "%~dp0..\src\portal\portal.ui"
     set port=4200
 
