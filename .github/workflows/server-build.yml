@@ -24,7 +24,7 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: src/server/server.api/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 9.0.x
-  PORTAL_ROOT_DIR: src/server/server.api
+  SERVER_ROOT_DIR: src/server/server.api
   VER_MAJOR: "1"
   VER_MINOR: "0"
   VER_PATCH: "0"
@@ -65,7 +65,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
 
       - name: Publish
-        run: dotnet publish "${{ env.PORTAL_ROOT_DIR }}/Portal.csproj" --configuration ${{ env.CONFIGURATION }} --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -p:Version=${{ env.VERSION }}
+        run: dotnet publish "${{ env.SERVER_ROOT_DIR }}/Server.Api.csproj" --configuration ${{ env.CONFIGURATION }} --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -p:Version=${{ env.VERSION }}
 
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
