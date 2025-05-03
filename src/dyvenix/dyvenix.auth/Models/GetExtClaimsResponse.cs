@@ -2,17 +2,17 @@
 
 namespace Dyvenix.Auth.Models
 {
-	public class AddClaimsResponse
+	public class GetExtClaimsResponse
 	{
 		public const string ApiVersion = "1.0.0";
 
-		public AddClaimsResponse()
+		public GetExtClaimsResponse()
 		{
 			Version = ApiVersion;
 			Action = "Continue";
 		}
 
-		public AddClaimsResponse(string action, string userMessage)
+		public GetExtClaimsResponse(string action, string userMessage)
 		{
 			Version = ApiVersion;
 			Action = action;

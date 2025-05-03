@@ -1,9 +1,7 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
-using Dyvenix.App1.Portal.Auth;
 using Dyvenix.App1.Portal.Config;
 using Dyvenix.App1.Portal.Services;
-using Dyvenix.Auth.Services;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +17,6 @@ public static partial class ServiceCollExt
 		services.AddSingleton(appConfig);
 		services.AddScoped<ICorrelationIdAccessor, CorrelationIdAccessor>();
 		services.AddScoped<ITestService, TestService>();
-		services.AddScoped<IAccessClaimsProvider, AccessClaimsProvider>();
 
 		AddGeneratedServices(services);
 
@@ -57,8 +54,6 @@ public static partial class ServiceCollExt
 			}
 		});
 
-		//services.AddSwaggerGen();
-
 		return services;
 	}
 
@@ -69,7 +64,6 @@ public static partial class ServiceCollExt
 		app.UseSwagger();
 		app.UseSwaggerUI(options => {
 			foreach (var description in provider.ApiVersionDescriptions) {
-				//options.RoutePrefix = "swagger";
 				options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"Dyvenix {description.ApiVersion}");
 			}
 		});

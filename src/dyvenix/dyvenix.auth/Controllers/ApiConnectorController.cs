@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using Dyvenix.Auth.Config;
 using Dyvenix.Auth.Models;
+using Dyvenix.Auth.Services;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace Dyvenix.Auth.Controllers;
@@ -17,18 +19,33 @@ namespace Dyvenix.Auth.Controllers;
 [Route("api/v{version:apiVersion}/auth/[controller]")]
 public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 {
-	private readonly AuthConfig _authConfig;
+	#region Fields
 
-	public ApiConnectorController(IDyvenixLogger<ApiConnectorController> logger, AuthConfig authConfig) : base(logger)
+	private readonly AuthConfig _authConfig;
+	private readonly IApiConnectorService _apiConnectorService;
+
+	#endregion
+
+	#region Ctors / Init
+
+	public ApiConnectorController(IDyvenixLogger<ApiConnectorController> logger, AuthConfig authConfig, IApiConnectorService apiConnectorService) : base(logger)
 	{
 		_authConfig = authConfig;
+		_apiConnectorService = apiConnectorService;
 	}
 
+	#endregion
+
 	[HttpPost, Route("[action]")]
-	public async Task<IActionResult> GetExtClaims()
+	public async Task<IActionResult> GetExtClaims([FromBody] RequestConnector requestConnector)
 	{
+		_logger.Info($"Begin {nameof(GetExtClaims)}()...");
 		try {
-			_logger.Info("Starting GetExtClaims()...");
+			// If input data is null, show block page
+			if (requestConnector == null) {
+				_logger.Warn("Input data (RequestConnector) is empty.");
+				return BadRequest(new GetExtClaimsResponse("ShowBlockPage", "There was a problem with your request."));
+			}
 
 			// Check HTTP basic authorization
 			if (!IsAuthorized(Request)) {
@@ -36,20 +53,8 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 				return Unauthorized();
 			}
 
-			string content = await new StreamReader(Request.Body).ReadToEndAsync();
-			var requestConnector = JsonSerializer.Deserialize<RequestConnector>(content);
-
-			// If input data is null, show block page
-			if (requestConnector == null) {
-				_logger.Warn("Input data (RequestConnector) is empty.");
-				return BadRequest(new AddClaimsResponse("ShowBlockPage", "There was a problem with your request."));
-			}
-
 			var sb = new StringBuilder();
-			sb.Append($"requestConnector.DisplayName={requestConnector.DisplayName}, ");
-			sb.Append($"requestConnector.GivenName={requestConnector.GivenName}, ");
-			sb.Append($"requestConnector.Surname={requestConnector.Surname}, ");
-			sb.Append($"requestConnector.Email={requestConnector.Email}");
+			sb.Append($"   User Oid={requestConnector.ObjectId}, DisplayName={requestConnector.DisplayName}");
 			_logger.Debug(sb.ToString());
 
 			string clientId = _authConfig.AzureAdB2C.ClientId;
@@ -58,21 +63,17 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 				return Unauthorized();
 			}
 
-			//// If email claim not found, show block page. Email is required and sent by default.
-			//if (string.IsNullOrWhiteSpace(requestConnector.Email) || requestConnector.Email.Contains("@") == false) {
-			//	_logger.Warn($"No email claim found ({requestConnector?.Email})");
-			//	return BadRequest(new AddClaimsResponse("ShowBlockPage", "Email name is mandatory."));
-			//}
+			// Get the access claims for the access token(s)
+			var nameValueColl = _apiConnectorService.GetExtClaims(requestConnector.ObjectId);
 
-			var result = new AddClaimsResponse {
-				// use the objectId of the email to get the user specfic claims
-				MyCustomClaim = "TheDudeAbides",
-				OtherCustomClaim = "Super important info"
-			};
+			// Create dynamic json object so we can keep the custom claims data-driven
+			JsonNode jsonNode = JsonSerializer.SerializeToNode(new GetExtClaimsResponse());
+			foreach(var key in nameValueColl.AllKeys) {
+				jsonNode[key] = nameValueColl[key];
+			}
 
 			_logger.Info($"SUCCESS! Sending back additional claims!");
-
-			return Ok(result);
+			return Ok(jsonNode);
 
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
@@ -104,48 +105,5 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 
 		// Evaluate the credentials and return the result
 		return cred[0] == username && cred[1] == password;
-	}
-
-	[HttpPost, Route("[action]")]
-	public async Task<IActionResult> StartSession(string authCode)
-	{
-		_logger.Info("Starting GetExtClaims()...");
-
-		// Check HTTP basic authorization
-		if (!IsAuthorized(Request)) {
-			_logger.Warn("HTTP basic authentication validation failed.");
-			return Unauthorized();
-		}
-
-		string content = await new StreamReader(Request.Body).ReadToEndAsync();
-		var requestConnector = JsonSerializer.Deserialize<RequestConnector>(content);
-
-		// If input data is null, show block page
-		if (requestConnector == null) {
-			_logger.Warn("Input data (RequestConnector) is empty.");
-			return BadRequest(new AddClaimsResponse("ShowBlockPage", "There was a problem with your request."));
-		}
-
-		string clientId = "f23aee71-9ccb-49ef-9d7d-f3c4f12c7177";
-		if (!clientId.Equals(requestConnector.ClientId)) {
-			_logger.Warn($"HTTP clientId is not authorized. Received: {requestConnector.ClientId}  Expected:{clientId}");
-			return Unauthorized();
-		}
-
-		// If email claim not found, show block page. Email is required and sent by default.
-		if (string.IsNullOrWhiteSpace(requestConnector.Email) || requestConnector.Email.Contains("@") == false) {
-			_logger.Warn($"No email claim found ({requestConnector?.Email})");
-			return BadRequest(new AddClaimsResponse("ShowBlockPage", "Email name is mandatory."));
-		}
-
-		var result = new AddClaimsResponse {
-			// use the objectId of the email to get the user specfic claims
-			MyCustomClaim = "TheDudeAbides",
-			OtherCustomClaim = "Super important info"
-		};
-
-		_logger.Info($"SUCCESS! Sending back additional claims!");
-
-		return Ok(result);
 	}
 }
