@@ -1,0 +1,55 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: The version number of the artifact
+        required: true
+      target:
+        description: The target environment to deploy to
+        required: true
+        type: choice
+        options:
+          - Dev
+          - QA
+          - Prod
+
+run-name: Deploy (${{ github.ref_name }}) ${{ inputs.version || github.event.inputs.version || '[dev]' }}
+
+env:
+  ARTIFACT_NAME: Dyvenix_Portal_${{ inputs.version || github.event.inputs.version }}
+  BUILD_WORKFLOW_NAME: portal-build.yml
+  AZURE_WEBAPP_NAME: dyvenix-app1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.target || github.event.inputs.target }}
+
+    steps:
+      - name: Download Artifact
+        uses: dawidd6/action-download-artifact@v4
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          workflow: ${{ env.BUILD_WORKFLOW_NAME }}
+          name: ${{ env.ARTIFACT_NAME }}
+          search_artifacts: true
+          skip_unpack: false
+
+      - name: Update JSON Values with Secrets
+        run: |
+          jq ".AuthConfig.AzureAdB2C.ClientSecret = \"${{ secrets.APP1_CLIENT_ID }}\" |
+              .LogConfig.DbConnectionString = \"${{ secrets.LOG_DB_CONN_STR }}\" |
+              .DataConfig.ConnectionString = \"${{ secrets.APP_DB_CONN_STR }}\"" appsettings.json > tmp.json && mv tmp.json appsettings.json
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.dyvenix_app1_SPN }}
+
+      - name: Deploy to Azure WebApp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: ./
