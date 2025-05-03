@@ -12,6 +12,8 @@ namespace Dyvenix.Portal.Config;
 
 public static partial class ServiceCollExt
 {
+	private const string cAppName = "Dyvenix.Portal";
+
 	public static IServiceCollection AddAppServices(this IServiceCollection services, AppConfig appConfig)
 	{
 		services.AddSingleton(appConfig);
@@ -47,7 +49,7 @@ public static partial class ServiceCollExt
 		services.AddSwaggerGen(options => {
 			foreach (var description in provider.ApiVersionDescriptions) {
 				options.SwaggerDoc(description.GroupName, new OpenApiInfo {
-					Title = $"{ConfigConst.AppDisplayName} {description.ApiVersion}",
+					Title = $"{cAppName} {description.ApiVersion}",
 					Version = description.ApiVersion.ToString(),
 					Description = $"Application server for App1 ({assyVersion})"
 				});

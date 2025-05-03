@@ -20,7 +20,7 @@ run-name: "Build (${{ github.ref_name }}) 1.0.0.${{ github.run_number }}"
 
 env:
   SLN_FILENAME: dyvenix.sln
-  AZURE_WEBAPP_NAME: dyvenix-app1
+  AZURE_WEBAPP_NAME: dyvenix-portal
   AZURE_WEBAPP_PACKAGE_PATH: src/portal/portal/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 9.0.x
@@ -141,7 +141,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.dyvenix_app1_SPN }}
+          creds: ${{ secrets.AZ_GITHUB_DEPLOY_SP }}
 
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2
