@@ -1,4 +1,4 @@
-name: Build
+name: PortalBuild
 
 on:
   workflow_dispatch:
@@ -12,20 +12,20 @@ on:
           - QA
           - Prod
 
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 run-name: "Build (${{ github.ref_name }}) 1.0.0.${{ github.run_number }}"
 
 env:
   SLN_FILENAME: dyvenix.sln
   AZURE_WEBAPP_NAME: dyvenix-app1
-  AZURE_WEBAPP_PACKAGE_PATH: src/app1/app1.portal/publish
+  AZURE_WEBAPP_PACKAGE_PATH: src/portal/portal/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 9.0.x
-  PORTAL_ROOT_DIR: src/app1/app1.portal
-  ANG_ROOT_DIR: src/app1/app1.ui
+  PORTAL_ROOT_DIR: src/portal/portal
+  ANG_ROOT_DIR: src/portal/portal.ui
   ANG_OUTPUT_PATH: dist
   VER_MAJOR: "1"
   VER_MINOR: "0"
@@ -71,21 +71,15 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
 
-      - name: Show contents of repository root
-        run: |
-          pwd
-
-          ls -al ./src
-
       - name: Publish
-        run: dotnet publish "${{ env.PORTAL_ROOT_DIR }}/App1.Portal.csproj" --configuration ${{ env.CONFIGURATION }} --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -p:Version=${{ env.VERSION }}
+        run: dotnet publish "${{ env.PORTAL_ROOT_DIR }}/Portal.csproj" --configuration ${{ env.CONFIGURATION }} --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -p:Version=${{ env.VERSION }}
 
-      - name: Generate .env file
-        run: |
-          echo "APP_ENV=${{ github.event.inputs.environment || 'Dev' }}" > .env
-          echo "EV_AUTHCONFIG_DISABLED=${{ vars.EV_AUTHCONFIG_DISABLED }}" >> .env
-          echo "EV_AUTHCONFIG_ALLOWEDORIGINS=${{ vars.EV_AUTHCONFIG_ALLOWEDORIGINS }}" >> .env
-          cp .env ./${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/
+      # - name: Generate .env file
+      #   run: |
+      #     echo "APP_ENV=${{ github.event.inputs.environment || 'Dev' }}" > .env
+      #     echo "EV_AUTHCONFIG_DISABLED=${{ vars.EV_AUTHCONFIG_DISABLED }}" >> .env
+      #     echo "EV_AUTHCONFIG_ALLOWEDORIGINS=${{ vars.EV_AUTHCONFIG_ALLOWEDORIGINS }}" >> .env
+      #     cp .env ./${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/
 
  ## Build Angular
 
