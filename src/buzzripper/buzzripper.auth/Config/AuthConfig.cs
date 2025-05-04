@@ -12,4 +12,6 @@ public class AuthConfig
 	public B2CConfig AzureAdB2C { get; set; }
 	public List<string> OidcScopes { get; set; }
 	public List<string> ApiScopes { get; set; }
+	public string ApiConnectorUsername { get; set; }
+	public string ApiConnectorPassword { get; set; }
 }

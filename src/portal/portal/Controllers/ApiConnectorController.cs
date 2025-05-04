@@ -1,12 +1,10 @@
 using Asp.Versioning;
-using Dyvenix.Portal.Controllers;
 using Dyvenix.Auth.Config;
 using Dyvenix.Auth.Models;
 using Buzzripper.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -83,9 +81,6 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 
 	private bool IsAuthorized(HttpRequest req)
 	{
-		string username = "azb2c";
-		string password = "pwd";
-
 		// Check if the HTTP Authorization header exist
 		if (!req.Headers.ContainsKey("Authorization")) {
 			_logger.Warn("Missing HTTP basic authentication header.");
@@ -105,6 +100,16 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 		var cred = Encoding.UTF8.GetString(Convert.FromBase64String(auth.Substring(6))).Split(':');
 
 		// Evaluate the credentials and return the result
-		return cred[0] == username && cred[1] == password;
+		if (cred[0] != _authConfig.ApiConnectorUsername) { 
+			_logger.Error($"B2C username incorrect. Received: {cred[0]}");
+			return false;
+		}
+
+		if (cred[1] != _authConfig.ApiConnectorPassword) { 
+			_logger.Error($"B2C password incorrect.");
+			return false;
+		}
+
+		return true;
 	}
 }

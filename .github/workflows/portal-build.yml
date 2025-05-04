@@ -55,18 +55,12 @@ jobs:
           echo "ARTIFACT_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
           echo "artifact_name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
 
-      - name: DEBUG - show vars
-        run: |
-          echo "APP_ENV = ${{ env.APP_ENV }}"
-          echo "github.event.inputs.environment = ${{ github.event.inputs.environment }}"
-          echo "steps.set-version.outputs.artifact_name = ${{ steps.set-version.outputs.artifact_name }}"
-
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
 
-      - name: Publish
+      - name: Dotnet Publish
         run: dotnet publish "${{ env.PORTAL_ROOT_DIR }}/Portal.csproj" --configuration ${{ env.CONFIGURATION }} --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -p:Version=${{ env.VERSION }}
 
  ## Build Angular
@@ -95,7 +89,7 @@ jobs:
       #     mkdir ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
       #     mv ${{ env.ANG_ROOT_DIR }}/${{ env.ANG_OUTPUT_PATH }}/* ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
 
-      - name: Publish Artifacts
+      - name: Publish GitHub Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}
@@ -113,7 +107,6 @@ jobs:
         id: set-vars
         run: |
           echo "ARTIFACT_NAME = ${{ needs.build.outputs.artifact_name }}" >> $GITHUB_ENV
-          echo "secrets.APP_DB_CONN_STR = ${{ secrets.APP_DB_CONN_STR }}"
 
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -122,16 +115,17 @@ jobs:
           path: .
           merge-multiple: true
 
-      - name: DEBUG - List root directory files
-        run: |
-          echo "Current Directory: $(pwd)"
-          ls -al ./${{ env.ARTIFACT_NAME }}
-
       - name: Update JSON Values with Secrets
         run: |
-          jq ".AuthConfig.AzureAdB2C.ClientSecret = \"${{ secrets.APP1_CLIENT_ID }}\" |
-              .LogConfig.DbConnectionString = \"${{ secrets.LOG_DB_CONN_STR }}\" |
-              .DataConfig.ConnectionString = \"${{ secrets.APP_DB_CONN_STR }}\"" appsettings.json > tmp.json && mv tmp.json appsettings.json
+          jq "
+            .EnvName = \"${{ env.APP_ENV }}\" |
+            .AppConfig.UIRootUrl = \"${{ vars.PTL_UI_ROOT_URL }}\" |
+            .AuthConfig.AzureAdB2C.ClientSecret = \"${{ secrets.PTL_B2C_CLIENT_SECRET }}\" |
+            .AuthConfig.ApiConnectorPassword = \"${{ secrets.PTL_APICONNECTOR_PWD }}\" |
+            .LogConfig.DbConnectionString = \"${{ secrets.PTL_LOG_DB_CONN_STR }}\" |
+            .LogConfig.FilePath = \"${{ secrets.PTL_LOG_PATH }}\" |
+            .LogConfig.SelfLogPath = \"${{ secrets.PTL_LOG_SELFLOG_PATH }}\" |
+            
 
       - name: Azure Login
         uses: azure/login@v2
