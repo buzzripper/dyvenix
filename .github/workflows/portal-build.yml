@@ -117,7 +117,7 @@ jobs:
 
       - name: Update JSON Values with Secrets
         run: |
-          jq "
+          jq "|
             .EnvName = \"${{ env.APP_ENV }}\" |
             .AppConfig.UIRootUrl = \"${{ vars.PTL_UI_ROOT_URL }}\" |
             .AuthConfig.AzureAdB2C.ClientSecret = \"${{ secrets.PTL_B2C_CLIENT_SECRET }}\" |
