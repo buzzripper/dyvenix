@@ -44,7 +44,7 @@ jobs:
             .DataConfig.ConnectionString = \"${{ secrets.SVR_DB_CONN_STR }}\"" appsettings.json > tmp.json && mv tmp.json appsettings.json
             .LogConfig.DbConnectionString = \"${{ secrets.SVR_LOG_DB_CONN_STR }}\" |
             .LogConfig.FilePath = \"${{ secrets.SVR_LOG_PATH }}\" |
-            .LogConfig.SelfLogPath = \"${{ secrets.SVR_LOG_SELFLOG_PATH }}\" |
+            .LogConfig.SelfLogPath = \"${{ secrets.SVR_LOG_SELFLOG_PATH }}\""
 
       - name: Azure Login
         uses: azure/login@v2

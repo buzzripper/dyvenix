@@ -124,7 +124,7 @@ jobs:
             .AuthConfig.ApiConnectorPassword = \"${{ secrets.PTL_APICONNECTOR_PWD }}\" |
             .LogConfig.DbConnectionString = \"${{ secrets.PTL_LOG_DB_CONN_STR }}\" |
             .LogConfig.FilePath = \"${{ secrets.PTL_LOG_PATH }}\" |
-            .LogConfig.SelfLogPath = \"${{ secrets.PTL_LOG_SELFLOG_PATH }}\" |
+            .LogConfig.SelfLogPath = \"${{ secrets.PTL_LOG_SELFLOG_PATH }}\""
             
 
       - name: Azure Login
