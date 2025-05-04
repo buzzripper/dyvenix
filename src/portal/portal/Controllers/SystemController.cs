@@ -33,7 +33,7 @@ public class SystemController : ApiControllerBase<SystemController>
 	[HttpGet, Route("[action]")]
 	public IActionResult Healthz()
 	{
-		return Ok("Healthy");
+		return Ok($"{_appConfig.AppName} - Healthy");
 	}
 
 	[HttpGet, Route("[action]")]

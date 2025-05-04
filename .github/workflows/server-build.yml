@@ -29,6 +29,7 @@ env:
   VER_MINOR: "0"
   VER_PATCH: "0"
   APP_ENV: ${{ github.event.inputs.environment != '' && github.event.inputs.environment || 'Dev' }}
+  ARTIFACT_RETENTION_DAYS: "7"
 
 jobs:
 
@@ -66,7 +67,7 @@ jobs:
         with:
           name: ${{ env.ARTIFACT_NAME }}
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-          retention-days: 7
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
 
   deploy:
     needs: build

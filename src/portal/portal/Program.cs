@@ -35,6 +35,9 @@ builder.Services.AddSwaggerServices(authConfig.Enabled);
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
+// Add YARP
+builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
 //----------------------------------------------------------------------------------------------
 
 Log.Logger.Debug("Building web application");
@@ -50,6 +53,9 @@ app.UseRouting();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
 app.UseDyvenixAuth(authConfig);
+
+// Use YARP
+app.MapReverseProxy();
 
 Log.Logger.Debug("Starting application");
 app.Run();
