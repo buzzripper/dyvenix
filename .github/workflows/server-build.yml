@@ -47,7 +47,7 @@ jobs:
         run: |
           VERSION="${{ env.VER_MAJOR }}.${{ env.VER_MINOR }}.${{ env.VER_PATCH }}.${{ github.run_number }}"
           SHORT_VERSION="${{ env.VER_MAJOR }}.${{ env.VER_MINOR }}.${{ env.VER_PATCH }}"
-          ARTIFACT_NAME="Dyvenix_Portal_${VERSION}"
+          ARTIFACT_NAME="Dyvenix_Server_${VERSION}"
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "SHORT_VERSION=${SHORT_VERSION}" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
