@@ -75,20 +75,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: Set Vars
+        id: set-vars
+        run: |
+          echo "ARTIFACT_NAME = ${{ needs.build.outputs.artifact_name }}" >> $GITHUB_ENV
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ needs.build.outputs.artifact_name }}
+          name: ${{ env.ARTIFACT_NAME }}
           path: .
           merge-multiple: true
 
       - name: Update JSON Values with Secrets
         run: |
           jq ".AuthConfig.AzureAdB2C.ClientSecret = \"${{ secrets.SVR_B2C_CLIENT_SECRET }}\" |
-            .DataConfig.ConnectionString = \"${{ secrets.SVR_DB_CONN_STR }}\" |
-            .LogConfig.DbConnectionString = \"${{ secrets.SVR_LOG_DB_CONN_STR }}\" |
-            .LogConfig.FilePath = \"${{ vars.SVR_LOG_PATH }}\" |
-            .LogConfig.SelfLogPath = \"${{ vars.SVR_LOG_SELFLOG_PATH }}\"" appsettings.json > tmp.json && mv tmp.json appsettings.json
+          .DataConfig.ConnectionString = \"${{ secrets.SVR_DB_CONN_STR }}\" |
+          .LogConfig.DbConnectionString = \"${{ secrets.SVR_LOG_DB_CONN_STR }}\" |
+          .LogConfig.FilePath = \"${{ vars.SVR_LOG_PATH }}\" |
+          .LogConfig.SelfLogPath = \"${{ vars.SVR_LOG_SELFLOG_PATH }}\"" appsettings.json > tmp.json && mv tmp.json appsettings.json
 
       - name: Azure Login
         uses: azure/login@v2
@@ -99,5 +104,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ./${{ needs.build.outputs.artifact_name }}
+          package: ./${{ env.ARTIFACT_NAME }}
 
