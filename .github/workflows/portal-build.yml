@@ -117,13 +117,14 @@ jobs:
 
       - name: Update JSON Values with Secrets
         run: |
-          jq ".EnvName = \"${{ env.APP_ENV }}\" |
+          jq "|
+            .EnvName = \"${{ env.APP_ENV }}\" |
             .AppConfig.UIRootUrl = \"${{ vars.PTL_UI_ROOT_URL }}\" |
             .AuthConfig.AzureAdB2C.ClientSecret = \"${{ secrets.PTL_B2C_CLIENT_SECRET }}\" |
             .AuthConfig.ApiConnectorPassword = \"${{ secrets.PTL_APICONNECTOR_PWD }}\" |
             .LogConfig.DbConnectionString = \"${{ secrets.PTL_LOG_DB_CONN_STR }}\" |
-            .LogConfig.FilePath = \"${{ secrets.PTL_LOG_PATH }}\" |
-            .LogConfig.SelfLogPath = \"${{ secrets.PTL_LOG_SELFLOG_PATH }}\"" appsettings.json > tmp.json && mv tmp.json appsettings.json
+            .LogConfig.FilePath = \"${{ vars.PTL_LOG_PATH }}\" |
+            .LogConfig.SelfLogPath = \"${{ vars.PTL_LOG_SELFLOG_PATH }}\"" appsettings.json > tmp.json && mv tmp.json appsettings.json
 
       - name: Azure Login
         uses: azure/login@v2

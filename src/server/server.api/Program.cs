@@ -20,9 +20,7 @@ var dataConfig = DataConfigBuilder.Build(builder.Configuration);
 
 Log.Logger = new LogConfigBuilder().Build(builder.Configuration).CreateLogger();
 builder.Services.AddDyvenixLoggingServices(builder.Configuration);
-Log.Logger.Information($"---------------------------------------");
-Log.Logger.Information(appConfig.AppName);
-Log.Logger.Information($"---------------------------------------");
+Log.Logger.Information($"--------------  {appConfig.AppName}  --------------");
 
 builder.Services.AddAppServices(appConfig);
 builder.Services.AddDyvenixDataServices(dataConfig);

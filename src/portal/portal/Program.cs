@@ -20,9 +20,7 @@ var authConfig = AuthConfigBuilder.Build(builder.Configuration);
 
 Log.Logger = new LogConfigBuilder().Build(builder.Configuration).CreateLogger();
 builder.Services.AddDyvenixLoggingServices(builder.Configuration);
-Log.Logger.Information($"---------------------------------------");
-Log.Logger.Information(appConfig.AppName);
-Log.Logger.Information($"---------------------------------------");
+Log.Logger.Information($"--------------  {appConfig.AppName}  --------------");
 
 builder.Services.AddAppServices(appConfig);
 builder.Services.AddDyvenixAuthServices(builder.Configuration, appConfig.UIRootUrl, Log.Logger);

@@ -39,11 +39,12 @@ jobs:
 
       - name: Update JSON Values with Secrets
         run: |
-          jq ".AuthConfig.AzureAdB2C.ClientSecret = \"${{ secrets.SVR_B2C_CLIENT_SECRET }}\" |
+          jq "
+            .AuthConfig.AzureAdB2C.ClientSecret = \"${{ secrets.SVR_B2C_CLIENT_SECRET }}\" |
             .DataConfig.ConnectionString = \"${{ secrets.SVR_DB_CONN_STR }}\" |
             .LogConfig.DbConnectionString = \"${{ secrets.SVR_LOG_DB_CONN_STR }}\" |
-            .LogConfig.FilePath = \"${{ secrets.SVR_LOG_PATH }}\" |
-            .LogConfig.SelfLogPath = \"${{ secrets.SVR_LOG_SELFLOG_PATH }}\"" appsettings.json > tmp.json && mv tmp.json appsettings.json
+            .LogConfig.FilePath = \"${{ vars.SVR_LOG_PATH }}\" |
+            .LogConfig.SelfLogPath = \"${{ vars.SVR_LOG_SELFLOG_PATH }}\"" appsettings.json > tmp.json && mv tmp.json appsettings.json
 
       - name: Azure Login
         uses: azure/login@v2
