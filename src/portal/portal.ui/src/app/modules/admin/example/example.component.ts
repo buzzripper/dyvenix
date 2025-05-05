@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector     : 'example',
@@ -8,10 +9,18 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class ExampleComponent
 {
-    /**
-     * Constructor
-     */
-    constructor()
+    message: string;
+
+    constructor(private route: ActivatedRoute)
     {
+        this.route.queryParamMap.subscribe(params => {
+            const msg = params.get('msg');
+
+            if (!msg)
+                this.message = "Hello!";
+            else {
+                this.message = decodeURIComponent(msg);
+            }
+        });
     }
 }

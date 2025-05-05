@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 using Serilog;
 using System;
+using System.Net;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace Dyvenix.Auth.Config;
@@ -42,7 +44,10 @@ public static class AuthServiceCollExt
 
 			options.Events.OnRemoteFailure = context => {
 				logger.Error($"OIDC error: {context.Failure}");
-				context.Response.Redirect($"{uiRootUrl}/pages/error/500");
+
+				var msg = WebUtility.UrlEncode(context.Failure.Message);
+
+				context.Response.Redirect($"{uiRootUrl}/example?msg={msg}");
 				context.HandleResponse(); // Prevent the default redirect
 				return Task.CompletedTask;
 			};

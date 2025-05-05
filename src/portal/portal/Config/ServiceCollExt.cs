@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Buzzripper.Logging.Correlation;
+using Dyvenix.Portal.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -16,6 +17,7 @@ public static partial class ServiceCollExt
 	{
 		services.AddSingleton(appConfig);
 		services.AddScoped<ICorrelationIdAccessor, CorrelationIdAccessor>();
+		//services.AddScoped<IApiConnectorService, ApiConnectorService>();
 
 		AddGeneratedServices(services);
 
