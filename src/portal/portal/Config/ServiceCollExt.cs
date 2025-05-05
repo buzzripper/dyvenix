@@ -17,7 +17,7 @@ public static partial class ServiceCollExt
 	{
 		services.AddSingleton(appConfig);
 		services.AddScoped<ICorrelationIdAccessor, CorrelationIdAccessor>();
-		//services.AddScoped<IApiConnectorService, ApiConnectorService>();
+		services.AddScoped<IApiConnectorService, ApiConnectorService>();
 
 		AddGeneratedServices(services);
 
