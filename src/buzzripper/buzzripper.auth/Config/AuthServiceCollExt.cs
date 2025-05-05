@@ -37,9 +37,7 @@ public static class AuthServiceCollExt
 		services.Configure<OpenIdConnectOptions>(OpenIdConnectDefaults.AuthenticationScheme, options => {
 			options.ResponseType = "code";
 			options.Scope.Clear();
-			foreach (var scope in authConfig.OidcScopes)
-				options.Scope.Add(scope);
-			foreach (var scope in authConfig.ApiScopes)
+			foreach (var scope in authConfig.AllScopes)
 				options.Scope.Add(scope);
 
 			options.Events.OnRemoteFailure = context => {

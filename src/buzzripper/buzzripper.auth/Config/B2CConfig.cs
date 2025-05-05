@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Dyvenix.Auth.Config
 {
@@ -14,17 +12,17 @@ namespace Dyvenix.Auth.Config
 		public string ResetPasswordPolicyId { get; set; }
 		public string EditProfilePolicyId { get; set; }
 		public string CallbackPath { get; set; }
-		public string Scopes { get; set; }
+		public List<string> Scopes { get; set; }
 
-		private List<string> _scopesList;
-		public List<string> ScopesList
-		{
-			get {
-				if (_scopesList == null) {
-					_scopesList = Scopes?.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList();
-				}
-				return _scopesList;
-			}
-		}
+		//private List<string> _scopesList;
+		//public List<string> ScopesList
+		//{
+		//	get {
+		//		if (_scopesList == null) {
+		//			_scopesList = Scopes?.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList();
+		//		}
+		//		return _scopesList;
+		//	}
+		//}
 	}
 }

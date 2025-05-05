@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json.Serialization;
+using Yarp.ReverseProxy.Transforms;
+using Dyvenix.Portal.Auth;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +39,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
 // Add YARP
-builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+builder.Services.AddReverseProxyWithAccessToken(builder.Configuration, authConfig);
 
 //----------------------------------------------------------------------------------------------
 

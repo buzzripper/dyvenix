@@ -18,21 +18,6 @@ public class AuthController : Controller
 		}, OpenIdConnectDefaults.AuthenticationScheme);
 	}
 
-	//[HttpGet("login")]
-	//[AllowAnonymous]
-	//public IActionResult Login(string returnUrl = "/")
-	//{
-	//	var redirectUrl = Url.Action("LoginCallback", "Auth", new { returnUrl });
-
-	//	var props = new AuthenticationProperties {
-	//		RedirectUri = redirectUrl
-	//	};
-
-	//	//props.SetParameter("prompt", "consent"); // ⬅️ forces token issuance
-
-	//	return Challenge(props, OpenIdConnectDefaults.AuthenticationScheme);
-	//}
-
 	[HttpGet("logout")]
 	public IActionResult Logout()
 	{
