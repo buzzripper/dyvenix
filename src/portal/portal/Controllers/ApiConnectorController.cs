@@ -68,10 +68,12 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 			// Create dynamic json object so we can keep the custom claims data-driven
 			JsonNode jsonNode = JsonSerializer.SerializeToNode(new GetExtClaimsResponse());
 			foreach(var key in nameValueColl.AllKeys) {
-				jsonNode[key] = nameValueColl[key];
+				var accessKey = $"extension_{key}";
+				var accessValue = nameValueColl[key];
+				jsonNode[accessKey] = accessValue;
 			}
 
-			_logger.Info($"SUCCESS! Sending back additional claims!");
+			_logger.Info($"SUCCESS! Sending back additional claims! JSON:  {jsonNode}");
 			return Ok(jsonNode);
 
 		} catch (Exception ex) {
