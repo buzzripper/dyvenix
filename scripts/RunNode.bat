@@ -14,7 +14,7 @@ echo -------  %arg%  ------------
 
 :: Determine the directory
 if /i "%arg%"=="portal" (
-    cd /d "%~dp0..\src\portal\portal.ui"
+    cd /d "%~dp0..\src\ui"
     set port=4200
 
 ) else if /i "%arg%"=="starter" (

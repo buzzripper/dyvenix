@@ -1,4 +1,3 @@
-using Buzzripper.Auth.Config;
 using Buzzripper.Logging.Config;
 using Buzzripper.Logging.Correlation;
 using Dyvenix.Server.Api.Config;
@@ -9,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json.Serialization;
+using Buzzripper.Auth.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 

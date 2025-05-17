@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\server.common\Server.Common.csproj" />
-    <ProjectReference Include="..\..\server.data\Server.Data.csproj" />
+    <ProjectReference Include="..\..\..\src\appsvr\appsvr.common\AppSvr.Common.csproj" />
+    <ProjectReference Include="..\..\..\src\appsvr\appsvr.data\AppSvr.Data.csproj" />
   </ItemGroup>
 
 </Project>

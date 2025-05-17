@@ -37,9 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\portal\portal\Portal.csproj" />
-    <ProjectReference Include="..\..\server.data\Server.Data.csproj" />
-    <ProjectReference Include="..\server.tests.common\Server.Tests.Common.csproj" />
+    <ProjectReference Include="..\..\..\src\appsvr\appsvr.data\AppSvr.Data.csproj" />
+    <ProjectReference Include="..\..\..\src\appsvr\appsvr\AppSvr.csproj" />
+    <ProjectReference Include="..\appsvr.tests.common\AppSvr.Tests.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,8 +4,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <AssemblyName>Buzzripper.Auth</AssemblyName>
-    <RootNamespace>Buzzripper.Auth</RootNamespace>
+    <AssemblyName>Dyvenix.Auth</AssemblyName>
+    <RootNamespace>Dyvenix.Auth</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,13 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\buzzripper.core\Buzzripper.Core.csproj" />
-    <ProjectReference Include="..\buzzripper.logging\Buzzripper.Logging.csproj" />
+    <Folder Include="Models\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\core\Core.csproj" />
+    <ProjectReference Include="..\logging\Logging.csproj" />
   </ItemGroup>
 
 </Project>

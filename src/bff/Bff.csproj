@@ -4,8 +4,8 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>disable</ImplicitUsings>
-		<RootNamespace>Dyvenix.Portal</RootNamespace>
-		<AssemblyName>Dyvenix.Portal</AssemblyName>
+		<RootNamespace>Dyvenix.Bff</RootNamespace>
+		<AssemblyName>Dyvenix.Bff</AssemblyName>
 		<UserSecretsId>f842c70e-8d7b-4d7f-967f-1e456cc18f4f</UserSecretsId>
 	</PropertyGroup>
 
@@ -28,14 +28,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\buzzripper\buzzripper.core\Buzzripper.Core.csproj" />
-	  <ProjectReference Include="..\..\buzzripper\buzzripper.logging\Buzzripper.Logging.csproj" />
-	  <ProjectReference Include="..\..\server\server.common\Server.Common.csproj" />
-	  <ProjectReference Include="..\..\server\server.data\Server.Data.csproj" />
+	  <Folder Include="Models\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Models\" />
+	  <ProjectReference Include="..\appsvr\appsvr.common\AppSvr.Common.csproj" />
+	  <ProjectReference Include="..\appsvr\appsvr.data\AppSvr.Data.csproj" />
+	  <ProjectReference Include="..\common\core\Core.csproj" />
+	  <ProjectReference Include="..\common\logging\Logging.csproj" />
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://uniswap.org/tokenlist.schema.json" /></VisualStudio></ProjectExtensions>

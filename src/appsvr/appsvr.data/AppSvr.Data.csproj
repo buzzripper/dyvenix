@@ -4,8 +4,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <AssemblyName>Dyvenix.Server.Data</AssemblyName>
-    <RootNamespace>Dyvenix.Server.Data</RootNamespace>
+    <AssemblyName>Dyvenix.AppSvr.Data</AssemblyName>
+    <RootNamespace>Dyvenix.AppSvr.Data</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,9 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\buzzripper\buzzripper.core\Buzzripper.Core.csproj" />
-    <ProjectReference Include="..\..\buzzripper\buzzripper.logging\Buzzripper.Logging.csproj" />
-    <ProjectReference Include="..\server.common\Server.Common.csproj" />
+    <ProjectReference Include="..\..\common\core\Core.csproj" />
+    <ProjectReference Include="..\..\common\logging\Logging.csproj" />
+    <ProjectReference Include="..\appsvr.common\AppSvr.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
