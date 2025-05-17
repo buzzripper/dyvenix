@@ -1,4 +1,5 @@
-﻿namespace Dyvenix.Portal.Config
+﻿
+namespace Dyvenix.Portal.Config
 {
 	public partial class AppConfig
 	{

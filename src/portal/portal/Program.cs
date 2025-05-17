@@ -1,5 +1,4 @@
 using Dyvenix.Portal.Config;
-using Dyvenix.Auth.Config;
 using Buzzripper.Logging.Config;
 using Buzzripper.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;
@@ -8,9 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json.Serialization;
-using Yarp.ReverseProxy.Transforms;
 using Dyvenix.Portal.Auth;
-using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +23,7 @@ builder.Services.AddDyvenixLoggingServices(builder.Configuration);
 Log.Logger.Information($"--------------  {appConfig.AppName}  --------------");
 
 builder.Services.AddAppServices(appConfig);
-builder.Services.AddDyvenixAuthServices(builder.Configuration, appConfig.UIRootUrl, Log.Logger);
+builder.Services.AddAuthServices(builder.Configuration, appConfig.UIRootUrl, Log.Logger);
 
 builder.Services.AddControllers()
 	.AddJsonOptions(options => {
@@ -39,7 +36,8 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
 // Add YARP
-builder.Services.AddReverseProxyWithAccessToken(builder.Configuration, authConfig);
+builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
 
 //----------------------------------------------------------------------------------------------
 

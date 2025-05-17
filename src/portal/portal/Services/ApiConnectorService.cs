@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
-using Dyvenix.Auth.Config;
 using Buzzripper.Logging;
+using Dyvenix.Portal.Config;
 
 namespace Dyvenix.Portal.Services;
 

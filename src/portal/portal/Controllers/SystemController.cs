@@ -1,8 +1,5 @@
 using Asp.Versioning;
 using Dyvenix.Portal.Config;
-using Dyvenix.Portal.Services;
-using Dyvenix.Auth.Claims;
-using Dyvenix.Auth.Config;
 using Buzzripper.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -69,7 +66,7 @@ public class SystemController : ApiControllerBase<SystemController>
 
 			_logger.Info("Attempting to acquire access token...");
 
-			var token = await _tokenAcquisition.GetAccessTokenForUserAsync(_authConfig.ApiScopes, user: User);
+			var token = await _tokenAcquisition.GetAccessTokenForUserAsync([_authConfig.Scope], user: User);
 
 			_logger.Info(token == null ? "Returned null" : "Access token acquired");
 
@@ -88,7 +85,7 @@ public class SystemController : ApiControllerBase<SystemController>
 		}
 	}
 
-	[AuthorizeClaim("extension_MyCustomClaim", "TheDudeAbides")]
+	//[AuthorizeClaim("extension_MyCustomClaim", "TheDudeAbides")]
 	[HttpGet("[action]")]
 	public IActionResult ClaimCheck()
 	{
