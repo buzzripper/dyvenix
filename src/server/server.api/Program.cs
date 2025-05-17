@@ -1,3 +1,4 @@
+using Buzzripper.Auth.Config;
 using Buzzripper.Logging.Config;
 using Buzzripper.Logging.Correlation;
 using Dyvenix.Server.Api.Config;
@@ -16,6 +17,7 @@ if (builder.Environment.IsDevelopment())
 	builder.Configuration.AddUserSecrets<Program>();
 
 var appConfig = AppConfigBuilder.Build(builder.Configuration);
+var authConfig = AuthConfigBuilder.Build(builder.Configuration);
 var dataConfig = DataConfigBuilder.Build(builder.Configuration);
 
 Log.Logger = new LogConfigBuilder().Build(builder.Configuration).CreateLogger();
@@ -23,6 +25,7 @@ builder.Services.AddDyvenixLoggingServices(builder.Configuration);
 Log.Logger.Information($"--------------  {appConfig.AppName}  --------------");
 
 builder.Services.AddAppServices(appConfig);
+builder.Services.AddApiAuth(builder, authConfig, Log.Logger);
 builder.Services.AddDyvenixDataServices(dataConfig);
 
 builder.Services.AddControllers()

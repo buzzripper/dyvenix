@@ -9,6 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\buzzripper\buzzripper.auth\Buzzripper.Auth.csproj" />
 		<ProjectReference Include="..\..\buzzripper\buzzripper.core\Buzzripper.Core.csproj" />
 		<ProjectReference Include="..\..\buzzripper\buzzripper.logging\Buzzripper.Logging.csproj" />
 		<ProjectReference Include="..\server.data\Server.Data.csproj" />
