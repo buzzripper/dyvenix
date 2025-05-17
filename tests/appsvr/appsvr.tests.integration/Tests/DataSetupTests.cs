@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
-using Dyvenix.Server.Data.Config;
-using Dyvenix.Server.Tests.Common.Data;
+using Dyvenix.AppSvr.Data.Config;
+using Dyvenix.AppSvr.Tests.Common.Data;
 
-namespace Dyvenix.Server.Tests.Integration.Tests;
+namespace Dyvenix.AppSvr.Tests.Integration.Tests;
 
 #region Fixture
 

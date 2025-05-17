@@ -1,8 +1,8 @@
-﻿using Buzzripper.Logging.Correlation;
+﻿using Dyvenix.Logging.Correlation;
 using Serilog;
 using System;
 
-namespace Buzzripper.Logging;
+namespace Dyvenix.Logging;
 
 public interface IDyvenixLogger<T>
 {

@@ -1,8 +1,8 @@
-﻿using System.Collections.Specialized;
-using Buzzripper.Logging;
-using Dyvenix.Portal.Config;
+﻿using Dyvenix.Bff.Config;
+using Dyvenix.Logging;
+using System.Collections.Specialized;
 
-namespace Dyvenix.Portal.Services;
+namespace Dyvenix.Bff.Services;
 
 public interface IApiConnectorService
 {

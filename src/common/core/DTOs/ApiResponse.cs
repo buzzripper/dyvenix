@@ -1,4 +1,4 @@
-﻿namespace Buzzripper.Core.DTOs;
+﻿namespace Dyvenix.Core.DTOs;
 
 public class ApiResponse
 {

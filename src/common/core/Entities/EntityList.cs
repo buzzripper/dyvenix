@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Buzzripper.Core.Entities
+namespace Dyvenix.Core.Entities
 {
 	public class EntityList<T> where T : new()
 	{

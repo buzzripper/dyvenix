@@ -1,8 +1,8 @@
-﻿using Dyvenix.Server.Data.Config;
+﻿using Dyvenix.AppSvr.Data.Config;
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Dyvenix.Server.Data.Config;
+namespace Dyvenix.AppSvr.Data.Config;
 
 public static class DataConfigBuilder
 {

@@ -1,4 +1,4 @@
-﻿namespace Buzzripper.Core.Queries;
+﻿namespace Dyvenix.Core.Queries;
 
 public interface IPagingQuery
 {

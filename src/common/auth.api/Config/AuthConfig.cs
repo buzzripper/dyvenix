@@ -1,5 +1,4 @@
-﻿
-namespace Buzzripper.Auth.Config;
+﻿namespace Dyvenix.Auth.Api.Config;
 
 public class AuthConfig
 {

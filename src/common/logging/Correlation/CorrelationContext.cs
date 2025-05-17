@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace Buzzripper.Logging.Correlation;
+namespace Dyvenix.Logging.Correlation;
 
 public static class CorrelationContext
 {

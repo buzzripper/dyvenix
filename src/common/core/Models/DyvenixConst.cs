@@ -1,4 +1,4 @@
-﻿namespace Buzzripper.Core.Models
+﻿namespace Dyvenix.Core.Models
 {
 	public static class DyvenixConst
 	{

@@ -1,12 +1,12 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
-using Buzzripper.Logging.Correlation;
+using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
-namespace Dyvenix.Server.Api.Config;
+namespace Dyvenix.AppSvr.Api.Config;
 
 public static partial class ServiceCollExt
 {

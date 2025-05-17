@@ -2,9 +2,9 @@
 // This file was auto-generated. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
-using Dyvenix.Server.Common.Entities;
+using Dyvenix.AppSvr.Common.Entities;
 
-namespace Dyvenix.Server.Common.DTOs;
+namespace Dyvenix.AppSvr.Common.DTOs;
 
 public class UpdateUserTypeReq
 {

@@ -4,7 +4,7 @@
 using System;
 
 
-namespace Dyvenix.Server.Common.Queries;
+namespace Dyvenix.AppSvr.Common.Queries;
 
 public class GetByIdQuery
 {

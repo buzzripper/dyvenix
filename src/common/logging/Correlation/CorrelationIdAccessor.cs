@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Buzzripper.Logging.Correlation;
+namespace Dyvenix.Logging.Correlation;
 
 public interface ICorrelationIdAccessor
 {

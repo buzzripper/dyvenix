@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Buzzripper.Logging.Correlation;
+namespace Dyvenix.Logging.Correlation;
 
 public class CorrelationIdMiddleware
 {

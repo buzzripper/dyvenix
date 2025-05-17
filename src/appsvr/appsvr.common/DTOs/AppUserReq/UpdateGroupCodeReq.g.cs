@@ -3,7 +3,7 @@
 //------------------------------------------------------------------------------------------------------------
 using System;
 
-namespace Dyvenix.Server.Common.DTOs;
+namespace Dyvenix.AppSvr.Common.DTOs;
 
 public class UpdateGroupCodeReq
 {

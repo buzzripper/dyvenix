@@ -6,15 +6,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
-using Buzzripper.Core.DTOs;
-using Buzzripper.Core.Entities;
-using Buzzripper.Logging;
-using Dyvenix.Server.Common.Queries;
-using Dyvenix.Server.Common.Entities;
-using Dyvenix.Server.Common.DTOs;
-using Dyvenix.Server.Api.Services;
+using Dyvenix.Core.DTOs;
+using Dyvenix.Core.Entities;
+using Dyvenix.Logging;
+using Dyvenix.AppSvr.Common.Queries;
+using Dyvenix.AppSvr.Common.Entities;
+using Dyvenix.AppSvr.Common.DTOs;
+using Dyvenix.AppSvr.Api.Services;
 
-namespace Dyvenix.Server.Api.Controllers;
+namespace Dyvenix.AppSvr.Api.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]

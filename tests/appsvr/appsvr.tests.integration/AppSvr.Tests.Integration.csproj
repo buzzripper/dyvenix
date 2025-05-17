@@ -5,8 +5,8 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <IsPackable>false</IsPackable>
-    <RootNamespace>Dyvenix.Server.Tests.Integration</RootNamespace>
-    <AssemblyName>Dyvenix.Server.Tests.Integration</AssemblyName>
+    <RootNamespace>Dyvenix.AppSvr.Tests.Integration</RootNamespace>
+    <AssemblyName>Dyvenix.AppSvr.Tests.Integration</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

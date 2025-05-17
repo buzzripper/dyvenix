@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Buzzripper.Auth.Config;
+namespace Dyvenix.Auth.Api.Config;
 
 public static class AuthConfigBuilder
 {

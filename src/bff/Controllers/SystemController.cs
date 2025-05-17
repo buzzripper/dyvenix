@@ -1,15 +1,15 @@
 using Asp.Versioning;
-using Dyvenix.Portal.Config;
-using Buzzripper.Logging;
+using Dyvenix.Bff.Config;
+using Dyvenix.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
 
-namespace Dyvenix.Portal.Controllers;
+namespace Dyvenix.Bff.Controllers;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]

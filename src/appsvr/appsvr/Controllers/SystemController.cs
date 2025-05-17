@@ -1,10 +1,10 @@
 using Asp.Versioning;
-using Buzzripper.Logging;
-using Dyvenix.Server.Api.Config;
+using Dyvenix.Logging;
+using Dyvenix.AppSvr.Api.Config;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace Dyvenix.Server.Api.Controllers;
+namespace Dyvenix.AppSvr.Api.Controllers;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]

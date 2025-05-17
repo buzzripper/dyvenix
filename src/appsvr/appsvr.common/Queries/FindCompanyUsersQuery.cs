@@ -2,7 +2,7 @@
 // This file was auto-generated 3/28/2025 9:41 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 
-namespace Dyvenix.Server.Common.Queries;
+namespace Dyvenix.AppSvr.Common.Queries;
 
 public class FindCompanyUsersQuery
 {

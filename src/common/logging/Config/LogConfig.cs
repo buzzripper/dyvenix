@@ -1,4 +1,4 @@
-﻿namespace Buzzripper.Logging.Config;
+﻿namespace Dyvenix.Logging.Config;
 
 public class LogConfig
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Dyvenix.Server.Api.Config;
+namespace Dyvenix.AppSvr.Api.Config;
 
 public static class AppConfigBuilder
 {

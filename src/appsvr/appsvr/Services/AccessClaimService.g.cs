@@ -6,15 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Dyvenix.Server.Data.Contexts;
-using Dyvenix.Server.Common.Entities;
-using Buzzripper.Core.Entities;
-using Buzzripper.Core.Exceptions;
-using Buzzripper.Core.Queries;
-using Buzzripper.Logging;
-using Dyvenix.Server.Common.Queries;
+using Dyvenix.AppSvr.Data.Contexts;
+using Dyvenix.AppSvr.Common.Entities;
+using Dyvenix.Core.Entities;
+using Dyvenix.Core.Exceptions;
+using Dyvenix.Core.Queries;
+using Dyvenix.Logging;
+using Dyvenix.AppSvr.Common.Queries;
 
-namespace Dyvenix.Server.Api.Services;
+namespace Dyvenix.AppSvr.Api.Services;
 
 public interface IAccessClaimService
 {

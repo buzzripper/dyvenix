@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Dyvenix.Portal.Models
+namespace Dyvenix.Bff.Auth
 {
 	public class RequestConnector
 	{

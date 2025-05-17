@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Buzzripper.Core.Exceptions;
+namespace Dyvenix.Core.Exceptions;
 
 public class BadRequestApiException : ApiException
 {

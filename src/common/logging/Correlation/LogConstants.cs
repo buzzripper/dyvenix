@@ -1,4 +1,4 @@
-﻿namespace Buzzripper.Logging.Correlation;
+﻿namespace Dyvenix.Logging.Correlation;
 
 internal static class LogConstants
 {

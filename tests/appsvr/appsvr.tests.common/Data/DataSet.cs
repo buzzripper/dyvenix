@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dyvenix.Server.Common.Entities;
+using Dyvenix.AppSvr.Common.Entities;
 
-namespace Dyvenix.Server.Tests.Common.Data;
+namespace Dyvenix.AppSvr.Tests.Common.Data;
 
 public class DataSet
 {

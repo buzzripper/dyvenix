@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace Buzzripper.Logging.Config;
+namespace Dyvenix.Logging.Config;
 
 public static class ServiceCollectionExtensions
 {

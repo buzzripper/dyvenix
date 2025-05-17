@@ -5,8 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-    <AssemblyName>Dyvenix.Server.Tests.Unit</AssemblyName>
-    <RootNamespace>Dyvenix.Server.Tests.Unit</RootNamespace>
+    <AssemblyName>Dyvenix.AppSvr.Tests.Unit</AssemblyName>
+    <RootNamespace>Dyvenix.AppSvr.Tests.Unit</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

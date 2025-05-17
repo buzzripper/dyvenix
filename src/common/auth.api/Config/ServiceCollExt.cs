@@ -7,7 +7,7 @@ using Serilog;
 using System;
 using System.Threading.Tasks;
 
-namespace Buzzripper.Auth.Config;
+namespace Dyvenix.Auth.Api.Config;
 
 public static class ServiceCollExt
 {

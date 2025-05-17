@@ -1,10 +1,10 @@
 //------------------------------------------------------------------------------------------------------------
 // This file was auto-generated. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
-using Dyvenix.Server.Common.ApiClients;
+using Dyvenix.AppSvr.Common.ApiClients;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dyvenix.Server.Common.Config;
+namespace Dyvenix.AppSvr.Common.Config;
 
 public static partial class ApiClientCollExt
 {

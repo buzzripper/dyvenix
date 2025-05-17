@@ -4,8 +4,8 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>disable</ImplicitUsings>
-		<RootNamespace>Dyvenix.Server.Api</RootNamespace>
-		<AssemblyName>Dyvenix.Server.Api</AssemblyName>
+		<RootNamespace>Dyvenix.AppSvr.Api</RootNamespace>
+		<AssemblyName>Dyvenix.AppSvr.Api</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>

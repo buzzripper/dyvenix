@@ -1,6 +1,6 @@
-﻿using Buzzripper.Core.Queries;
+﻿using Dyvenix.Core.Queries;
 
-namespace Dyvenix.Server.Common.Queries;
+namespace Dyvenix.AppSvr.Common.Queries;
 
 public class GetAppUsersQuery : IPagingQuery, ISortingQuery
 {

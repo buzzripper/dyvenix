@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Buzzripper.Core.ApiClients;
-using Buzzripper.Core.Entities;
-using Dyvenix.Server.Common.Queries;
-using Dyvenix.Server.Common.Entities;
-using Dyvenix.Server.Common.DTOs;
+using Dyvenix.Core.ApiClients;
+using Dyvenix.Core.Entities;
+using Dyvenix.AppSvr.Common.Queries;
+using Dyvenix.AppSvr.Common.Entities;
+using Dyvenix.AppSvr.Common.DTOs;
 
-namespace Dyvenix.Server.Common.ApiClients;
+namespace Dyvenix.AppSvr.Common.ApiClients;
 
 public interface IAppUserApiClient
 {

@@ -1,8 +1,8 @@
-﻿using Buzzripper.Logging.Correlation;
+﻿using Dyvenix.Logging.Correlation;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace Buzzripper.Logging.Enrichers;
+namespace Dyvenix.Logging.Enrichers;
 
 public class DyvenixLogEnricher : ILogEventEnricher
 {

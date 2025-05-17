@@ -1,4 +1,4 @@
-﻿namespace Dyvenix.Server.Api.Config
+﻿namespace Dyvenix.AppSvr.Api.Config
 {
 	public class AppConfig
 	{

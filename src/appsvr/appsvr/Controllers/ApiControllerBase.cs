@@ -1,11 +1,11 @@
-﻿using Buzzripper.Core.DTOs;
-using Buzzripper.Core.Exceptions;
-using Buzzripper.Logging;
+﻿using Dyvenix.Core.DTOs;
+using Dyvenix.Core.Exceptions;
+using Dyvenix.Logging;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
 
-namespace Dyvenix.Server.Api.Controllers;
+namespace Dyvenix.AppSvr.Api.Controllers;
 
 public class ApiControllerBase<TController> : ControllerBase
 {

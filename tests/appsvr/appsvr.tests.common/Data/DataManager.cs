@@ -1,11 +1,11 @@
-﻿using Dyvenix.Server.Data;
-using Dyvenix.Server.Data.Contexts;
+﻿using Dyvenix.AppSvr.Data;
+using Dyvenix.AppSvr.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Dyvenix.Server.Tests.Common.Data;
+namespace Dyvenix.AppSvr.Tests.Common.Data;
 
 public interface IDataManager : IDisposable
 {

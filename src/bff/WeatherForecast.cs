@@ -1,6 +1,6 @@
 using System;
 
-namespace Dyvenix.Portal
+namespace Dyvenix.Bff
 {
 	public class WeatherForecast
 	{

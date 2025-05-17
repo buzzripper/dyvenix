@@ -1,14 +1,14 @@
-using Buzzripper.Logging.Config;
-using Buzzripper.Logging.Correlation;
-using Dyvenix.Server.Api.Config;
-using Dyvenix.Server.Data.Config;
+using Dyvenix.Logging.Config;
+using Dyvenix.Logging.Correlation;
+using Dyvenix.AppSvr.Api.Config;
+using Dyvenix.AppSvr.Data.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json.Serialization;
-using Buzzripper.Auth.Config;
+using Dyvenix.Auth.Api.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 

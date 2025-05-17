@@ -3,7 +3,7 @@
 //------------------------------------------------------------------------------------------------------------
 using System;
 
-namespace Dyvenix.Server.Common.Entities;
+namespace Dyvenix.AppSvr.Common.Entities;
 
 public partial class AccessClaim
 {

@@ -1,5 +1,5 @@
-﻿using Buzzripper.Core.DTOs;
-using Buzzripper.Core.Exceptions;
+﻿using Dyvenix.Core.DTOs;
+using Dyvenix.Core.Exceptions;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Buzzripper.Core.ApiClients;
+namespace Dyvenix.Core.ApiClients;
 
 public abstract class ApiClientBase<T> where T : class
 {

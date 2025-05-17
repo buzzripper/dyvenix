@@ -2,7 +2,7 @@
 // This file was auto-generated 4/1/2025 10:11 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 
-namespace Dyvenix.Server.Common.Queries;
+namespace Dyvenix.AppSvr.Common.Queries;
 
 public class QueryByExtIdPagingQuery
 {

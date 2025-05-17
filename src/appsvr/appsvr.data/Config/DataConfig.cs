@@ -1,4 +1,4 @@
-﻿namespace Dyvenix.Server.Data.Config
+﻿namespace Dyvenix.AppSvr.Data.Config
 {
 	public class DataConfig
 	{

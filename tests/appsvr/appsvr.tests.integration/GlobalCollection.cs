@@ -1,6 +1,6 @@
 ﻿[assembly: CollectionBehavior(DisableTestParallelization = true)]
 
-namespace Dyvenix.Server.Tests.Integration;
+namespace Dyvenix.AppSvr.Tests.Integration;
 
 
 [CollectionDefinition("Global Collection")]

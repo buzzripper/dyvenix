@@ -1,8 +1,8 @@
-﻿using Dyvenix.Server.Common.Entities;
+﻿using Dyvenix.AppSvr.Common.Entities;
 using System;
 using System.Collections.Generic;
 
-using Dyvenix.Server.Tests.Common.Data;
+using Dyvenix.AppSvr.Tests.Common.Data;
 
 public class DefaultDataGenerator
 {

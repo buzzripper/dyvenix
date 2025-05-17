@@ -1,7 +1,7 @@
-﻿namespace Dyvenix.Portal.Auth;
+﻿namespace Dyvenix.Bff.Auth;
 
 public class AccessClaim
 {
-    public string Name { get; set; }
-    public string Value { get; set; }
+	public string Name { get; set; }
+	public string Value { get; set; }
 }

@@ -1,8 +1,8 @@
-﻿using Dyvenix.Server.Data.Config;
+﻿using Dyvenix.AppSvr.Data.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace Dyvenix.Server.Data.Contexts;
+namespace Dyvenix.AppSvr.Data.Contexts;
 
 public interface IDbContextFactory
 {

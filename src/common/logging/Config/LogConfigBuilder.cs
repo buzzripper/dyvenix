@@ -1,4 +1,4 @@
-﻿using Buzzripper.Logging.Enrichers;
+﻿using Dyvenix.Logging.Enrichers;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
@@ -9,7 +9,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 
-namespace Buzzripper.Logging.Config
+namespace Dyvenix.Logging.Config
 {
 	public class LogConfigBuilder
 	{

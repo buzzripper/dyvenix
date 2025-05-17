@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Buzzripper.Core.Config;
+namespace Dyvenix.Core.Config;
 
 public static class ConfigUtils
 {

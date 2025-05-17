@@ -1,24 +1,24 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
-using Buzzripper.Logging.Correlation;
-using Dyvenix.Portal.Services;
+using Dyvenix.Bff.Auth;
+using Dyvenix.Bff.Services;
+using Dyvenix.Logging.Correlation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 using Serilog;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
-using Dyvenix.Portal.Auth;
 using Yarp.ReverseProxy.Transforms.Builder;
 
-namespace Dyvenix.Portal.Config;
+namespace Dyvenix.Bff.Config;
 
 public static partial class ServiceCollExt
 {
@@ -97,7 +97,7 @@ public static partial class ServiceCollExt
 		services.AddScoped<ICorrelationIdAccessor, CorrelationIdAccessor>();
 		services.AddScoped<IApiConnectorService, ApiConnectorService>();
 
-		AddGeneratedServices(services);
+		services.AddGeneratedServices();
 
 		return services;
 	}

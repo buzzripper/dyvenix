@@ -1,4 +1,4 @@
-﻿namespace Dyvenix.Server.Tests.Unit;
+﻿namespace Dyvenix.AppSvr.Tests.Unit;
 
 public class UnitTest1
 {

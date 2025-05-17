@@ -1,5 +1,4 @@
-﻿
-namespace Dyvenix.Portal.Config;
+﻿namespace Dyvenix.Bff.Config;
 
 public class AuthConfig
 {

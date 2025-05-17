@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Dyvenix.Server.Common.Entities;
+namespace Dyvenix.AppSvr.Common.Entities;
 
 public partial class AppUser
 {

@@ -1,9 +1,9 @@
 //------------------------------------------------------------------------------------------------------------
 // This file was auto-generated 4/2/2025 7:05 AM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
-using Buzzripper.Core.Queries;
+using Dyvenix.Core.Queries;
 
-namespace Dyvenix.Server.Common.Queries;
+namespace Dyvenix.AppSvr.Common.Queries;
 
 public class QueryByExtIdSortedQuery : ISortingQuery
 {

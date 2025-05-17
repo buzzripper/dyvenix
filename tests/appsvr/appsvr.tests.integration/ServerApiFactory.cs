@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Dyvenix.Server.Common.Config;
-using Dyvenix.Server.Tests.Common.Data;
+using Dyvenix.AppSvr.Common.Config;
+using Dyvenix.AppSvr.Tests.Common.Data;
 using System.Text.Json.Serialization;
-using Dyvenix.Server.Data.Config;
+using Dyvenix.AppSvr.Data.Config;
 
-namespace Dyvenix.Server.Tests.Integration;
+namespace Dyvenix.AppSvr.Tests.Integration;
 
 public class ServerApiFactory : WebApplicationFactory<Program>
 {

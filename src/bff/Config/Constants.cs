@@ -1,4 +1,4 @@
-﻿namespace Dyvenix.Portal.Config;
+﻿namespace Dyvenix.Bff.Config;
 
 public static class Constants
 {

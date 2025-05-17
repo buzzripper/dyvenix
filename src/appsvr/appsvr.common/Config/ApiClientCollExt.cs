@@ -2,7 +2,7 @@
 using System;
 using System.Net.Http;
 
-namespace Dyvenix.Server.Common.Config;
+namespace Dyvenix.AppSvr.Common.Config;
 
 public static partial class ApiClientCollExt
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dyvenix.Server.Tests.Common;
+namespace Dyvenix.AppSvr.Tests.Common;
 
 public class TestBase
 {

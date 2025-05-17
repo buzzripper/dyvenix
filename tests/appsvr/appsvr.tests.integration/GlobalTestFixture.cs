@@ -1,5 +1,5 @@
 ﻿
-namespace Dyvenix.Server.Tests.Integration;
+namespace Dyvenix.AppSvr.Tests.Integration;
 
 public class GlobalTestFixture
 {

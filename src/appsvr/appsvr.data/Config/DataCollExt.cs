@@ -1,8 +1,8 @@
-﻿using Dyvenix.Server.Data.Contexts;
+﻿using Dyvenix.AppSvr.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dyvenix.Server.Data.Config;
+namespace Dyvenix.AppSvr.Data.Config;
 
 public static class DataCollExt
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Dyvenix.Portal.Config;
+namespace Dyvenix.Bff.Config;
 
 public static class AuthConfigBuilder
 {

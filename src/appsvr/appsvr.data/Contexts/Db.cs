@@ -2,10 +2,10 @@
 // This file was auto-generated ${{CURR_TIMESTAMP}}. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
-using Dyvenix.Server.Common.Entities;
+using Dyvenix.AppSvr.Common.Entities;
 
 
-namespace Dyvenix.Server.Data;
+namespace Dyvenix.AppSvr.Data;
 
 public partial class Db : DbContext
 {

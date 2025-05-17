@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
-using Dyvenix.Server.Common.ApiClients;
-using Dyvenix.Server.Tests.Common;
-using Dyvenix.Server.Tests.Common.Data;
+using Dyvenix.AppSvr.Common.ApiClients;
+using Dyvenix.AppSvr.Tests.Common;
+using Dyvenix.AppSvr.Tests.Common.Data;
 
-namespace Dyvenix.Server.Tests.Integration.Tests;
+namespace Dyvenix.AppSvr.Tests.Integration.Tests;
 
 #region Fixture
 

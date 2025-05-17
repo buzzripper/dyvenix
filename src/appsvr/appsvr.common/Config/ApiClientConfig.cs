@@ -1,5 +1,4 @@
-﻿
-namespace Dyvenix.Server.Common.Config;
+﻿namespace Dyvenix.AppSvr.Common.Config;
 
 public class ApiClientConfig
 {
