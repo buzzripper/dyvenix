@@ -1,6 +1,7 @@
 ﻿using Dyvenix.Auth.Core;
 using Dyvenix.Auth.Core.Models;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -39,9 +40,10 @@ public class DyvAccessTokenMiddleware
                     context.User.AddIdentity(claimsIdentity);
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 // Ignore malformed header
+                Console.WriteLine(ex.Message);
             }
         }
 

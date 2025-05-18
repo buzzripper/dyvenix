@@ -85,7 +85,7 @@ public class SystemController : ApiControllerBase<SystemController>
 		}
 	}
 
-	//[AuthorizeClaim("extension_MyCustomClaim", "TheDudeAbides")]
+	//[AuthorizeDyvRole("extension_MyCustomClaim", "TheDudeAbides")]
 	[HttpGet("[action]")]
 	public IActionResult ClaimCheck()
 	{

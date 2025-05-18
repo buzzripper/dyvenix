@@ -3,6 +3,8 @@ using Dyvenix.Logging;
 using Dyvenix.AppSvr.Api.Config;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Dyvenix.Auth.Api.Attributes;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dyvenix.AppSvr.Api.Controllers;
 
@@ -18,6 +20,8 @@ public class SystemController : ApiControllerBase<SystemController>
 		_appConfig = appConfig;
 	}
 
+	[Authorize]
+	[AuthorizeDyvRole("user.admin")]
 	[HttpGet, Route("[action]")]
 	public IActionResult Healthz()
 	{

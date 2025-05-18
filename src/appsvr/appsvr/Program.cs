@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json.Serialization;
 using Dyvenix.Auth.Api.Config;
+using Dyvenix.Auth.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,8 +46,13 @@ var app = builder.Build();
 
 app.UseSwaggerServices(builder.Services);
 app.UseHttpsRedirection();
-app.MapControllers();
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseMiddleware<DyvAccessTokenMiddleware>();
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
 

@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Dyvenix.Bff.Auth;
 
-public interface IAccessClaimProvider
+public interface IDyvAccessTokenProvider
 {
 	Task<string> GetAccessClaimsForUserAsync(string userId, CancellationToken cancellationToken = default);
 }
 
-public class AccessClaimProvider : IAccessClaimProvider
+public class DyvAccessTokenProvider : IDyvAccessTokenProvider
 {
 	private readonly IMemoryCache _cache;
 
-	public AccessClaimProvider(IMemoryCache cache)
+	public DyvAccessTokenProvider(IMemoryCache cache)
 	{
 		_cache = cache;
 	}

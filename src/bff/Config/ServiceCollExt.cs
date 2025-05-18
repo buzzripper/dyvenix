@@ -74,8 +74,8 @@ public static partial class ServiceCollExt
 		services.AddDistributedMemoryCache();
 
 		services.AddMemoryCache();
-		services.AddTransient<IAccessClaimProvider, AccessClaimProvider>();
-		services.AddTransient<ITransformProvider, UserClaimsTransformProvider>();
+		services.AddTransient<IDyvAccessTokenProvider, DyvAccessTokenProvider>();
+		services.AddTransient<ITransformProvider, ApiTokenTransformProvider>();
 	}
 
 	public static IApplicationBuilder UseDyvenixAuth(this IApplicationBuilder app, AuthConfig authConfig)

@@ -7,11 +7,11 @@ using Yarp.ReverseProxy.Transforms.Builder;
 
 namespace Dyvenix.Bff.Auth;
 
-public class UserClaimsTransformProvider : ITransformProvider
+public class ApiTokenTransformProvider : ITransformProvider
 {
 	private readonly AuthConfig _authConfig;
 
-	public UserClaimsTransformProvider(AuthConfig authConfig)
+	public ApiTokenTransformProvider(AuthConfig authConfig)
 	{
 		_authConfig = authConfig;
 	}
@@ -29,17 +29,15 @@ public class UserClaimsTransformProvider : ITransformProvider
 			if (string.IsNullOrEmpty(userId))
 				return;
 
+			// OIDC access token for downstream APIs
 			var tokenAcquisition = httpContext.RequestServices.GetRequiredService<ITokenAcquisition>();
-			var accessClaimProvider = httpContext.RequestServices.GetRequiredService<IAccessClaimProvider>();
-
 			var accessToken = await tokenAcquisition.GetAccessTokenForUserAsync([_authConfig.Scope]);
+			transformContext.ProxyRequest.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-			var claimsJson = await accessClaimProvider.GetAccessClaimsForUserAsync(userId);
-
-			transformContext.ProxyRequest.Headers.Authorization =
-				new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
-
-			transformContext.ProxyRequest.Headers.Add(AuthConst.TokenHeaderName, claimsJson);
+			// Dyvenix Access token for downstream APIs
+			var dyvAccessTokenProvider = httpContext.RequestServices.GetRequiredService<IDyvAccessTokenProvider>();
+			var dyvTokenJson = await dyvAccessTokenProvider.GetAccessClaimsForUserAsync(userId);
+			transformContext.ProxyRequest.Headers.Add(AuthConst.TokenHeaderName, dyvTokenJson);
 		});
 	}
 
