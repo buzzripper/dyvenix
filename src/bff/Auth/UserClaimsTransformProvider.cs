@@ -1,4 +1,5 @@
-﻿using Dyvenix.Bff.Config;
+﻿using Dyvenix.Auth.Core;
+using Dyvenix.Bff.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 using Yarp.ReverseProxy.Transforms;
@@ -38,7 +39,7 @@ public class UserClaimsTransformProvider : ITransformProvider
 			transformContext.ProxyRequest.Headers.Authorization =
 				new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-			transformContext.ProxyRequest.Headers.Add("Dyvenix-User-Claims", claimsJson);
+			transformContext.ProxyRequest.Headers.Add(AuthConst.TokenHeaderName, claimsJson);
 		});
 	}
 

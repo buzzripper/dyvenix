@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace Dyvenix.Bff.Auth;
+namespace Dyvenix.Auth.Core.Models;
 
-public class AccessClaimsToken
+public class DyvAccessToken
 {
 	public int CallerType { get; set; } // 1 = user, 2 = client
 	public string CallerId { get; set; }
-	public List<AccessClaim> AccessClaims { get; set; } = new();
+	public List<string> Roles { get; set; } = new();
 }

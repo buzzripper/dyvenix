@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Dyvenix.Auth.Core.Models;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -25,13 +26,13 @@ public class AccessClaimProvider : IAccessClaimProvider
 	{
 		var cacheKey = $"AccessClaims:{userId}";
 
-		if (!_cache.TryGetValue(cacheKey, out AccessClaimsToken claimsToken)) {
-			var claims = GetAccessClaims(userId);
+		if (!_cache.TryGetValue(cacheKey, out DyvAccessToken claimsToken)) {
+			var claims = GetAccessRoles(userId);
 
-			claimsToken = new AccessClaimsToken {
+			claimsToken = new DyvAccessToken {
 				CallerType = 1,
 				CallerId = userId,
-				AccessClaims = claims
+				Roles = claims
 			};
 
 			_cache.Set(cacheKey, claimsToken, new MemoryCacheEntryOptions {
@@ -43,13 +44,9 @@ public class AccessClaimProvider : IAccessClaimProvider
 		return Task.FromResult(json);
 	}
 
-	private List<AccessClaim> GetAccessClaims(string userId)
+	private List<string> GetAccessRoles(string userId)
 	{
 		// TODO: Replace this with actual DB logic
-		return new List<AccessClaim>
-		{
-			new AccessClaim { Name = "plan", Value = "pro" },
-			new AccessClaim { Name = "region", Value = "us-east" }
-		};
+		return new List<string> { "user.admin", "inv.read" };
 	}
 }
