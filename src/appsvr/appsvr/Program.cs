@@ -8,8 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json.Serialization;
-using Dyvenix.Auth.Api.Config;
-using Dyvenix.Auth.Api.Middleware;
+using Dyvenix.Common.Api.Middleware;
+using Dyvenix.Common.Api.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 

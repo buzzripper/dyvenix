@@ -11,5 +11,4 @@ public static class AuthConst
 	public static string RoleKey => "dyv_role";
 	public static string TokenHeaderName => "Dyv-Access-Token";
 	public static string ClaimsIdentityId => "DyvenixClaims";
-
 }

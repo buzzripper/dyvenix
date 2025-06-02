@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace Dyvenix.Core.ApiClients;
 
-public abstract class ApiClientBase<T> where T : class
+public abstract class ApiClientBase
 {
 	#region Fields
 
 	private readonly HttpClient _httpClient;
-	//private readonly _serializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
-
 	private readonly JsonSerializerOptions _jsonSerializerOptionsGet = new JsonSerializerOptions {
 		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 		PropertyNamingPolicy = JsonNamingPolicy.CamelCase,

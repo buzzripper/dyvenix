@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
 
-namespace Dyvenix.AppSvr.Api.Controllers;
+namespace Dyvenix.Common.Api.Controllers;
 
 public class ApiControllerBase<TController> : ControllerBase
 {

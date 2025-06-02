@@ -25,7 +25,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\common\auth.api\Auth.Api.csproj" />
+	  <ProjectReference Include="..\..\common\auth.api\Common.Api.csproj" />
 	  <ProjectReference Include="..\appsvr.data\AppSvr.Data.csproj" />
 	</ItemGroup>
 

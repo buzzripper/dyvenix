@@ -13,6 +13,7 @@ using Dyvenix.AppSvr.Common.Queries;
 using Dyvenix.AppSvr.Common.Entities;
 using Dyvenix.AppSvr.Common.DTOs;
 using Dyvenix.AppSvr.Api.Services;
+using Dyvenix.Common.Api.Controllers;
 
 namespace Dyvenix.AppSvr.Api.Controllers;
 

@@ -2,5 +2,5 @@
 
 public static class Constants
 {
-	public const string AppName = "Dyvenix Portal";
+	public const string AppName = "Dyvenix BFF";
 }

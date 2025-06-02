@@ -2,51 +2,60 @@
 using Dyvenix.Auth.Core.Models;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Dyvenix.Auth.Api.Middleware;
+namespace Dyvenix.Common.Api.Middleware;
 
 public class DyvAccessTokenMiddleware
 {
-    private readonly RequestDelegate _next;
+	private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions {
+		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+		PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+		PropertyNameCaseInsensitive = true
+	};
+	
+	private readonly RequestDelegate _next;
 
-    public DyvAccessTokenMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
+	public DyvAccessTokenMiddleware(RequestDelegate next)
+	{
+		_next = next;
+	}
 
-    public async Task InvokeAsync(HttpContext context)
-    {
-        if (context.Request.Headers.TryGetValue(AuthConst.TokenHeaderName, out var claimsHeader))  
-        {
-            try
-            {
-                var dyvToken = JsonSerializer.Deserialize<DyvAccessToken>(claimsHeader);
+	public async Task InvokeAsync(HttpContext context)
+	{
+		if (context.Request.Headers.TryGetValue(AuthConst.TokenHeaderName, out var claimsHeader)) {
+			try {
+				//System.IO.File.WriteAllText(@"c:\work\claimsHeader.json", claimsHeader);
 
-                if (dyvToken != null)
-                {
-                    var claimsIdentity = new ClaimsIdentity(AuthConst.ClaimsIdentityId);
+				//var json = JsonSerializer.Deserialize<string>(claimsHeader);
+				//var dyvToken = JsonSerializer.Deserialize<DyvAccessToken>(json, JsonSerializerOptions);
 
-                    foreach (var role in dyvToken.Roles)
-                    {
-                        claimsIdentity.AddClaim(new Claim(AuthConst.RoleKey, role));
-                    }
+				var dyvToken = JsonSerializer.Deserialize<DyvAccessToken>(claimsHeader, JsonSerializerOptions);
 
-                    claimsIdentity.AddClaim(new Claim("dyv_caller_id", dyvToken.CallerId));
-                    claimsIdentity.AddClaim(new Claim("dyv_caller_type", dyvToken.CallerType.ToString()));
+				if (dyvToken != null) {
+					var claims = new List<Claim>
+					{
+						new Claim("dyv_caller_id", dyvToken.CallerId),
+						new Claim("dyv_caller_type", dyvToken.CallerType.ToString())
+					};
 
-                    context.User.AddIdentity(claimsIdentity);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Ignore malformed header
-                Console.WriteLine(ex.Message);
-            }
-        }
+					claims.AddRange(dyvToken.Roles.Select(role => new Claim(AuthConst.RoleKey, role)));
 
-        await _next(context);
-    }
+					var claimsIdentity = new ClaimsIdentity(claims, AuthConst.ClaimsIdentityId); // Sets IsAuthenticated = true
+					context.User = new ClaimsPrincipal(claimsIdentity); // REPLACE the user, don’t just add identity
+				}
+			} catch (Exception ex) {
+				// Ignore malformed header
+				Console.WriteLine(ex.Message);
+			}
+		}
+
+		await _next(context);
+	}
 }
+

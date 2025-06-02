@@ -74,7 +74,7 @@ public static partial class ServiceCollExt
 		services.AddDistributedMemoryCache();
 
 		services.AddMemoryCache();
-		services.AddTransient<IDyvAccessTokenProvider, DyvAccessTokenProvider>();
+		services.AddTransient<IApiTokenProvider, ApiTokenProvider>();
 		services.AddTransient<ITransformProvider, ApiTokenTransformProvider>();
 	}
 

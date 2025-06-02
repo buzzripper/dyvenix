@@ -1,7 +1,10 @@
 ﻿using Dyvenix.Auth.Core;
 using Dyvenix.Bff.Config;
+using Dyvenix.Logging;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
+using System;
 using Yarp.ReverseProxy.Transforms;
 using Yarp.ReverseProxy.Transforms.Builder;
 
@@ -10,10 +13,12 @@ namespace Dyvenix.Bff.Auth;
 public class ApiTokenTransformProvider : ITransformProvider
 {
 	private readonly AuthConfig _authConfig;
+	//private readonly IDyvenixLogger<ApiTokenProvider> _logger;
 
-	public ApiTokenTransformProvider(AuthConfig authConfig)
+	public ApiTokenTransformProvider(AuthConfig authConfig/*, IDyvenixLogger<ApiTokenProvider> logger*/)
 	{
 		_authConfig = authConfig;
+		//_logger = logger;
 	}
 
 	public void Apply(TransformBuilderContext context)
@@ -22,22 +27,57 @@ public class ApiTokenTransformProvider : ITransformProvider
 			var httpContext = transformContext.HttpContext;
 			var user = httpContext.User;
 
-			if (!user.Identity?.IsAuthenticated ?? true)
+			if (!user.Identity?.IsAuthenticated ?? true) {
+				//_logger.Warn($"User is not authenticated");
 				return;
+			}
 
 			var userId = user.FindFirst("uid")?.Value;
-			if (string.IsNullOrEmpty(userId))
+			if (string.IsNullOrEmpty(userId)){
+				//_logger.Warn($"User id not found [{userId}]");
 				return;
+			}
 
 			// OIDC access token for downstream APIs
 			var tokenAcquisition = httpContext.RequestServices.GetRequiredService<ITokenAcquisition>();
 			var accessToken = await tokenAcquisition.GetAccessTokenForUserAsync([_authConfig.Scope]);
 			transformContext.ProxyRequest.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-			// Dyvenix Access token for downstream APIs
-			var dyvAccessTokenProvider = httpContext.RequestServices.GetRequiredService<IDyvAccessTokenProvider>();
-			var dyvTokenJson = await dyvAccessTokenProvider.GetAccessClaimsForUserAsync(userId);
-			transformContext.ProxyRequest.Headers.Add(AuthConst.TokenHeaderName, dyvTokenJson);
+			// Determine which downstream API is being called
+			//var endpoint = httpContext.GetEndpoint();
+			//var routeModel = endpoint?.Metadata.GetMetadata<RouteModel>();
+
+
+			//var url = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}/api/v1/system/healthz";
+			//var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+			//var httpClient = httpContext.GetRouteModel()?.Cluster?.Model?.HttpClient;
+			//var response = await httpClient.SendAsync(request, default);
+
+			//if (!response.IsSuccessStatusCode) {
+			//	Console.WriteLine($"Error calling downstream API: {response.StatusCode}");
+			//	return;
+			//}
+
+			//var content = await response.Content.ReadAsStringAsync();
+			//Console.WriteLine(content);
+
+			try {
+				var clusterId = httpContext.GetRouteModel()?.Cluster?.ClusterId;
+				if (string.IsNullOrEmpty(clusterId)) {
+					//_logger.Warn($"RouteModel/Cluster ID not found for route: {httpContext.Request.Path}");
+					return;
+				}
+
+				// Get the (Dyvenix) access token for downstream APIs and add to the request headers
+				var dyvAccessTokenProvider = httpContext.RequestServices.GetRequiredService<IApiTokenProvider>();
+				var dyvTokenJson = await dyvAccessTokenProvider.GetAccessClaimsForUserAsync(clusterId, userId);
+				transformContext.ProxyRequest.Headers.Add(AuthConst.TokenHeaderName, dyvTokenJson);
+
+			} catch (Exception ex) {
+				//_logger.Error(ex, $"Failed to get Dyvenix access token for user {userId}");
+				Console.WriteLine(ex.ToString());
+			}
 		});
 	}
 

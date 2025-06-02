@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace Dyvenix.Auth.Api.Claims;
+namespace Dyvenix.Common.Api.Claims;
 
 public class AuthorizeClaimAttribute : AuthorizeAttribute
 {

@@ -4,8 +4,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <AssemblyName>Dyvenix.Auth.Api</AssemblyName>
-    <RootNamespace>Dyvenix.Auth.Api</RootNamespace>
+    <AssemblyName>Dyvenix.Common.Api</AssemblyName>
+    <RootNamespace>Dyvenix.Common.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

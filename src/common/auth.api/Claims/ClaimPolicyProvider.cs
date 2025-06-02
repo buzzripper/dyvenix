@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
-namespace Dyvenix.Auth.Api.Claims;
+namespace Dyvenix.Common.Api.Claims;
 
 public class ClaimPolicyProvider : DefaultAuthorizationPolicyProvider
 {

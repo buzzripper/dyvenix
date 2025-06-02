@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Dyvenix.Auth.Api.Config;
+namespace Dyvenix.Common.Api.Config;
 
 public static class AuthConfigBuilder
 {

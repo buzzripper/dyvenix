@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{02EA681E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "src\common\logging\Logging.csproj", "{250DA84B-A60D-8895-1A50-F531C40E890B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Api", "src\common\auth.api\Auth.Api.csproj", "{877F2E07-F98E-F602-0B6F-2677DDA0919F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Api", "src\common\auth.api\Common.Api.csproj", "{877F2E07-F98E-F602-0B6F-2677DDA0919F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSvr.Common", "src\appsvr\appsvr.common\AppSvr.Common.csproj", "{9361DE68-C06C-8A44-0E8E-EDBE457D452A}"
 EndProject

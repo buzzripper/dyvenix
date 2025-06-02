@@ -7,7 +7,7 @@ using Serilog;
 using System;
 using System.Threading.Tasks;
 
-namespace Dyvenix.Auth.Api.Config;
+namespace Dyvenix.Common.Api.Config;
 
 public static class ServiceCollExt
 {

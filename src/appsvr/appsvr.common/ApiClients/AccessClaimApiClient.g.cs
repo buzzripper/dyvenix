@@ -10,7 +10,6 @@ using Dyvenix.Core.Entities;
 using Dyvenix.AppSvr.Common.Queries;
 using Dyvenix.AppSvr.Common.Entities;
 using Dyvenix.AppSvr.Common.DTOs;
-using Dyvenix.AppSvr.Common.DTOs;
 
 namespace Dyvenix.AppSvr.Common.ApiClients;
 
@@ -21,7 +20,7 @@ public interface IAccessClaimApiClient
 	Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim);
 	Task<byte[]> UpdateClaimName(UpdateClaimNameReq request);
 }
-public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiClient
+public class AccessClaimApiClient : ApiClientBase, IAccessClaimApiClient
 {
     public AccessClaimApiClient(HttpClient httpClient)
         : base(httpClient)

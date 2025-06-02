@@ -1,4 +1,4 @@
-﻿namespace Dyvenix.Auth.Api.Config;
+﻿namespace Dyvenix.Common.Api.Config;
 
 public class AuthConfig
 {

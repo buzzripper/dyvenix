@@ -1,5 +1,7 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Dyvenix.AppSvr.Api.Services;
+using Dyvenix.Common.Api.Services;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,13 +12,13 @@ namespace Dyvenix.AppSvr.Api.Config;
 
 public static partial class ServiceCollExt
 {
-	private const string cAppName = "Dyvenix Server";
-
 	public static IServiceCollection AddAppServices(this IServiceCollection services, AppConfig appConfig)
 	{
 		services.AddSingleton(appConfig);
 		services.AddScoped<ICorrelationIdAccessor, CorrelationIdAccessor>();
-
+		services.AddScoped<IAccessRolesService, AccessRolesService>();
+		services.AddScoped<ISystemService, SystemService>();
+		
 		AddGeneratedServices(services);
 
 		return services;
@@ -46,7 +48,7 @@ public static partial class ServiceCollExt
 		services.AddSwaggerGen(options => {
 			foreach (var description in provider.ApiVersionDescriptions) {
 				options.SwaggerDoc(description.GroupName, new OpenApiInfo {
-					Title = $"{cAppName} {description.ApiVersion}",
+					Title = $"{SvrConst.AppName} {description.ApiVersion}",
 					Version = description.ApiVersion.ToString(),
 					Description = $"Application server for App1 ({assyVersion})"
 				});

@@ -27,7 +27,7 @@ public interface IAppUserApiClient
 	Task<List<AppUser>> GetAll();
 	Task<List<AppUser>> ReadMethod1(UserType userType);
 }
-public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
+public class AppUserApiClient : ApiClientBase, IAppUserApiClient
 {
     public AppUserApiClient(HttpClient httpClient)
         : base(httpClient)

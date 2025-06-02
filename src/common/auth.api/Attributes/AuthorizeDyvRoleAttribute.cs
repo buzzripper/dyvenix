@@ -1,37 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Dyvenix.Auth.Core;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dyvenix.Auth.Core;
 
-namespace Dyvenix.Auth.Api.Attributes;
+namespace Dyvenix.Common.Api.Attributes;
 
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
 public class AuthorizeDyvRoleAttribute : Attribute, IAuthorizationFilter
 {
-    private readonly HashSet<string> _requiredRoles;
+	private readonly HashSet<string> _requiredRoles;
 
-    public AuthorizeDyvRoleAttribute(params string[] roles)
-    {
-        _requiredRoles = new HashSet<string>(roles, StringComparer.OrdinalIgnoreCase);
-    }
+	public AuthorizeDyvRoleAttribute(params string[] roles)
+	{
+		_requiredRoles = new HashSet<string>(roles, StringComparer.OrdinalIgnoreCase);
+	}
 
-    public void OnAuthorization(AuthorizationFilterContext context)
-    {
-        var user = context.HttpContext.User;
+	public void OnAuthorization(AuthorizationFilterContext context)
+	{
+		var user = context.HttpContext.User;
 
-        if (!user.Identity?.IsAuthenticated ?? true)
-        {
-            context.Result = new UnauthorizedResult();
-            return;
-        }
+		if (!user.Identity?.IsAuthenticated ?? true) {
+			context.Result = new UnauthorizedResult();
+			return;
+		}
 
-        var userRoles = user.FindAll(AuthConst.RoleKey).Select(c => c.Value);
+		var userRoles = user.FindAll(AuthConst.RoleKey).Select(c => c.Value);
 
-        if (!_requiredRoles.Overlaps(userRoles))
-        {
-            context.Result = new ForbidResult();
-        }
-    }
+		if (!_requiredRoles.Overlaps(userRoles)) {
+			context.Result = new ForbidResult();
+		}
+	}
 }
