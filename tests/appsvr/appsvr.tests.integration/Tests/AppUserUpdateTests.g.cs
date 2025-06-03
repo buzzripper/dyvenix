@@ -9,10 +9,10 @@ using Xunit.Abstractions;
 using Dyvenix.AppSvr.Tests.Integration;
 using Dyvenix.AppSvr.Common.ApiClients;
 using Dyvenix.AppSvr.Tests.Common.Data;
-using Dyvenix.AppSvr.Common.Entities;
+using Dyvenix.Common.Core.Entities;
 using Dyvenix.AppSvr.Tests.Common;
-using Dyvenix.AppSvr.Data;
-using Dyvenix.AppSvr.Data.Contexts;
+using Dyvenix.Common.Core;
+using Dyvenix.Common.Core.Contexts;
 using Dyvenix.AppSvr.Common.DTOs;
 
 namespace Dyvenix.AppSvr.Tests.Integration.Tests;

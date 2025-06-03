@@ -37,8 +37,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\appsvr\appsvr.data\AppSvr.Data.csproj" />
     <ProjectReference Include="..\..\..\src\appsvr\appsvr\AppSvr.csproj" />
+    <ProjectReference Include="..\..\..\src\common\common.data\Common.Data.csproj" />
     <ProjectReference Include="..\appsvr.tests.common\AppSvr.Tests.Common.csproj" />
   </ItemGroup>
 

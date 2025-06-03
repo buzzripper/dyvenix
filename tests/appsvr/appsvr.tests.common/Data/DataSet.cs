@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dyvenix.AppSvr.Common.Entities;
+using Dyvenix.Common.Core.Entities;
 
 namespace Dyvenix.AppSvr.Tests.Common.Data;
 

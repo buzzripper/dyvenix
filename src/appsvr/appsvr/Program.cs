@@ -1,7 +1,7 @@
 using Dyvenix.Logging.Config;
 using Dyvenix.Logging.Correlation;
 using Dyvenix.AppSvr.Api.Config;
-using Dyvenix.AppSvr.Data.Config;
+using Dyvenix.Common.Core.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dyvenix.AppSvr.Data.Contexts;
-using Dyvenix.AppSvr.Common.Entities;
-using Dyvenix.Core.Entities;
+using Dyvenix.Common.Core.Contexts;
 using Dyvenix.Core.Exceptions;
-using Dyvenix.Core.Queries;
 using Dyvenix.Logging;
-using Dyvenix.AppSvr.Common.Queries;
 using Dyvenix.AppSvr.Api.Auth;
 using Dyvenix.Common.Api.Services;
 using Dyvenix.Common.Api.Auth;
@@ -39,7 +35,7 @@ public class AccessRolesService : IAccessRolesService
 			return new List<string> { SvrRoles.User, SvrRoles.Sys_Read, SysRoles.Sys };
 
 		} catch (Exception ex) {
-			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
+			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId, ex);
 		}
 	}
 

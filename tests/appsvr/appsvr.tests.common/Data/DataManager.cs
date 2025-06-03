@@ -1,5 +1,4 @@
-﻿using Dyvenix.AppSvr.Data;
-using Dyvenix.AppSvr.Data.Contexts;
+﻿using Dyvenix.Common.Core.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

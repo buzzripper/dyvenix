@@ -19,7 +19,6 @@ using Dyvenix.Common.Api.Auth;
 using Microsoft.AspNetCore.Http;
 using Dyvenix.Auth.Core;
 using Microsoft.Identity.Client;
-using System.Net.WebSockets;
 
 namespace Dyvenix.Bff.Auth;
 

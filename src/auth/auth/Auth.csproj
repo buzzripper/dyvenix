@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<AssemblyName>Dyvenix.Auth</AssemblyName>
+		<RootNamespace>Dyvenix.Auth</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\common\common.api\Common.Api.csproj" />
+	  <ProjectReference Include="..\..\common\common.core\Common.Core.csproj" />
+	  <ProjectReference Include="..\..\common\logging\Logging.csproj" />
+	  <ProjectReference Include="..\auth.core\Auth.Core.csproj" />
+	</ItemGroup>
+
+</Project>

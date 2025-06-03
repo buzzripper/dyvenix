@@ -4,8 +4,8 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>disable</ImplicitUsings>
-		<RootNamespace>Dyvenix.AppSvr.Api</RootNamespace>
-		<AssemblyName>Dyvenix.AppSvr.Api</AssemblyName>
+		<RootNamespace>Dyvenix.AppSvr</RootNamespace>
+		<AssemblyName>Dyvenix.AppSvr</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -25,8 +25,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\common\auth.api\Common.Api.csproj" />
-	  <ProjectReference Include="..\appsvr.data\AppSvr.Data.csproj" />
+	  <ProjectReference Include="..\..\common\common.api\Common.Api.csproj" />
+	  <ProjectReference Include="..\..\common\common.core\Common.Core.csproj" />
+	  <ProjectReference Include="..\..\common\common.data\Common.Data.csproj" />
+	  <ProjectReference Include="..\appsvr.core\AppSvr.Core.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
-using Dyvenix.AppSvr.Data.Config;
+using Dyvenix.Common.Core.Config;
 using Dyvenix.AppSvr.Tests.Common.Data;
 
 namespace Dyvenix.AppSvr.Tests.Integration.Tests;

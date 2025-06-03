@@ -32,11 +32,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\appsvr\appsvr.common\AppSvr.Common.csproj" />
-	  <ProjectReference Include="..\appsvr\appsvr.data\AppSvr.Data.csproj" />
-	  <ProjectReference Include="..\common\auth.api\Common.Api.csproj" />
-	  <ProjectReference Include="..\common\auth.core\Auth.Core.csproj" />
-	  <ProjectReference Include="..\common\core\Core.csproj" />
+	  <ProjectReference Include="..\appsvr\appsvr.core\AppSvr.Core.csproj" />
+	  <ProjectReference Include="..\auth\auth.core\Auth.Core.csproj" />
+	  <ProjectReference Include="..\common\common.api\Common.Api.csproj" />
+	  <ProjectReference Include="..\common\common.core\Common.Core.csproj" />
+	  <ProjectReference Include="..\common\common.data\Common.Data.csproj" />
 	  <ProjectReference Include="..\common\logging\Logging.csproj" />
 	</ItemGroup>
 

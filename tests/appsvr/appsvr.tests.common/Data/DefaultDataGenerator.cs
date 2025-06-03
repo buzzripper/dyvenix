@@ -1,4 +1,4 @@
-﻿using Dyvenix.AppSvr.Common.Entities;
+﻿using Dyvenix.Common.Core.Entities;
 using System;
 using System.Collections.Generic;
 
