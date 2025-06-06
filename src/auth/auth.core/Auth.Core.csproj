@@ -8,4 +8,8 @@
 		<RootNamespace>Dyvenix.Auth.Core</RootNamespace>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\common\common.core\Common.Core.csproj" />
+	</ItemGroup>
+
 </Project>

@@ -1,7 +1,7 @@
 using Asp.Versioning;
 using Dyvenix.Common.Api.Auth;
+using Dyvenix.Common.Api.Controllers;
 using Dyvenix.Common.Api.Services;
-using Dyvenix.Core.DTOs;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,11 +9,11 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Dyvenix.Common.Api.Controllers;
+namespace Dyvenix.Auth.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/v{version:apiVersion}/[controller]")]
+[Route("auth/v{version:apiVersion}/[controller]")]
 public class AccessRolesController : ApiControllerBase<AccessRolesController>
 {
 	private readonly IAccessRolesService _accessRoleService;

@@ -21,7 +21,7 @@ Log.Logger = new LogConfigBuilder().Build(builder.Configuration).CreateLogger();
 builder.Services.AddDyvenixLoggingServices(builder.Configuration);
 Log.Logger.Information($"--------------  {appConfig.AppName}  --------------");
 
-builder.Services.AddAppServices(appConfig);
+builder.Services.RegisterServices(appConfig);
 builder.Services.AddAuthServices(builder.Configuration, appConfig.UIRootUrl, Log.Logger);
 
 builder.Services.AddControllers()

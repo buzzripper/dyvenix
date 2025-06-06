@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System;
@@ -20,17 +21,17 @@ public static class ServiceCollExt
 
 		builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			.AddJwtBearer(options => {
-				builder.Configuration.Bind("JwtBearer", options);
+				//builder.Configuration.Bind("JwtBearer", options);
 
-				options.TokenValidationParameters = new TokenValidationParameters {
-					ValidateAudience = true,
-					ValidAudience = builder.Configuration["JwtBearer:Audience"],
-					ValidateIssuer = true,
-					ValidIssuer = builder.Configuration["JwtBearer:Authority"],
+				//options.TokenValidationParameters = new TokenValidationParameters {
+				//	ValidateAudience = true,
+				//	ValidAudience = builder.Configuration["JwtBearer:Audience"],
+				//	ValidateIssuer = true,
+				//	ValidIssuer = builder.Configuration["JwtBearer:Authority"],
 
-					ValidateLifetime = true,
-					ValidateIssuerSigningKey = true,
-				};
+				//	ValidateLifetime = true,
+				//	ValidateIssuerSigningKey = true,
+				//};
 
 				// Optional logging/debug
 				options.Events = new JwtBearerEvents {
@@ -40,6 +41,14 @@ public static class ServiceCollExt
 					}
 				};
 			});
+
+		builder.Services.AddSingleton(
+			ConfidentialClientApplicationBuilder
+				.Create(authConfig.IdP.ClientId)
+				.WithClientSecret(authConfig.IdP.ClientSecret)
+				.WithAuthority(new Uri($"{authConfig.IdP.Instance}{authConfig.IdP.TenantId}"))
+				.Build()
+		);
 
 		builder.Services.AddAuthorization(options => {
 			options.AddPolicy("RequireAppAccess", policy => {
@@ -57,3 +66,4 @@ public static class ServiceCollExt
 		});
 	}
 }
+

@@ -9,10 +9,10 @@ public static class AuthConfigBuilder
 
 	public static AuthConfig Build(IConfiguration configuration)
 	{
-		var authConfig = configuration.GetSection(cConfigSectionName).Get<AuthConfig>();
-		if (authConfig == null)
+		var bffAuthConfig = configuration.GetSection(cConfigSectionName).Get<AuthConfig>();
+		if (bffAuthConfig == null)
 			throw new ApplicationException($"Unable to retrieve {cConfigSectionName} section from appsettings.json file.");
 
-		return authConfig;
+		return bffAuthConfig;
 	}
 }

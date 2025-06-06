@@ -1,12 +1,18 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Dyvenix.Auth.ApiClients;
+using Dyvenix.Auth.Core.Config;
 using Dyvenix.Bff.Auth;
 using Dyvenix.Bff.Services;
+using Dyvenix.Common.Api;
+using Dyvenix.Common.Api.Config;
+using Dyvenix.Core.ApiClients;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
@@ -14,6 +20,7 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Yarp.ReverseProxy.Transforms.Builder;
@@ -22,15 +29,15 @@ namespace Dyvenix.Bff.Config;
 
 public static partial class ServiceCollExt
 {
+	#region Auth
+
 	public static void AddAuthServices(this IServiceCollection services, IConfiguration configuration, string uiRootUrl, ILogger logger)
 	{
 		var authConfig = AuthConfigBuilder.Build(configuration);
 
-		// Configure a BFF
-
-		_ = services
+		services
 			.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-			.AddMicrosoftIdentityWebApp(configuration.GetSection($"AuthConfig:AzureAd"))
+			.AddMicrosoftIdentityWebApp(configuration.GetSection($"AuthConfig:IdPConfig"))
 			.EnableTokenAcquisitionToCallDownstreamApi([authConfig.Scope])
 			.AddInMemoryTokenCaches();
 
@@ -88,14 +95,39 @@ public static partial class ServiceCollExt
 		return app;
 	}
 
+	#endregion
+
+	public static void AddApiClients(this IServiceCollection services, IConfiguration configuration, ILogger logger)
+	{
+		var apiClientsConfig = ApiClientsConfigBuilder.Build(configuration);
+
+		// Auth
+		if (!apiClientsConfig.ContainsKey(AuthConst.ApiId))
+			throw new ApplicationException($"Configuration for ApiClient {AuthConst.ApiId} not found.");
+		var apiClientConfig = apiClientsConfig[AuthConst.ApiId];
+		services.AddTransient<IAccessRolesApiClient>(sp => new AccessRolesApiClient(CreateHttpClient(sp, apiClientConfig)));
+		services.AddTransient<ISystemApiClient>(sp => new SystemApiClient(CreateHttpClient(sp, apiClientConfig)));
+
+
+	}
+
+	private static HttpClient CreateHttpClient(IServiceProvider serviceProvider, ApiClientConfig apiClientConfig)
+	{
+		var httpClient = serviceProvider.GetRequiredService<HttpClient>();
+		httpClient.BaseAddress = new Uri(apiClientConfig.BaseUrl.Trim());
+		httpClient.Timeout = TimeSpan.FromSeconds(apiClientConfig.TImeoutSecs);
+		return httpClient;
+	}
+
 	#region Registrations
 
 	// Registrations
-	public static IServiceCollection AddAppServices(this IServiceCollection services, AppConfig appConfig)
+	public static IServiceCollection RegisterServices(this IServiceCollection services, AppConfig appConfig)
 	{
 		services.AddSingleton(appConfig);
 		services.AddScoped<ICorrelationIdAccessor, CorrelationIdAccessor>();
 		services.AddScoped<IApiConnectorService, ApiConnectorService>();
+		services.AddHttpClient();
 
 		services.AddGeneratedServices();
 

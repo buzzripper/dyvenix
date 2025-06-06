@@ -19,6 +19,8 @@ using Dyvenix.Common.Api.Auth;
 using Microsoft.AspNetCore.Http;
 using Dyvenix.Auth.Core;
 using Microsoft.Identity.Client;
+using Dyvenix.Auth.Core.Config;
+using Dyvenix.Auth.ApiClients;
 
 namespace Dyvenix.Bff.Auth;
 
@@ -29,6 +31,8 @@ public interface IApiTokenProvider
 
 public class ApiTokenProvider : IApiTokenProvider
 {
+	#region Static
+
 	private static string ClientCredAccessToken;
 	private static string SysRoleAccessToken;
 	private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions {
@@ -47,16 +51,22 @@ public class ApiTokenProvider : IApiTokenProvider
 		SysRoleAccessToken = JsonSerializer.Serialize(accessToken, JsonSerializerOptions);
 	}
 
-	private readonly IMemoryCache _cache;
-	private readonly AuthConfig _authConfig;
-	private readonly HttpClient _httpClient;
+	#endregion
 
-	public ApiTokenProvider(IMemoryCache cache, AuthConfig authConfig, HttpClient httpClient)
+	private readonly IMemoryCache _cache;
+	private readonly AuthConfig _bffAuthConfig;
+	private readonly IAccessRolesApiClient _authApiClient;
+
+	#region Ctors / Init
+
+	public ApiTokenProvider(IMemoryCache cache, AuthConfig bffAuthConfig, IAccessRolesApiClient authApiClient)
 	{
 		_cache = cache;
-		_authConfig = authConfig;
-		_httpClient = httpClient;
+		_bffAuthConfig = bffAuthConfig;
+		_authApiClient = authApiClient;
 	}
+
+	#endregion
 
 	public async Task<string> GetAccessClaimsForUserAsync(string apiId, string userId)
 	{
@@ -85,8 +95,10 @@ public class ApiTokenProvider : IApiTokenProvider
 		return JsonSerializer.Serialize(accessToken);
 	}
 
-	private async Task<List<string>> GetAccessRoles(string apiId, string userId)
+	private async Task<List<string>> GetAccessRoles(string userId)
 	{
+		var roles = await _authApiClient.GetAccessRolesForUser(userId);
+
 		//if (!_authConfig.ApiRolesEndpoints.TryGetValue(apiId, out var endpoint))
 		//	throw new ApplicationException($"ApiId '{apiId}' does not have a configured roles endpoint.");
 
@@ -95,17 +107,17 @@ public class ApiTokenProvider : IApiTokenProvider
 		// TODO: Use api client or whatever
 		var endpointUrl = $"https://localhost:7001/api/v1/accessroles/getaccessrolesforuser/{userId}";
 
-		_httpClient.DefaultRequestHeaders.Clear();
+		_authApiClient.DefaultRequestHeaders.Clear();
 
 		// Add client_credentials access token
 		if (string.IsNullOrEmpty(ClientCredAccessToken))
 			ClientCredAccessToken = await GetBFFAcessToken();
-		_httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {ClientCredAccessToken}");
+		_authApiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {ClientCredAccessToken}");
 
 		// Add our custom access token
-		_httpClient.DefaultRequestHeaders.Add(AuthConst.TokenHeaderName, SysRoleAccessToken);
+		_authApiClient.DefaultRequestHeaders.Add(AuthConst.TokenHeaderName, SysRoleAccessToken);
 
-		var httpResponse = await _httpClient.GetAsync(endpointUrl);
+		var httpResponse = await _authApiClient.GetAsync(endpointUrl);
 
 		if (!httpResponse.IsSuccessStatusCode)
 			throw new ApplicationException($"Failed attempt to get roles for user {userId} from ApiId {apiId}: {httpResponse.StatusCode} - {httpResponse.ReasonPhrase}");
@@ -123,12 +135,50 @@ public class ApiTokenProvider : IApiTokenProvider
 		}
 	}
 
+	//private async Task<List<string>> GetAccessRoles(string apiId, string userId)
+	//{
+	//	//if (!_authConfig.ApiRolesEndpoints.TryGetValue(apiId, out var endpoint))
+	//	//	throw new ApplicationException($"ApiId '{apiId}' does not have a configured roles endpoint.");
+
+	//	//var endpointUrl = $"{endpoint}/{userId}";
+
+	//	// TODO: Use api client or whatever
+	//	var endpointUrl = $"https://localhost:7001/api/v1/accessroles/getaccessrolesforuser/{userId}";
+
+	//	_httpClient.DefaultRequestHeaders.Clear();
+
+	//	// Add client_credentials access token
+	//	if (string.IsNullOrEmpty(ClientCredAccessToken))
+	//		ClientCredAccessToken = await GetBFFAcessToken();
+	//	_httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {ClientCredAccessToken}");
+
+	//	// Add our custom access token
+	//	_httpClient.DefaultRequestHeaders.Add(AuthConst.TokenHeaderName, SysRoleAccessToken);
+
+	//	var httpResponse = await _httpClient.GetAsync(endpointUrl);
+
+	//	if (!httpResponse.IsSuccessStatusCode)
+	//		throw new ApplicationException($"Failed attempt to get roles for user {userId} from ApiId {apiId}: {httpResponse.StatusCode} - {httpResponse.ReasonPhrase}");
+
+	//	if (httpResponse.StatusCode == HttpStatusCode.NoContent)
+	//		return default;
+
+	//	var responseString = await httpResponse.Content.ReadAsStringAsync();
+
+	//	try {
+	//		return JsonSerializer.Deserialize<List<string>>(responseString, JsonSerializerOptions);
+
+	//	} catch (Exception ex) {
+	//		throw new ApplicationException($"{ex.GetType().Name} attempting to deserialize roles for user {userId} returned from api {apiId}", ex);
+	//	}
+	//}
+
 	private async Task<string> GetBFFAcessToken()
 	{
 		var app = ConfidentialClientApplicationBuilder
-			.Create(_authConfig.AzureAd.ClientId)
-			.WithClientSecret(_authConfig.AzureAd.ClientSecret)
-			.WithAuthority(new Uri($"{_authConfig.AzureAd.Instance}{_authConfig.AzureAd.TenantId}"))
+			.Create(_bffAuthConfig.AzureAd.ClientId)
+			.WithClientSecret(_bffAuthConfig.AzureAd.ClientSecret)
+			.WithAuthority(new Uri($"{_bffAuthConfig.AzureAd.Instance}{_bffAuthConfig.AzureAd.TenantId}"))
 			.Build();
 
 		//var result = await app.AcquireTokenForClient(new[] { "api://af02ac5b-78db-42cb-b39d-081d1a793d32/.default" }).ExecuteAsync();
