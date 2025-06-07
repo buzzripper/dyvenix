@@ -1,18 +1,16 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
-using Dyvenix.Auth.ApiClients;
 using Dyvenix.Auth.Core.Config;
 using Dyvenix.Bff.Auth;
 using Dyvenix.Bff.Services;
 using Dyvenix.Common.Api;
+using Dyvenix.Common.Api.Auth;
 using Dyvenix.Common.Api.Config;
-using Dyvenix.Core.ApiClients;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
@@ -20,7 +18,6 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System;
 using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Yarp.ReverseProxy.Transforms.Builder;
@@ -38,7 +35,7 @@ public static partial class ServiceCollExt
 		services
 			.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
 			.AddMicrosoftIdentityWebApp(configuration.GetSection($"AuthConfig:IdPConfig"))
-			.EnableTokenAcquisitionToCallDownstreamApi([authConfig.Scope])
+			.EnableTokenAcquisitionToCallDownstreamApi(authConfig.Scopes)
 			.AddInMemoryTokenCaches();
 
 		services.AddAuthorization();
@@ -57,7 +54,8 @@ public static partial class ServiceCollExt
 			options.Scope.Clear();
 			options.Scope.Add("openid");
 			options.Scope.Add("profile");
-			options.Scope.Add(authConfig.Scope);
+			foreach(var scope in authConfig.Scopes)
+				options.Scope.Add(scope);
 
 			options.Events.OnRemoteFailure = context => {
 				logger.Error($"OIDC error: {context.Failure}");
@@ -81,7 +79,7 @@ public static partial class ServiceCollExt
 		services.AddDistributedMemoryCache();
 
 		services.AddMemoryCache();
-		services.AddTransient<IApiTokenProvider, ApiTokenProvider>();
+		//services.AddTransient<IClientApiTokenProvider, ClientApiTokenProvider>();
 		services.AddTransient<ITransformProvider, ApiTokenTransformProvider>();
 	}
 
@@ -104,20 +102,9 @@ public static partial class ServiceCollExt
 		// Auth
 		if (!apiClientsConfig.ContainsKey(AuthConst.ApiId))
 			throw new ApplicationException($"Configuration for ApiClient {AuthConst.ApiId} not found.");
-		var apiClientConfig = apiClientsConfig[AuthConst.ApiId];
-		services.AddTransient<IAccessRolesApiClient>(sp => new AccessRolesApiClient(CreateHttpClient(sp, apiClientConfig)));
-		services.AddTransient<ISystemApiClient>(sp => new SystemApiClient(CreateHttpClient(sp, apiClientConfig)));
-
-
+		services.AddAuthApiClients(apiClientsConfig[AuthConst.ApiId]);
 	}
 
-	private static HttpClient CreateHttpClient(IServiceProvider serviceProvider, ApiClientConfig apiClientConfig)
-	{
-		var httpClient = serviceProvider.GetRequiredService<HttpClient>();
-		httpClient.BaseAddress = new Uri(apiClientConfig.BaseUrl.Trim());
-		httpClient.Timeout = TimeSpan.FromSeconds(apiClientConfig.TImeoutSecs);
-		return httpClient;
-	}
 
 	#region Registrations
 

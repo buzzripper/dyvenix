@@ -8,9 +8,9 @@ namespace Dyvenix.AppSvr.Common.Config;
 
 public static partial class ApiClientCollExt
 {
-	static partial void AddGeneratedApiClients(this IServiceCollection services, ApiClientConfig apiClientConfig)
-	{
-		services.AddTransient<IAppUserApiClient, AppUserApiClient>();
-		services.AddTransient<IAccessClaimApiClient, AccessClaimApiClient>();
-	}
+	//static partial void AddGeneratedApiClients(this IServiceCollection services, ApiClientConfig apiClientConfig)
+	//{
+	//	services.AddTransient<IAppUserApiClient, AppUserApiClient>();
+	//	services.AddTransient<IAccessClaimApiClient, AccessClaimApiClient>();
+	//}
 }

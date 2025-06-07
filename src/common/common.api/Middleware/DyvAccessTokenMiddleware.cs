@@ -35,7 +35,7 @@ public class DyvAccessTokenMiddleware
 				//var json = JsonSerializer.Deserialize<string>(claimsHeader);
 				//var dyvToken = JsonSerializer.Deserialize<DyvAccessToken>(json, JsonSerializerOptions);
 
-				var dyvToken = JsonSerializer.Deserialize<DyvAccessToken>(claimsHeader, JsonSerializerOptions);
+				var dyvToken = JsonSerializer.Deserialize<ApiToken>(claimsHeader, JsonSerializerOptions);
 
 				if (dyvToken != null) {
 					var claims = new List<Claim>

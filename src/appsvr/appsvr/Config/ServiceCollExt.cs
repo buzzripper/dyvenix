@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Dyvenix.AppSvr.Api.Services;
+using Dyvenix.AppSvr.Core.Config;
 using Dyvenix.Common.Api.Services;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;
@@ -48,7 +49,7 @@ public static partial class ServiceCollExt
 		services.AddSwaggerGen(options => {
 			foreach (var description in provider.ApiVersionDescriptions) {
 				options.SwaggerDoc(description.GroupName, new OpenApiInfo {
-					Title = $"{SvrConst.AppName} {description.ApiVersion}",
+					Title = $"{AppSvrConst.AppName} {description.ApiVersion}",
 					Version = description.ApiVersion.ToString(),
 					Description = $"Application server for App1 ({assyVersion})"
 				});
