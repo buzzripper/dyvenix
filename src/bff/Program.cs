@@ -49,13 +49,17 @@ var app = builder.Build();
 app.UseSwaggerServices(builder.Services);
 app.UseHttpsRedirection();
 app.UseCors("CORSPolicy");
-app.MapControllers();
 app.UseDefaultFiles(); // Allows serving index.html as default
 app.UseStaticFiles(); // Enables serving files from wwwroot
 app.UseRouting();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
-app.UseDyvenixAuth(authConfig);
+
+//app.UseDyvenixAuth(authConfig);
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
 
 // Use YARP
 app.MapReverseProxy();

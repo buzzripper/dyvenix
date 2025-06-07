@@ -81,15 +81,15 @@ public static partial class ServiceCollExt
 		services.AddTransient<ITransformProvider, ApiTokenTransformProvider>();
 	}
 
-	public static IApplicationBuilder UseDyvenixAuth(this IApplicationBuilder app, AuthConfig authConfig)
-	{
-		if (authConfig.Enabled) {
-			app.UseAuthentication(); // resposible for constructing AuthenticationTicket objects representing the user's identity
-			app.UseAuthorization();
-		}
+	//public static IApplicationBuilder UseDyvenixAuth(this IApplicationBuilder app, AuthConfig authConfig)
+	//{
+	//	if (authConfig.Enabled) {
+	//		app.UseAuthentication(); // resposible for constructing AuthenticationTicket objects representing the user's identity
+	//		app.UseAuthorization();
+	//	}
 
-		return app;
-	}
+	//	return app;
+	//}
 
 	#endregion
 

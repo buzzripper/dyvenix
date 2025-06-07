@@ -24,18 +24,19 @@ public class ApiTokenTransformProvider : ITransformProvider
 	{
 		context.AddRequestTransform(async transformContext => {
 			var httpContext = transformContext.HttpContext;
-			var user = httpContext.User;
+			
+			//var user = httpContext.User;
 
-			if (!user.Identity?.IsAuthenticated ?? true) {
-				//_logger.Warn($"User is not authenticated");
-				return;
-			}
+			//if (!user.Identity?.IsAuthenticated ?? true) {
+			//	//_logger.Warn($"User is not authenticated");
+			//	return;
+			//}
 
-			var userId = user.FindFirst("uid")?.Value;
-			if (string.IsNullOrEmpty(userId)) {
-				//_logger.Warn($"User id not found [{userId}]");
-				return;
-			}
+			//var userId = user.FindFirst("uid")?.Value;
+			//if (string.IsNullOrEmpty(userId)) {
+			//	//_logger.Warn($"User id not found [{userId}]");
+			//	return;
+			//}
 
 			try {
 				// OIDC access token for downstream APIs
