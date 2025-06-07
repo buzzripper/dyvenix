@@ -2,9 +2,7 @@
 using Asp.Versioning.ApiExplorer;
 using Dyvenix.Auth.Core.Config;
 using Dyvenix.Bff.Auth;
-using Dyvenix.Bff.Services;
 using Dyvenix.Common.Api;
-using Dyvenix.Common.Api.Auth;
 using Dyvenix.Common.Api.Config;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -34,7 +32,7 @@ public static partial class ServiceCollExt
 
 		services
 			.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-			.AddMicrosoftIdentityWebApp(configuration.GetSection($"AuthConfig:IdPConfig"))
+			.AddMicrosoftIdentityWebApp(configuration.GetSection($"AuthConfig:IdP"))
 			.EnableTokenAcquisitionToCallDownstreamApi(authConfig.Scopes)
 			.AddInMemoryTokenCaches();
 
@@ -95,15 +93,15 @@ public static partial class ServiceCollExt
 
 	#endregion
 
-	public static void AddApiClients(this IServiceCollection services, IConfiguration configuration, ILogger logger)
-	{
-		var apiClientsConfig = ApiClientsConfigBuilder.Build(configuration);
+	//public static void AddApiClients(this IServiceCollection services, IConfiguration configuration, ILogger logger)
+	//{
+	//	var apiClientsConfig = ApiClientsConfigBuilder.Build(configuration);
 
-		// Auth
-		if (!apiClientsConfig.ContainsKey(AuthConst.ApiId))
-			throw new ApplicationException($"Configuration for ApiClient {AuthConst.ApiId} not found.");
-		services.AddAuthApiClients(apiClientsConfig[AuthConst.ApiId]);
-	}
+	//	// Auth
+	//	if (!apiClientsConfig.ContainsKey(AuthConst.ApiId))
+	//		throw new ApplicationException($"Configuration for ApiClient {AuthConst.ApiId} not found.");
+	//	services.AddAuthApiClients(apiClientsConfig[AuthConst.ApiId]);
+	//}
 
 
 	#region Registrations
@@ -113,7 +111,6 @@ public static partial class ServiceCollExt
 	{
 		services.AddSingleton(appConfig);
 		services.AddScoped<ICorrelationIdAccessor, CorrelationIdAccessor>();
-		services.AddScoped<IApiConnectorService, ApiConnectorService>();
 		services.AddHttpClient();
 
 		services.AddGeneratedServices();

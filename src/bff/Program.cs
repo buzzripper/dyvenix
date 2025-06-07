@@ -1,4 +1,5 @@
 using Dyvenix.Bff.Config;
+using Dyvenix.Common.Api.Config;
 using Dyvenix.Logging.Config;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,8 @@ builder.Services.AddControllers()
 	.AddJsonOptions(options => {
 		options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 	});
+
+builder.Services.AddApiAuth(builder, authConfig, Log.Logger);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerServices(authConfig.Enabled);

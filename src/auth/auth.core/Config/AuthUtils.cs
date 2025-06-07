@@ -11,7 +11,7 @@ public static class AuthUtils
 	{
 		var httpClient = serviceProvider.GetRequiredService<HttpClient>();
 		httpClient.BaseAddress = new Uri(apiClientConfig.BaseUrl.Trim());
-		httpClient.Timeout = TimeSpan.FromSeconds(apiClientConfig.TImeoutSecs);
+		httpClient.Timeout = TimeSpan.FromSeconds(apiClientConfig.TimeoutSecs);
 		return httpClient;
 	}
 }

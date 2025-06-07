@@ -43,10 +43,10 @@ public class ApiTokenTransformProvider : ITransformProvider
 				var accessToken = await tokenAcquisition.GetAccessTokenForUserAsync(_authConfig.Scopes);
 				transformContext.ProxyRequest.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-				// Get the ApiToken (custom Dyvenix access token) for downstream APIs and add to the request headers
-				var userApiTokenProvider = httpContext.RequestServices.GetRequiredService<IUserApiTokenProvider>();
-				var dyvTokenJson = await userApiTokenProvider.GetApiTokenJson(userId);
-				transformContext.ProxyRequest.Headers.Add(AuthConst.TokenHeaderName, dyvTokenJson);
+				//// Get the ApiToken (custom Dyvenix access token) for downstream APIs and add to the request headers
+				//var userApiTokenProvider = httpContext.RequestServices.GetRequiredService<IUserApiTokenProvider>();
+				//var dyvTokenJson = await userApiTokenProvider.GetApiTokenJson(userId);
+				//transformContext.ProxyRequest.Headers.Add(AuthConst.TokenHeaderName, dyvTokenJson);
 
 			} catch (Exception ex) {
 				//_logger.Error(ex, $"Failed to get Dyvenix access token for user {userId}");

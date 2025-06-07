@@ -17,14 +17,14 @@ namespace Dyvenix.Bff.Controllers;
 public class SystemController : ApiControllerBase<SystemController>
 {
 	private readonly AppConfig _appConfig;
-	private readonly AuthConfig _authConfig;
+	//private readonly AuthConfig _authConfig;
 	private readonly ITokenAcquisition _tokenAcquisition;
 
-	public SystemController(AppConfig appConfig, IDyvenixLogger<SystemController> logger, ITokenAcquisition tokenAcquisition, AuthConfig authConfig) : base(logger)
+	public SystemController(AppConfig appConfig, IDyvenixLogger<SystemController> logger, ITokenAcquisition tokenAcquisition/*, AuthConfig authConfig*/) : base(logger)
 	{
 		_appConfig = appConfig;
 		_tokenAcquisition = tokenAcquisition;
-		_authConfig = authConfig;
+		//_authConfig = authConfig;
 	}
 
 	[HttpGet, Route("[action]")]
@@ -56,34 +56,34 @@ public class SystemController : ApiControllerBase<SystemController>
 		return Ok();
 	}
 
-	[Authorize]
-	[HttpGet("status")]
-	public async Task<IActionResult> Status()
-	{
-		try {
-			var oid = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
-			_logger.Info("OID: " + (oid ?? "null"));
+	//[Authorize]
+	//[HttpGet("status")]
+	//public async Task<IActionResult> Status()
+	//{
+	//	try {
+	//		var oid = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+	//		_logger.Info("OID: " + (oid ?? "null"));
 
-			_logger.Info("Attempting to acquire access token...");
+	//		_logger.Info("Attempting to acquire access token...");
 
-			var token = await _tokenAcquisition.GetAccessTokenForUserAsync([_authConfig.Scope], user: User);
+	//		var token = await _tokenAcquisition.GetAccessTokenForUserAsync([_authConfig.Scope], user: User);
 
-			_logger.Info(token == null ? "Returned null" : "Access token acquired");
+	//		_logger.Info(token == null ? "Returned null" : "Access token acquired");
 
 
-			return Ok(new
-			{
-				AccessTokenAvailable = true,
-				User = User.Identity?.Name,
-				TokenStart = token?.Substring(0, 25) + "...",
-				Claims = User.Claims.Select(c => new { c.Type, c.Value })
-			});
+	//		return Ok(new
+	//		{
+	//			AccessTokenAvailable = true,
+	//			User = User.Identity?.Name,
+	//			TokenStart = token?.Substring(0, 25) + "...",
+	//			Claims = User.Claims.Select(c => new { c.Type, c.Value })
+	//		});
 
-		} catch (MsalUiRequiredException ex) {
-			_logger.Warn("Token acquisition failed: " + ex.Message);
-			return Unauthorized(new { Message = "Login required" });
-		}
-	}
+	//	} catch (MsalUiRequiredException ex) {
+	//		_logger.Warn("Token acquisition failed: " + ex.Message);
+	//		return Unauthorized(new { Message = "Login required" });
+	//	}
+	//}
 
 	//[AuthorizeDyvRole("extension_MyCustomClaim", "TheDudeAbides")]
 	[HttpGet("[action]")]
