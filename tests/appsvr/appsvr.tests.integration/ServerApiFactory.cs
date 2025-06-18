@@ -25,9 +25,9 @@ public class ServerApiFactory : WebApplicationFactory<Program>
 				.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
 				.Build();
 
-			var apiClientConfig = configuration.GetSection("ApiClientConfig").Get<ApiClientConfig>();
+			//var apiClientConfig = configuration.GetSection("ApiClientConfig").Get<ApiClientConfig>();
 
-			services.AddApiClientServices(apiClientConfig);
+			//services.AddApiClientServices(apiClientConfig);
 
 			services.AddSingleton<IDataManager, DataManager>();
 

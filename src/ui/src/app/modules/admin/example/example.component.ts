@@ -23,4 +23,8 @@ export class ExampleComponent
             }
         });
     }
+
+    public onClick() {
+        this.message = "Clicked!";
+    }
 }

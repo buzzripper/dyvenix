@@ -62,7 +62,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Use YARP
-app.MapReverseProxy();
+//app.MapReverseProxy();
+app.MapReverseProxy().RequireAuthorization();
 
 Log.Logger.Debug("Starting application");
 app.Run();

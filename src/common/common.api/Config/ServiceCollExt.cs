@@ -44,9 +44,9 @@ public static class ServiceCollExt
 
 		builder.Services.AddSingleton(
 			ConfidentialClientApplicationBuilder
-				.Create(authConfig.IdP.ClientId)
-				.WithClientSecret(authConfig.IdP.ClientSecret)
-				.WithAuthority(new Uri($"{authConfig.IdP.Instance}{authConfig.IdP.TenantId}"))
+				.Create(authConfig.AzureAd.ClientId)
+				.WithClientSecret(authConfig.AzureAd.ClientSecret)
+				.WithAuthority(new Uri($"{authConfig.AzureAd.Instance}{authConfig.AzureAd.TenantId}"))
 				.Build()
 		);
 

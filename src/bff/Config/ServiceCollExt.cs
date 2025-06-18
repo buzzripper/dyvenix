@@ -30,17 +30,23 @@ public static partial class ServiceCollExt
 	{
 		var authConfig = AuthConfigBuilder.Build(configuration);
 
+		//services.Configure<MicrosoftIdentityOptions>(OpenIdConnectDefaults.AuthenticationScheme, configuration.GetSection("AuthConfig:AzureAd"));
+
 		services
 			.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-			.AddMicrosoftIdentityWebApp(configuration.GetSection($"AuthConfig:IdP"))
+			.AddMicrosoftIdentityWebApp(configuration.GetSection("AuthConfig:AzureAd"), OpenIdConnectDefaults.AuthenticationScheme)
 			.EnableTokenAcquisitionToCallDownstreamApi(authConfig.Scopes)
 			.AddInMemoryTokenCaches();
+
 
 		services.AddAuthorization();
 
 		services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme, options => {
 			options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-			options.Cookie.SameSite = SameSiteMode.Strict;
+
+			//options.Cookie.SameSite = SameSiteMode.Strict;
+			options.Cookie.SameSite = SameSiteMode.None;
+
 			options.Cookie.HttpOnly = true;
 			options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
 			options.SlidingExpiration = true;
@@ -48,11 +54,13 @@ public static partial class ServiceCollExt
 
 		services.Configure<OpenIdConnectOptions>(OpenIdConnectDefaults.AuthenticationScheme, options => {
 			options.ResponseType = "code";
-
 			options.Scope.Clear();
 			options.Scope.Add("openid");
 			options.Scope.Add("profile");
-			foreach(var scope in authConfig.Scopes)
+
+			options.SaveTokens = true;
+
+			foreach (var scope in authConfig.Scopes)
 				options.Scope.Add(scope);
 
 			options.Events.OnRemoteFailure = context => {
@@ -69,6 +77,24 @@ public static partial class ServiceCollExt
 				logger.Error($"AUTH ERROR: {context.Exception.Message}");
 				return Task.CompletedTask;
 			};
+
+			//options.Events.OnAuthorizationCodeReceived = context => {
+			//	var authCode = context.ProtocolMessage.Code;
+			//	logger.Information($"AUTH CODE: {authCode}");
+			//	return Task.CompletedTask;
+			//};
+
+			//options.Events.OnTokenValidated = context => {
+			//	var idToken = context.SecurityToken;
+			//	var accessToken = context.TokenEndpointResponse?.AccessToken;
+			//	var refreshToken = context.TokenEndpointResponse?.RefreshToken;
+
+			//	logger.Information($"ID TOKEN: {idToken}");
+			//	logger.Information($"ACCESS TOKEN: {accessToken}");
+			//	logger.Information($"REFRESH TOKEN: {refreshToken}"); // optional
+
+			//	return Task.CompletedTask;
+			//};
 		});
 
 		// Registrations 

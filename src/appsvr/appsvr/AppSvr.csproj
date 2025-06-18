@@ -6,6 +6,7 @@
 		<ImplicitUsings>disable</ImplicitUsings>
 		<RootNamespace>Dyvenix.AppSvr</RootNamespace>
 		<AssemblyName>Dyvenix.AppSvr</AssemblyName>
+		<UserSecretsId>35d71d41-810b-4357-9943-b35b49515351</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>

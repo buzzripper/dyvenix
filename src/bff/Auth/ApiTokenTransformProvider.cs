@@ -1,7 +1,9 @@
 ﻿using Dyvenix.Auth.Core.Config;
 using Dyvenix.Common.Api;
 using Dyvenix.Common.Api.Auth;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using System;
 using Yarp.ReverseProxy.Transforms;
@@ -24,13 +26,13 @@ public class ApiTokenTransformProvider : ITransformProvider
 	{
 		context.AddRequestTransform(async transformContext => {
 			var httpContext = transformContext.HttpContext;
-			
-			//var user = httpContext.User;
 
-			//if (!user.Identity?.IsAuthenticated ?? true) {
-			//	//_logger.Warn($"User is not authenticated");
-			//	return;
-			//}
+			var user = httpContext.User;
+
+			if (!user.Identity?.IsAuthenticated ?? true) {
+				//_logger.Warn($"User is not authenticated");
+				return;
+			}
 
 			//var userId = user.FindFirst("uid")?.Value;
 			//if (string.IsNullOrEmpty(userId)) {
@@ -41,7 +43,13 @@ public class ApiTokenTransformProvider : ITransformProvider
 			try {
 				// OIDC access token for downstream APIs
 				var tokenAcquisition = httpContext.RequestServices.GetRequiredService<ITokenAcquisition>();
-				var accessToken = await tokenAcquisition.GetAccessTokenForUserAsync(_authConfig.Scopes);
+
+				// DEBUG
+				//var options = httpContext.RequestServices.GetService<IOptions<MicrosoftIdentityOptions>>();
+				var options = httpContext.RequestServices.GetRequiredService<IOptionsMonitor<MicrosoftIdentityOptions>>().Get(OpenIdConnectDefaults.AuthenticationScheme);
+
+
+				var accessToken = await tokenAcquisition.GetAccessTokenForUserAsync(scopes: _authConfig.Scopes, authenticationScheme: OpenIdConnectDefaults.AuthenticationScheme);
 				transformContext.ProxyRequest.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
 				//// Get the ApiToken (custom Dyvenix access token) for downstream APIs and add to the request headers

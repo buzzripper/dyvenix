@@ -21,7 +21,6 @@ public class SystemController : ApiControllerBase<SystemController>
 	}
 
 	[HttpGet, Route("[action]")]
-	[AuthorizeDyvRole(SysRoles.Sys)]
 	public IActionResult Healthz()
 	{
 		try {
