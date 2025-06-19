@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using System;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,12 +31,16 @@ builder.Services.AddControllers()
 		options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 	});
 
-builder.Services.AddApiAuth(builder, authConfig, Log.Logger);
-
+//builder.Services.AddApiAuth(builder, authConfig, Log.Logger);
+ 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerServices(authConfig.Enabled);
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
+
+
+
+
 
 // Add YARP
 builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
@@ -48,7 +53,6 @@ var app = builder.Build();
 
 app.UseSwaggerServices(builder.Services);
 app.UseHttpsRedirection();
-app.UseCors("CORSPolicy");
 app.UseDefaultFiles(); // Allows serving index.html as default
 app.UseStaticFiles(); // Enables serving files from wwwroot
 app.UseRouting();
@@ -56,6 +60,15 @@ app.UseRouting();
 app.UseMiddleware<CorrelationIdMiddleware>();
 
 //app.UseDyvenixAuth(authConfig);
+app.UseCors("CORSPolicy");
+
+//app.Use(async (context, next) =>
+//{
+//    Log.Logger.Information("[DYV] Incoming request: " + context.Request.Path);
+//    Log.Logger.Information("[DYV] Cookies: " + context.Request.Headers["Cookie"]);
+//    await next();
+//});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -64,6 +77,8 @@ app.MapControllers();
 // Use YARP
 //app.MapReverseProxy();
 app.MapReverseProxy().RequireAuthorization();
+
+app.MapFallbackToFile("index.html");
 
 Log.Logger.Debug("Starting application");
 app.Run();
