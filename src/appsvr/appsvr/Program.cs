@@ -1,0 +1,63 @@
+using Dyvenix.Logging.Config;
+using Dyvenix.Logging.Correlation;
+using Dyvenix.AppSvr.Api.Config;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using System.Text.Json.Serialization;
+using Dyvenix.Common.Api.Config;
+using Dyvenix.Common.Data.Config;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+if (builder.Environment.IsDevelopment())
+	builder.Configuration.AddUserSecrets<Program>();
+
+var appConfig = AppConfigBuilder.Build(builder.Configuration);
+var authConfig = AuthConfigBuilder.Build(builder.Configuration);
+var dataConfig = DataConfigBuilder.Build(builder.Configuration);
+
+Log.Logger = new LogConfigBuilder().Build(builder.Configuration).CreateLogger();
+builder.Services.AddDyvenixLoggingServices(builder.Configuration);
+Log.Logger.Information($"--------------  {appConfig.AppName}  --------------");
+
+builder.Services.AddAppServices(appConfig);
+//builder.Services.AddApiAuth(builder, authConfig, Log.Logger);
+builder.Services.AddDyvenixDataServices(dataConfig);
+
+builder.Services.AddControllers()
+	.AddJsonOptions(options => {
+		options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+	});
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerServices();
+builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
+
+//----------------------------------------------------------------------------------------------
+
+Log.Logger.Debug("Building web application");
+var app = builder.Build();
+
+app.UseSwaggerServices(builder.Services);
+app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseAuthentication();
+//app.UseMiddleware<DyvAccessTokenMiddleware>();
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.UseMiddleware<CorrelationIdMiddleware>();
+
+Log.Logger.Debug("Starting application");
+app.Run();
+Log.Logger.Debug("Application stopped.");
+
+// This is needed by integration tests using WebApplicationFactory
+public partial class Program { }

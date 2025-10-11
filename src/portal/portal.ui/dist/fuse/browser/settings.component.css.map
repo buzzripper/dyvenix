@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["settings.component.ts"],
+  "sourcesContent": ["\n            settings {\n                position: static;\n                display: block;\n                flex: none;\n                width: auto;\n            }\n\n            @media (screen and min-width: 1280px) {\n                empty-layout + settings .settings-cog {\n                    right: 0 !important;\n                }\n            }\n        "],
+  "mappings": ";AACY;AACI,YAAA;AACA,WAAA;AACA,QAAA;AACA,SAAA;;AAGJ,OAAA,CAAA,SAAA,EAAA;AACI,eAAA,EAAA,SAAA,CAAA;AACI,WAAA;;;",
+  "names": []
+}

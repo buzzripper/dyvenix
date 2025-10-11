@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AssemblyName>Dyvenix.AppSvr.Tests.Common</AssemblyName>
+    <RootNamespace>Dyvenix.AppSvr.Tests.Common</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\appsvr\appsvr.core\AppSvr.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\common\common.data\Common.Data.csproj" />
+  </ItemGroup>
+
+</Project>

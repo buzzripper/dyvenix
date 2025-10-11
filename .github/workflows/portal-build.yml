@@ -12,9 +12,9 @@ on:
           - QA
           - Prod
 
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
 
 run-name: "Portal - Build (${{ github.ref_name }}) 1.0.0.${{ github.run_number }}"
 
