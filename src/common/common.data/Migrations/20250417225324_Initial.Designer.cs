@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dyvenix.Common.Core.Migrations
 {
-    [DbContext(typeof(Dyvenix.Common.Core.Contexts.Db))]
+    [DbContext(typeof(Dyvenix.Common.Data.Contexts.Db))]
     [Migration("20250417225324_Initial")]
     partial class Initial
     {

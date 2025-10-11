@@ -1,29 +1,26 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Asp.Versioning;
+using Dyvenix.Bff.Controllers;
+using Dyvenix.Logging;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web;
 using System;
 using System.Linq;
 
 [ApiController]
-public class AuthController : ControllerBase
+[Route("[controller]")]
+[ApiVersion("1.0")]
+public class AuthController : ApiControllerBase<AuthController>
 {
-	//[HttpGet("/auth/sign-in")]
-	//public IActionResult SignIn([FromQuery(Name = "returnUrl")] string? returnUrl = "/")
-	//{
-	//	var encodedReturnUrl = string.IsNullOrWhiteSpace(returnUrl) ? "/" : returnUrl;
+	public AuthController(IDyvenixLogger<AuthController> logger) : base(logger)
+	{
+	}
 
-	//	var clientAppBaseUri = "https://localhost:4200";
-	//	var finalRedirectUri = $"{clientAppBaseUri}{encodedReturnUrl}";
-
-	//	return Challenge(new AuthenticationProperties {
-	//		RedirectUri = finalRedirectUri
-	//	}, OpenIdConnectDefaults.AuthenticationScheme);
-	//}
-
-	[HttpGet("/auth/sign-in")]
+	[HttpGet, Route("sign-in")]
 	public IActionResult SignIn([FromQuery(Name = "returnUrl")] string? returnUrl = "/")
 	{
 		// Ensure there's always a fallback path
@@ -39,14 +36,14 @@ public class AuthController : ControllerBase
 		}, OpenIdConnectDefaults.AuthenticationScheme);
 	}
 
-	[HttpGet("/auth/post-login")]
+	[HttpGet, Route("post-login")]
 	public IActionResult PostLoginRedirect([FromQuery] string returnUrl = "/")
 	{
 		// Now that the cookie is established, redirect to Angular
 		return Redirect($"https://localhost:4200{returnUrl}");
 	}
 
-	[HttpGet("/sign-out")]
+	[HttpGet, Route("sign-out")]
 	public IActionResult SignOutUser()
 	{
 		return SignOut(new AuthenticationProperties {
@@ -57,7 +54,7 @@ public class AuthController : ControllerBase
 	}
 
 	[Authorize]
-	[HttpGet("/auth/status")]
+	[HttpGet, Route("status")]
 	public IActionResult GetStatus()
 	{
 		return Ok(new

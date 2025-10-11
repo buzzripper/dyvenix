@@ -38,10 +38,6 @@ builder.Services.AddSwaggerServices(authConfig.Enabled);
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
-
-
-
-
 // Add YARP
 builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
@@ -55,19 +51,21 @@ app.UseSwaggerServices(builder.Services);
 app.UseHttpsRedirection();
 app.UseDefaultFiles(); // Allows serving index.html as default
 app.UseStaticFiles(); // Enables serving files from wwwroot
-app.UseRouting();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
+
+app.UseRouting();
 
 //app.UseDyvenixAuth(authConfig);
 app.UseCors("CORSPolicy");
 
-//app.Use(async (context, next) =>
-//{
-//    Log.Logger.Information("[DYV] Incoming request: " + context.Request.Path);
-//    Log.Logger.Information("[DYV] Cookies: " + context.Request.Headers["Cookie"]);
-//    await next();
-//});
+app.Use(async (context, next) =>
+{
+    var cookies = context.Request.Headers["Cookie"];
+    Log.Logger.Information($"[DYV] Incoming cookies: {cookies}");
+    await next();
+});
+
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -75,8 +73,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Use YARP
-//app.MapReverseProxy();
-app.MapReverseProxy().RequireAuthorization();
+app.MapReverseProxy();
+//app.MapReverseProxy().RequireAuthorization();
 
 app.MapFallbackToFile("index.html");
 

@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Dyvenix.AppSvr.Common.Config;
 using Dyvenix.AppSvr.Tests.Common.Data;
 using System.Text.Json.Serialization;
-using Dyvenix.Common.Core.Config;
+using Dyvenix.Common.Data.Config;
 
 namespace Dyvenix.AppSvr.Tests.Integration;
 

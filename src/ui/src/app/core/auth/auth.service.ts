@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
-import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
+import { catchError, Observable, of, switchMap, throwError, map } from 'rxjs';
+import { User } from 'app/core/user/user.types';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -162,17 +163,52 @@ export class AuthService {
             return of(true);
         }
 
-        // Check the access token availability
-        if (!this.accessToken) {
-            return of(false);
-        }
+        //// Check the access token availability
+        //if (!this.accessToken) {
+        //    return of(false);
+        //}
 
-        // Check the access token expire date
-        if (AuthUtils.isTokenExpired(this.accessToken)) {
-            return of(false);
-        }
+        //// Check the access token expire date
+        //if (AuthUtils.isTokenExpired(this.accessToken)) {
+        //    return of(false);
+        //}
 
-        // If the access token exists, and it didn't expire, sign in using it
-        return this.signInUsingToken();
+        //// If the access token exists, and it didn't expire, sign in using it
+        //return this.signInUsingToken();
+
+        return this.signInUsingAzure();
+    }
+
+    signInUsingAzure(): Observable<boolean> {
+        // Sign in using Azure
+        return this._httpClient.get('/auth/status', { withCredentials: true, headers: new HttpHeaders({ 'X-Requested-With': 'XMLHttpRequest' }) })
+            .pipe(
+                map((response: any) => {
+                    this._authenticated = true;
+
+                    this._userService.user = {
+                        id: '456',
+                        name: 'John Smith',
+                        email: 'john.smith@example.com',
+                        avatar: 'https://example.com/avatar.png',
+                        status: 'active'
+                    };
+
+                    return true;
+                }),
+                catchError((err) => {
+
+                    console.log('+++++++++++++++++ signInUsingAzure() error: ' + err.message + '++++++++++++++++++++++');
+
+
+                    if (err.status === 401) {
+                        // Trigger full browser redirect to backend login
+                        const returnUrl = encodeURIComponent(location.pathname);
+                        /*window.location.href = `/auth/sign-in?returnUrl=${returnUrl}`;*/
+                        window.location.href = `https://localhost:7000/auth/sign-in?returnUrl=${returnUrl}`;
+                    }
+                    return of(false);
+                })
+            );
     }
 }

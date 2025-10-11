@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.TokenCacheProviders.InMemory;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System;
@@ -31,35 +32,25 @@ public static partial class ServiceCollExt
 	{
 		var authConfig = AuthConfigBuilder.Build(configuration);
 
-		//services.Configure<MicrosoftIdentityOptions>(OpenIdConnectDefaults.AuthenticationScheme, configuration.GetSection("AuthConfig:AzureAd"));
-
-		//services
-		//	.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-		//	.AddMicrosoftIdentityWebApp(configuration.GetSection("AuthConfig:AzureAd"), OpenIdConnectDefaults.AuthenticationScheme)
-		//	.EnableTokenAcquisitionToCallDownstreamApi(authConfig.Scopes)
-		//	.AddInMemoryTokenCaches();
-
-		services
-			.AddAuthentication(options => {
-				options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;              // Read dyv_auth on each request
-				options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;        // Write to dyv_auth after login
-				options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;            // Trigger Entra login on [Authorize]
-			})
-			.AddMicrosoftIdentityWebApp(configuration.GetSection("AuthConfig:AzureAd"))                 // Register OIDC
-			.EnableTokenAcquisitionToCallDownstreamApi(authConfig.Scopes)
-			.AddInMemoryTokenCaches();
-
-
-		services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme, options => {
+		services.AddAuthentication(options => {
+			options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+			options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+			options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+		})
+		.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => {
+			options.Cookie.Name = "dyv_auth";
+			options.Cookie.HttpOnly = true;
+			options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+			options.Cookie.SameSite = SameSiteMode.None;
+			options.Cookie.Path = "/";
+			options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+			options.SlidingExpiration = true;
 
 			options.Events = new CookieAuthenticationEvents {
-				OnValidatePrincipal = context => {
-					logger.Information($"[dyv] Cookie validated? {context.Principal?.Identity?.IsAuthenticated}");
-					return Task.CompletedTask;
-				},
-
 				OnRedirectToLogin = context => {
-					if (context.Request.Path.StartsWithSegments("/api") || context.Request.Headers["X-Requested-With"] == "XMLHttpRequest") {
+					if (context.Request.Path.StartsWithSegments("/auth") ||
+						context.Request.Path.StartsWithSegments("/api") ||
+						context.Request.Headers["X-Requested-With"] == "XMLHttpRequest") {
 						context.Response.StatusCode = StatusCodes.Status401Unauthorized;
 						return Task.CompletedTask;
 					}
@@ -68,93 +59,63 @@ public static partial class ServiceCollExt
 					return Task.CompletedTask;
 				}
 			};
+		})
+		.AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options => {
+			configuration.Bind("AuthConfig:AzureAd", options);
 
-			options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-			options.Cookie.SameSite = SameSiteMode.None;
-			options.Cookie.Path = "/";
-			options.Cookie.Name = "dyv_auth";
-			options.Cookie.HttpOnly = true;
-			options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-			options.SlidingExpiration = true;
-		});
-
-		services.AddAuthorization();
-
-		services.Configure<OpenIdConnectOptions>(OpenIdConnectDefaults.AuthenticationScheme, options => {
+			options.Authority = $"{configuration["AuthConfig:AzureAd:Instance"]}{configuration["AuthConfig:AzureAd:TenantId"]}/v2.0/";
+			options.ClientId = configuration["AuthConfig:AzureAd:ClientId"];
+			options.ClientSecret = configuration["AuthConfig:AzureAd:ClientSecret"];
 			options.ResponseType = "code";
+			options.SaveTokens = true;
+			options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
 			options.Scope.Clear();
 			options.Scope.Add("openid");
 			options.Scope.Add("profile");
 
-			options.SaveTokens = true;
-			options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-
 			foreach (var scope in authConfig.Scopes)
 				options.Scope.Add(scope);
 
-			options.Events.OnRemoteFailure = context => {
-				logger.Error($"OIDC error: {context.Failure}");
-
-				var msg = WebUtility.UrlEncode(context.Failure.Message);
-
-				context.Response.Redirect($"{uiRootUrl}/example?msg={msg}");
-				context.HandleResponse(); // Prevent the default redirect
-				return Task.CompletedTask;
-			};
-
-			options.Events.OnAuthenticationFailed = context => {
-				logger.Error($"AUTH ERROR: {context.Exception.Message}");
-				return Task.CompletedTask;
-			};
-
-			//options.Events.OnAuthorizationCodeReceived = context => {
-			//	var authCode = context.ProtocolMessage.Code;
-			//	logger.Information($"AUTH CODE: {authCode}");
-			//	return Task.CompletedTask;
-			//};
-
-			options.Events.OnTokenValidated = context => {
-				var idToken = context.SecurityToken;
-				var accessToken = context.TokenEndpointResponse?.AccessToken;
-				var refreshToken = context.TokenEndpointResponse?.RefreshToken;
-
-				logger.Information($"ID TOKEN: {idToken}");
-				logger.Information($"ACCESS TOKEN: {accessToken}");
-				logger.Information($"REFRESH TOKEN: {refreshToken}"); // optional
-
-				return Task.CompletedTask;
+			options.Events = new OpenIdConnectEvents {
+				OnRemoteFailure = context => {
+					logger.Error($"OIDC error: {context.Failure}");
+					var msg = WebUtility.UrlEncode(context.Failure?.Message ?? "Unknown");
+					context.Response.Redirect($"{uiRootUrl}/example?msg={msg}");
+					context.HandleResponse();
+					return Task.CompletedTask;
+				},
+				OnAuthenticationFailed = context => {
+					logger.Error($"AUTH ERROR: {context.Exception.Message}");
+					return Task.CompletedTask;
+				},
+				OnTokenValidated = context => {
+					logger.Information($"ID TOKEN: {context.SecurityToken}");
+					logger.Information($"ACCESS TOKEN: {context.TokenEndpointResponse?.AccessToken}");
+					return Task.CompletedTask;
+				}
 			};
 		});
 
-		// Registrations 
+		services.AddTokenAcquisition();
+		services.AddInMemoryTokenCaches();
 
-		services.AddSingleton(authConfig);
+		services.AddAuthorization();
+
 		services.AddDistributedMemoryCache();
-
 		services.AddMemoryCache();
-		//services.AddTransient<IClientApiTokenProvider, ClientApiTokenProvider>();
-		services.AddTransient<ITransformProvider, ApiTokenTransformProvider>();
+		services.AddSingleton(authConfig);
 
 		services.AddCors(options => {
 			options.AddPolicy("CORSPolicy", policy => {
-				policy.WithOrigins("https://localhost:7000")
+				policy.WithOrigins("https://localhost:4200")
 					  .AllowAnyHeader()
 					  .AllowAnyMethod()
 					  .AllowCredentials();
 			});
 		});
-
 	}
 
-	//public static IApplicationBuilder UseDyvenixAuth(this IApplicationBuilder app, AuthConfig authConfig)
-	//{
-	//	if (authConfig.Enabled) {
-	//		app.UseAuthentication(); // resposible for constructing AuthenticationTicket objects representing the user's identity
-	//		app.UseAuthorization();
-	//	}
-
-	//	return app;
-	//}
 
 	#endregion
 

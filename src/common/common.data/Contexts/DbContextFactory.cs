@@ -1,7 +1,7 @@
-﻿using Dyvenix.Common.Core.Config;
+﻿using Dyvenix.Common.Data.Config;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dyvenix.Common.Core.Contexts;
+namespace Dyvenix.Common.Data.Contexts;
 
 public interface IDbContextFactory
 {

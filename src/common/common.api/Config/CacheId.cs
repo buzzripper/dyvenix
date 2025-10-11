@@ -1,8 +1,8 @@
 ﻿
-namespace Dyvenix.Common.Api.Config;
+//namespace Dyvenix.Common.Api.Config;
 
-public enum CacheId
-{
-	OAuthToken, 
-	ApiToken
-}
+//public enum CacheId
+//{
+//	OAuthToken, 
+//	ApiToken
+//}

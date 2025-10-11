@@ -12,8 +12,8 @@ using Dyvenix.AppSvr.Tests.Common.Data;
 using Dyvenix.Common.Core.Entities;
 using Dyvenix.AppSvr.Tests.Common;
 using Dyvenix.Common.Core;
-using Dyvenix.Common.Core.Contexts;
 using Dyvenix.AppSvr.Common.DTOs;
+using Dyvenix.Common.Data.Contexts;
 
 namespace Dyvenix.AppSvr.Tests.Integration.Tests;
 

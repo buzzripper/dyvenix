@@ -20,7 +20,7 @@ public class SystemController : ApiControllerBase<SystemController>
 	//private readonly AuthConfig _authConfig;
 	private readonly ITokenAcquisition _tokenAcquisition;
 
-	public SystemController(AppConfig appConfig, IDyvenixLogger<SystemController> logger, ITokenAcquisition tokenAcquisition/*, AuthConfig authConfig*/) : base(logger)
+	public SystemController(AppConfig appConfig, IDyvenixLogger<SystemController> logger, ITokenAcquisition tokenAcquisition) : base(logger)
 	{
 		_appConfig = appConfig;
 		_tokenAcquisition = tokenAcquisition;

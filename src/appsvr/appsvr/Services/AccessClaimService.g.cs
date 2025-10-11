@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Dyvenix.Common.Core.Contexts;
 using Dyvenix.Common.Core.Entities;
 using Dyvenix.Core.Exceptions;
 using Dyvenix.Core.Queries;
 using Dyvenix.Logging;
 using Dyvenix.AppSvr.Common.Queries;
+using Dyvenix.Common.Data.Contexts;
 
 namespace Dyvenix.AppSvr.Api.Services;
 

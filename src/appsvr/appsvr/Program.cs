@@ -1,7 +1,6 @@
 using Dyvenix.Logging.Config;
 using Dyvenix.Logging.Correlation;
 using Dyvenix.AppSvr.Api.Config;
-using Dyvenix.Common.Core.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json.Serialization;
 using Dyvenix.Common.Api.Config;
+using Dyvenix.Common.Data.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +25,7 @@ builder.Services.AddDyvenixLoggingServices(builder.Configuration);
 Log.Logger.Information($"--------------  {appConfig.AppName}  --------------");
 
 builder.Services.AddAppServices(appConfig);
-builder.Services.AddApiAuth(builder, authConfig, Log.Logger);
+//builder.Services.AddApiAuth(builder, authConfig, Log.Logger);
 builder.Services.AddDyvenixDataServices(dataConfig);
 
 builder.Services.AddControllers()

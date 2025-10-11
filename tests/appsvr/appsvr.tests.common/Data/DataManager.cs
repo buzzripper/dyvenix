@@ -1,4 +1,4 @@
-﻿using Dyvenix.Common.Core.Contexts;
+﻿using Dyvenix.Common.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

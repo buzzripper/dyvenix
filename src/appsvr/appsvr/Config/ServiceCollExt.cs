@@ -2,7 +2,6 @@
 using Asp.Versioning.ApiExplorer;
 using Dyvenix.AppSvr.Api.Services;
 using Dyvenix.AppSvr.Core.Config;
-using Dyvenix.Common.Api.Services;
 using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +16,8 @@ public static partial class ServiceCollExt
 	{
 		services.AddSingleton(appConfig);
 		services.AddScoped<ICorrelationIdAccessor, CorrelationIdAccessor>();
-		services.AddScoped<IAccessRolesService, AccessRolesService>();
-		services.AddScoped<ISystemService, SystemService>();
+		//services.AddScoped<IAccessRolesService, AccessRolesService>();
+		//services.AddScoped<ISystemService, SystemService>();
 		
 		AddGeneratedServices(services);
 

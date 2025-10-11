@@ -1,4 +1,4 @@
-﻿namespace Dyvenix.Common.Core.Config
+﻿namespace Dyvenix.Common.Data.Config
 {
 	public class DataConfig
 	{

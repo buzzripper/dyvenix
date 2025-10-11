@@ -1,8 +1,8 @@
-﻿using Dyvenix.Common.Core.Contexts;
+﻿using Dyvenix.Common.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dyvenix.Common.Core.Config;
+namespace Dyvenix.Common.Data.Config;
 
 public static class DataSvcCollExt
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Dyvenix.Common.Core.Config;
+namespace Dyvenix.Common.Data.Config;
 
 public static class DataConfigBuilder
 {

@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿//using Microsoft.AspNetCore.Authorization;
 
-namespace Dyvenix.Common.Api.Claims;
+//namespace Dyvenix.Common.Api.Claims;
 
-public class AuthorizeClaimAttribute : AuthorizeAttribute
-{
-	public AuthorizeClaimAttribute(string claimType, string claimValue)
-	{
-		Policy = $"{claimType}:{claimValue}";
-	}
-}
+//public class AuthorizeClaimAttribute : AuthorizeAttribute
+//{
+//	public AuthorizeClaimAttribute(string claimType, string claimValue)
+//	{
+//		Policy = $"{claimType}:{claimValue}";
+//	}
+//}

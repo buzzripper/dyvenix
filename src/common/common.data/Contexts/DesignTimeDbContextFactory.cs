@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Dyvenix.Common.Core.Contexts;
+namespace Dyvenix.Common.Data.Contexts;
 
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Db>
 {
