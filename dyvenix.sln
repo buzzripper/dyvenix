@@ -19,8 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSvr.Tests.Integration", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{4E7A46ED-B33D-46EB-956E-BB5B492D2098}"
 	ProjectSection(SolutionItems) = preProject
-		CreateUsers.sql = CreateUsers.sql
 		scripts\CreateDbAndUsers.sql = scripts\CreateDbAndUsers.sql
+		CreateUsers.sql = CreateUsers.sql
 		scripts\EF Commands.txt = scripts\EF Commands.txt
 		scripts\RunNode.bat = scripts\RunNode.bat
 		scripts\Working.sql = scripts\Working.sql
@@ -66,7 +66,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{D1CDB8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Core", "src\common\common.core\Common.Core.csproj", "{CC857308-8A4A-F26C-A8BE-7A9D46EA8754}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bff", "src\bff\Bff.csproj", "{55F34654-179C-7445-574A-D0E1B25480E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal", "src\portal\Portal.csproj", "{55F34654-179C-7445-574A-D0E1B25480E6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSvr", "src\appsvr\appsvr\AppSvr.csproj", "{6CEAEDBE-E7D4-4E5D-8489-E12151D9B9EF}"
 EndProject
