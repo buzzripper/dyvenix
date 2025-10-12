@@ -18,6 +18,8 @@ on:
 
 run-name: "Portal - Build (${{ github.ref_name }}) 1.0.0.${{ github.run_number }}"
 
+permissions: write-all
+
 env:
   SLN_FILENAME: dyvenix.sln
   AZURE_WEBAPP_NAME: dyvenix-portal
