@@ -12,7 +12,7 @@ on:
           - QA
           - Prod
 
-  # push:
+  push:
   #   branches:
   #     - main
 
@@ -21,7 +21,7 @@ run-name: "Portal - Build (${{ github.ref_name }}) 1.0.0.${{ github.run_number }
 env:
   SLN_FILENAME: dyvenix.sln
   AZURE_WEBAPP_NAME: dyvenix-portal
-  AZURE_WEBAPP_PACKAGE_PATH: src/portal/portal/publish
+  AZURE_WEBAPP_PACKAGE_PATH: src/portal/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 9.0.x
   PORTAL_ROOT_DIR: src/portal
