@@ -24,7 +24,7 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: src/portal/portal/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 9.0.x
-  PORTAL_ROOT_DIR: src/bff
+  PORTAL_ROOT_DIR: src/portal
   ANG_ROOT_DIR: src/ui
   ANG_OUTPUT_PATH: dist
   VER_MAJOR: "1"
