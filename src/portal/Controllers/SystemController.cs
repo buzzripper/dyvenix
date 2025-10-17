@@ -1,13 +1,16 @@
 using Asp.Versioning;
 using Dyvenix.Logging;
 using Dyvenix.Portal.Config;
+using Dyvenix.Portal.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
 using System;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Dyvenix.Portal.Controllers;
 
@@ -16,79 +19,82 @@ namespace Dyvenix.Portal.Controllers;
 [ApiVersion("1.0")]
 public class SystemController : ApiControllerBase<SystemController>
 {
-	private readonly AppConfig _appConfig;
-	//private readonly AuthConfig _authConfig;
-	private readonly ITokenAcquisition _tokenAcquisition;
+    private readonly AppConfig _appConfig;
+    //private readonly AuthConfig _authConfig;
+    private readonly ITokenAcquisition _tokenAcquisition;
 
-	public SystemController(AppConfig appConfig, IDyvenixLogger<SystemController> logger, ITokenAcquisition tokenAcquisition) : base(logger)
-	{
-		_appConfig = appConfig;
-		_tokenAcquisition = tokenAcquisition;
-		//_authConfig = authConfig;
-	}
+    public SystemController(AppConfig appConfig, IDyvenixLogger<SystemController> logger, ITokenAcquisition tokenAcquisition) : base(logger)
+    {
+        _appConfig = appConfig;
+        _tokenAcquisition = tokenAcquisition;
+        //_authConfig = authConfig;
+    }
 
-	[HttpGet, Route("[action]")]
-	public IActionResult Healthz()
-	{
-		return Ok($"{_appConfig.AppName} - Healthy");
-	}
+    [HttpGet, Route("[action]")]
+    public IActionResult Healthz()
+    {
+        return Ok($"{_appConfig.AppName} - Healthy");
+    }
 
-	[HttpGet, Route("[action]")]
-	public IActionResult GetConfig()
-	{
-		return Ok(_appConfig);
-	}
+    [HttpGet, Route("[action]")]
+    public IActionResult GetConfig()
+    {
+        return Ok(_appConfig);
+    }
 
-	[HttpGet, Route("[action]")]
-	public IActionResult TestLogLevels()
-	{
-		_logger.Verbose("TestService.Test() Verbose");
-		_logger.Debug("TestService.Test() Debug");
-		_logger.Info("TestService.Test() Info");
-		_logger.Warn("TestService.Test() Warn");
-		_logger.Fatal("TestService.Test() Fatal");
-		try {
-			throw new ApplicationException("YES!! App exception!!!");
-		} catch (Exception ex) {
-			_logger.Error(ex, ex.Message);
-		}
+    [HttpGet, Route("[action]")]
+    public IActionResult TestLogLevels()
+    {
+        _logger.Verbose("TestService.Test() Verbose");
+        _logger.Debug("TestService.Test() Debug");
+        _logger.Info("TestService.Test() Info");
+        _logger.Warn("TestService.Test() Warn");
+        _logger.Fatal("TestService.Test() Fatal");
+        try
+        {
+            throw new ApplicationException("YES!! App exception!!!");
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, ex.Message);
+        }
 
-		return Ok();
-	}
+        return Ok();
+    }
 
-	//[Authorize]
-	//[HttpGet("status")]
-	//public async Task<IActionResult> Status()
-	//{
-	//	try {
-	//		var oid = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
-	//		_logger.Info("OID: " + (oid ?? "null"));
+    //[Authorize]
+    //[HttpGet("status")]
+    //public async Task<IActionResult> Status()
+    //{
+    //	try {
+    //		var oid = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+    //		_logger.Info("OID: " + (oid ?? "null"));
 
-	//		_logger.Info("Attempting to acquire access token...");
+    //		_logger.Info("Attempting to acquire access token...");
 
-	//		var token = await _tokenAcquisition.GetAccessTokenForUserAsync([_authConfig.Scope], user: User);
+    //		var token = await _tokenAcquisition.GetAccessTokenForUserAsync([_authConfig.Scope], user: User);
 
-	//		_logger.Info(token == null ? "Returned null" : "Access token acquired");
+    //		_logger.Info(token == null ? "Returned null" : "Access token acquired");
 
 
-	//		return Ok(new
-	//		{
-	//			AccessTokenAvailable = true,
-	//			User = User.Identity?.Name,
-	//			TokenStart = token?.Substring(0, 25) + "...",
-	//			Claims = User.Claims.Select(c => new { c.Type, c.Value })
-	//		});
+    //		return Ok(new
+    //		{
+    //			AccessTokenAvailable = true,
+    //			User = User.Identity?.Name,
+    //			TokenStart = token?.Substring(0, 25) + "...",
+    //			Claims = User.Claims.Select(c => new { c.Type, c.Value })
+    //		});
 
-	//	} catch (MsalUiRequiredException ex) {
-	//		_logger.Warn("Token acquisition failed: " + ex.Message);
-	//		return Unauthorized(new { Message = "Login required" });
-	//	}
-	//}
+    //	} catch (MsalUiRequiredException ex) {
+    //		_logger.Warn("Token acquisition failed: " + ex.Message);
+    //		return Unauthorized(new { Message = "Login required" });
+    //	}
+    //}
 
-	//[AuthorizeDyvRole("extension_MyCustomClaim", "TheDudeAbides")]
-	[HttpGet("[action]")]
-	public IActionResult ClaimCheck()
-	{
-		return Ok("Yaaaay!!!");
-	}
+    //[AuthorizeDyvRole("extension_MyCustomClaim", "TheDudeAbides")]
+    [HttpGet("[action]")]
+    public IActionResult ClaimCheck()
+    {
+        return Ok("Yaaaay!!!");
+    }
 }

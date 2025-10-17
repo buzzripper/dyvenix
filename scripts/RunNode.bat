@@ -5,10 +5,10 @@ setlocal EnableDelayedExpansion
 set arg=%1
 
 :: Handle empty argument
-if "%arg%"=="" (
-    echo No argument provided. Please specify one of: dyv, starter, demo.
-    exit /b 1
-)
+:: if "%arg%"=="" (
+::     echo No argument provided. Please specify one of: portal, starter, demo.
+::     exit /b 1
+:: )
 
 echo -------  %arg%  ------------
 
@@ -27,9 +27,9 @@ if /i "%arg%"=="portal" (
 
 ) else (
     echo Invalid argument: %arg%
-    echo Valid options are: dyv, starter, demo.
+    echo Valid options are: portal, starter, demo.
     exit /b 1
 )
 
-call ng serve --port %port% --ssl --ssl-key C:\ProgramData\certs\localhost.key --ssl-cert C:\ProgramData\certs\localhost.crt
+call ng serve --port %port% --ssl --ssl-key C:\ProgramData\Certs\localhost.key --ssl-cert C:\ProgramData\Certs\localhost.crt
 
