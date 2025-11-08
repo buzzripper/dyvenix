@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Azure.Core;
 using Dyvenix.Logging;
 using Dyvenix.Portal.Controllers;
 using Dyvenix.Portal.Models;
@@ -87,42 +88,94 @@ public class AuthController : ApiControllerBase<AuthController>
         return Ok("Set cookie");
     }
 
+    //[HttpPost("[action]")]
+    //public async Task<IActionResult> GetClaims([FromBody] TokenIssuanceRequest request)
+    //{
+    //    try
+    //    {
+    //        //var reqStr = System.Text.Json.JsonSerializer.Serialize(request);
+    //        _logger.Info(request);
+
+    //        //_logger.Info($"GetClaims() [Tenant:{request.Data.TenantId}, Email:{request.Data.User.Email}");
+
+    //        //var userId = request.Data.User.Id;
+    //        //var email = request.Data.User.Email ?? request.Data.User.UserPrincipalName;
+
+    //        var perms = new List<string> { "ar_read", "ar_write", "ap_read" };
+    //        var roles = new List<string> { "ar:admin", "ap:user" };
+
+    //        // Return claims in the expected format
+    //        return Ok(new TokenIssuanceResponse
+    //        {
+    //            Data = new ResponseData
+    //            {
+    //                Actions = new[]
+    //            {
+    //                    new ClaimsAction
+    //                    {
+    //                        Claims = new Dictionary<string, object>
+    //                        {
+    //                            ["roles"] = roles,
+    //                            ["tenantId"] = "MyTenant",
+    //                            ["permissions"] = "perms",
+    //                            ["tier"] = "GoldTier"
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        });
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        _logger.Error(ex, "Error processing token issuance");
+
+    //        // Return error - Entra will proceed without custom claims
+    //        return BadRequest(new {
+    //            error = "processing_error",
+    //            error_description = "Failed to retrieve custom claims"
+    //        });
+    //    }
+    //}
+
     [HttpPost("[action]")]
-    public async Task<IActionResult> GetClaims([FromBody] TokenIssuanceRequest request)
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    public async Task<IActionResult> GetClaims([FromBody] TokenIssuanceStartRequest? req)
     {
         try
         {
-            var reqStr = System.Text.Json.JsonSerializer.Serialize(request);
+            _logger.Info( "==============  GETCLAIMS START  ================");
+            var reqStr = System.Text.Json.JsonSerializer.Serialize(req);
             _logger.Info(reqStr);
 
-            //_logger.Info($"GetClaims() [Tenant:{request.Data.TenantId}, Email:{request.Data.User.Email}");
+            // Optional: correlate for troubleshooting
+            var corrId = Request.Headers["x-ms-client-request-id"].ToString();
+            Response.Headers["x-ms-client-request-id"] = corrId;
 
-            //var userId = request.Data.User.Id;
-            //var email = request.Data.User.Email ?? request.Data.User.UserPrincipalName;
-
-            var perms = new List<string> { "ar_read", "ar_write", "ap_read" };
-            var roles = new List<string> { "ar:admin", "ap:user" };
-
-            // Return claims in the expected format
-            return Ok(new TokenIssuanceResponse
+            // Build the "provide claims" action
+            var action = new ProvideClaimsForTokenAction
             {
-                Data = new ResponseData
+                ODataType = "microsoft.graph.tokenIssuanceStart.provideClaimsForToken",
+                Claims =
                 {
-                    Actions = new[]
-                {
-                        new ClaimsAction
-                        {
-                            Claims = new Dictionary<string, object>
-                            {
-                                ["roles"] = roles,
-                                ["tenantId"] = "MyTenant",
-                                ["permissions"] = "perms",
-                                ["tier"] = "GoldTier"
-                            }
-                        }
-                    }
+                    // Example custom claims you want in the token
+                    ["role"] = new[] { "admin", "writer" },
+                    ["tenantId"] = "acme-123",
+                    ["uid"] = "42"
                 }
-            });
+            };
+
+            var resp = new TokenIssuanceStartResponse
+            {
+                Data = new TokenIssuanceStartResponseData
+                {
+                    ODataType = "microsoft.graph.onTokenIssuanceStartResponseData",
+                    Actions = new() { action }
+                }
+            };
+
+            // MUST return 200 and application/json
+            return Ok(resp);
         }
         catch (Exception ex)
         {
@@ -135,4 +188,5 @@ public class AuthController : ApiControllerBase<AuthController>
             });
         }
     }
+
 }
