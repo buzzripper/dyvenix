@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
@@ -140,7 +141,8 @@ public class AuthController : ApiControllerBase<AuthController>
     [HttpPost("[action]")]
     [Consumes("application/json")]
     [Produces("application/json")]
-    public async Task<IActionResult> GetClaims([FromBody] TokenIssuanceStartRequest? req)
+    //public async Task<IActionResult> GetClaims([FromBody] TokenIssuanceStartRequest? req)
+    public async Task<IActionResult> GetClaims([FromBody] JsonElement req)
     {
         try
         {
