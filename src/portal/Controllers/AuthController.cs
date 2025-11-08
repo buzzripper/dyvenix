@@ -92,10 +92,12 @@ public class AuthController : ApiControllerBase<AuthController>
     {
         try
         {
-            _logger.Info($"GetClaims() [Tenant:{request.Data.TenantId}, Email:{request.Data.User.Email}");
+            var reqStr = System.Text.Json.JsonSerializer.Serialize(request);
 
-            var userId = request.Data.User.Id;
-            var email = request.Data.User.Email ?? request.Data.User.UserPrincipalName;
+            //_logger.Info($"GetClaims() [Tenant:{request.Data.TenantId}, Email:{request.Data.User.Email}");
+
+            //var userId = request.Data.User.Id;
+            //var email = request.Data.User.Email ?? request.Data.User.UserPrincipalName;
 
             var perms = new List<string> { "ar_read", "ar_write", "ap_read" };
             var roles = new List<string> { "ar:admin", "ap:user" };
@@ -106,7 +108,7 @@ public class AuthController : ApiControllerBase<AuthController>
                 Data = new ResponseData
                 {
                     Actions = new[]
-                    {
+                {
                         new ClaimsAction
                         {
                             Claims = new Dictionary<string, object>
