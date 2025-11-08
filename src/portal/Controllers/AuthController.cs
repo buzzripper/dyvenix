@@ -161,9 +161,10 @@ public class AuthController : ApiControllerBase<AuthController>
                 Claims =
                 {
                     // Example custom claims you want in the token
-                    ["role"] = new[] { "admin", "writer" },
-                    ["tenantId"] = "acme-123",
-                    ["uid"] = "42"
+                    ["DateOfBirth"] = "12/23/1960",
+                    ["CustomRoles"] = "admin, writer",
+                    ["ApiVersion"] = "v1",
+                    ["CorrelationId"] = "8FF630AC-5AEC-4145-B532-B6CC55CBFB43"
                 }
             };
 
