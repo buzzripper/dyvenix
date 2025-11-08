@@ -93,6 +93,7 @@ public class AuthController : ApiControllerBase<AuthController>
         try
         {
             var reqStr = System.Text.Json.JsonSerializer.Serialize(request);
+            _logger.Info(reqStr);
 
             //_logger.Info($"GetClaims() [Tenant:{request.Data.TenantId}, Email:{request.Data.User.Email}");
 
