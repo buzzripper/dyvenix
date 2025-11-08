@@ -90,9 +90,10 @@ public class AuthController : ApiControllerBase<AuthController>
     [HttpPost("[action]")]
     public async Task<IActionResult> GetClaims([FromBody] TokenIssuanceRequest request)
     {
-        _logger.Info($"GetClaims() [Tenant:{request.Data.TenantId}, Email:{request.Data.User.Email}");
         try
         {
+            _logger.Info($"GetClaims() [Tenant:{request.Data.TenantId}, Email:{request.Data.User.Email}");
+
             var userId = request.Data.User.Id;
             var email = request.Data.User.Email ?? request.Data.User.UserPrincipalName;
 
