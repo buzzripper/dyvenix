@@ -1,9 +1,10 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
     ApplicationConfig,
     inject,
     isDevMode,
     provideAppInitializer,
+    provideEnvironmentInitializer
 } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
@@ -17,6 +18,9 @@ import { provideIcons } from 'app/core/icons/icons.provider';
 import { MockApiService } from 'app/mock-api';
 import { firstValueFrom } from 'rxjs';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
+import { provideOAuthClient, OAuthStorage } from 'angular-oauth2-oidc';
+import { AuthCodeService } from './core/auth/authcode.service';
+import { authInterceptor } from './core/auth/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -76,7 +80,7 @@ export const appConfig: ApplicationConfig = {
         }),
 
         // Fuse
-        provideAuth(),
+        //provideAuth(),
         provideIcons(),
         provideFuse({
             mockApi: {
@@ -121,5 +125,15 @@ export const appConfig: ApplicationConfig = {
                 ],
             },
         }),
-    ],
+
+        // 1) OAuth client BEFORE AuthCodeService
+        provideOAuthClient(),
+        { provide: OAuthStorage, useValue: sessionStorage },
+
+        // 2) Your bearer interceptor (skip if you already add it elsewhere)
+        provideHttpClient(withInterceptors([authInterceptor])),
+
+        // 3) Single init point for auth
+        provideEnvironmentInitializer(() => inject(AuthCodeService))
+    ]
 };

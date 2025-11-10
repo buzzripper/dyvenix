@@ -3,6 +3,7 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
+import { AuthCallbackComponent } from 'app/core/auth/auth-callback.component';
 
 // prettier-ignore
 /* eslint-disable max-len */
@@ -55,6 +56,7 @@ export const appRoutes: Route[] = [
             {path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.routes')}
         ]
     },
+    { path: 'auth/callback', component: AuthCallbackComponent },
 
     // Landing routes
     {
