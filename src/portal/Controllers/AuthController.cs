@@ -162,7 +162,8 @@ public class AuthController : ApiControllerBase<AuthController>
                 {
                     // Example custom claims you want in the token
                     ["DateOfBirth"] = "12/23/1960",
-                    ["CustomRoles"] = "admin, writer",
+                    ["app1.access"] = "admin",
+                    ["app1.user.access"] = "user",
                     ["ApiVersion"] = "v1",
                     ["CorrelationId"] = "8FF630AC-5AEC-4145-B532-B6CC55CBFB43"
                 }
