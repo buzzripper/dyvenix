@@ -1,0 +1,16 @@
+
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Dyvenix.Bff</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>003f184a-7ab6-4c18-b48b-16031bb3e0a2</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Identity.Web" Version="2.18.0" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.18.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+</Project>
