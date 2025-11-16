@@ -23,8 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{4E7A
 		scripts\CreateDbAndUsers.sql = scripts\CreateDbAndUsers.sql
 		CreateUsers.sql = CreateUsers.sql
 		scripts\EF Commands.txt = scripts\EF Commands.txt
-		scripts\RunNode.bat = scripts\RunNode.bat
 		scripts\Working.sql = scripts\Working.sql
+		scripts\RunAngular.bat = scripts\RunAngular.bat
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "design", "design", "{80F1F17B-3C0E-468D-9AE0-B1DE1F746AD3}"
