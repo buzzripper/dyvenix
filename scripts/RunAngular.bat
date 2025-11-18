@@ -1,38 +1,62 @@
 @echo off
 setlocal EnableDelayedExpansion
 
+
 :: Get the first argument
 set arg=%1
+set scriptDir=%~dp0
+set angDir=%scriptDir%..\src\ui\Angular
+set ssl_key=%angDir%\ssl\localhost.key
+set ssl_cert=%angDir%\ssl\localhost.crt
+set port=4200
 
-:: Handle empty argument
-:: if "%arg%"=="" (
-::     echo No argument provided. Please specify one of: portal, starter, demo.
-::     exit /b 1
-:: )
+echo %ssl_key%
+echo %ssl_cert%
+echo.
 
-echo -------  %arg%  ------------
-
-:: Determine the directory
-if /i "%arg%"=="app1" (
-    cd /d "%~dp0..\src\ui\Angular"
-    set port=4200
-
-) else if /i "%arg%"=="starter" (
-    cd /d "D:\Code\Reference\Fuse\starter"
-    set port=4200
-
-) else if /i "%arg%"=="demo" (
-    cd /d "D:\Code\Reference\Fuse\demo"
-    set port=4200
-
+if exist %ssl_key% (
+    echo YES
 ) else (
-    echo Invalid argument: %arg%
-    echo Valid options are: portal, starter, demo.
-    PAUSE
-    exit /b 1
+    echo no
 )
 
-call ng serve --port %port%
+CD %angDir%
+
+::PAUSE
+::exit /b 1
+
+echo ---------------------------------------------------------------
+
+echo Starting Angular dev server on HTTPS at port %port%
+echo.
+echo URL: https://localhost:%port%
+echo.
+echo Increasing Node.js header size limits to handle OIDC redirects...
+echo.
+
+:: Set Node.js options to increase header size
+set NODE_OPTIONS=--max-http-header-size=32768
+
+:: Check if SSL certificates exist
+if exist "%ssl_key%" (
+    if exist "%ssl_cert%" (
+        echo Using SSL certificates:
+        echo   Key: %ssl_key%
+        echo   Cert: %ssl_cert%
+        echo.
+        call ng serve --port %port% --ssl --ssl-key %ssl_key% --ssl-cert %ssl_cert%
+    ) else (
+        echo WARNING: SSL certificate not found at %ssl_cert%
+        echo Falling back to HTTP
+        echo.
+        call ng serve --port %port%
+    )
+) else (
+    echo WARNING: SSL key not found at %ssl_key%
+    echo Falling back to HTTP
+    echo.
+    call ng serve --port %port%
+)
 
 IF ERRORLEVEL 1 (
     echo Angular server failed to start.
